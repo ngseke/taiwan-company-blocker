@@ -15,7 +15,6 @@ export default defineManifest(async () => ({
     128: 'src/assets/img/icon.png',
   },
   action: {
-    default_popup: 'src/pages/popup/index.html',
     default_icon: 'src/assets/img/icon.png',
   },
   content_scripts: [

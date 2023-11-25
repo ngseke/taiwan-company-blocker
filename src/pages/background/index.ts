@@ -5,3 +5,7 @@ chrome.runtime.onMessage.addListener((message) => {
     chrome.runtime.openOptionsPage()
   }
 })
+
+chrome.action.onClicked.addListener(() => {
+  chrome.runtime.openOptionsPage()
+})
