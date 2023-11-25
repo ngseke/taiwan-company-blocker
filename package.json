@@ -14,11 +14,14 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "nanoid": "^5.0.3",
+    "nanoid-dictionary": "^4.3.0",
     "vue": "^3.3.8"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^1.0.14",
     "@types/chrome": "^0.0.253",
+    "@types/nanoid-dictionary": "^4.2.3",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "@vitejs/plugin-vue": "^4.5.0",
     "@vue/test-utils": "^2.4.2",
