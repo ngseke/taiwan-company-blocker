@@ -1,0 +1,12 @@
+@use '../styles/reveal'
+
+.reveal
+  +reveal.reveal
+
+.opacity:not(.reveal)
+  opacity: .3 !important
+  pointer-events: none !important
+  cursor: not-allowed !important
+
+.hide:not(.reveal)
+  display: none !important
