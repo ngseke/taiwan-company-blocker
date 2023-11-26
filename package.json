@@ -17,6 +17,7 @@
     "matcher": "^5.0.0",
     "nanoid": "^5.0.3",
     "nanoid-dictionary": "^4.3.0",
+    "query-selector-shadow-dom": "^1.0.1",
     "vue": "^3.3.8"
   },
   "devDependencies": {
@@ -24,6 +25,7 @@
     "@types/chrome": "^0.0.253",
     "@types/lodash-es": "^4.17.12",
     "@types/nanoid-dictionary": "^4.2.3",
+    "@types/query-selector-shadow-dom": "^1.0.4",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "@vitejs/plugin-vue": "^4.5.0",
     "@vue/test-utils": "^2.4.2",
