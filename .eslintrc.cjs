@@ -4,9 +4,11 @@ module.exports = {
     es2021: true,
     node: true,
   },
+  plugins: ['vue', 'tailwindcss'],
   extends: [
     'standard-with-typescript',
     'plugin:vue/vue3-recommended',
+    'plugin:tailwindcss/recommended',
   ],
   overrides: [
     {
@@ -29,7 +31,6 @@ module.exports = {
     extraFileExtensions: ['.vue'],
   },
   ignorePatterns: ['dist', 'coverage'],
-  plugins: ['vue'],
   rules: {
     '@typescript-eslint/comma-dangle': ['error', {
       arrays: 'always-multiline',
