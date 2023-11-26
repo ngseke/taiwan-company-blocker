@@ -11,6 +11,11 @@ injectGlobalCssVariables()
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message === REVEAL_MESSAGE_NAME) {
+    blockerManager.update()
+    return
+  }
+
+  if (message === REVEAL_MESSAGE_NAME) {
     blockerManager.reveal()
     return
   }
@@ -22,4 +27,8 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message === QUERY_PLATFORM_NAME_MESSAGE_NAME) {
     sendResponse(detectPagePlatform())
   }
+})
+
+chrome.storage.onChanged.addListener(() => {
+  blockerManager.update()
 })
