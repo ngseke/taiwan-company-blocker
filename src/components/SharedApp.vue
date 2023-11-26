@@ -1,66 +1,67 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
-import { loadPlatforms, savePlatforms } from '../modules/storage'
-import { type Platform, type PlatformName, platformNames, type Platforms } from '../pages/content/modules/platform'
+import { loadPatterns, savePatterns } from '../modules/storage'
+import { type PatternType, type Pattern } from '../pages/content/modules/pattern'
 
-const platformsDraft = ref<Platforms | null>(null)
+chrome.storage.sync.get(null).then(console.log)
+
+const jobTitlePatternsDraft = ref<Pattern[] | null>(null)
+const companyNamePatternsDraft = ref<Pattern[] | null>(null)
 
 onMounted(async () => {
-  const platforms = await loadPlatforms()
-  platformsDraft.value = platforms
-  console.log(JSON.stringify(platforms, null, 2))
+  jobTitlePatternsDraft.value = await loadPatterns('jobTitle')
+  companyNamePatternsDraft.value = await loadPatterns('companyName')
 })
 
-function getTextareaValue (platform: PlatformName, key: keyof Platform) {
-  return platformsDraft.value?.[platform][key].join('\n') ?? ''
+function getTextareaValue (type: PatternType) {
+  const draft = {
+    jobTitle: jobTitlePatternsDraft.value,
+    companyName: companyNamePatternsDraft.value,
+  }[type]
+  return draft?.map(({ pattern }) => pattern)?.join('\n') ?? ''
 }
 
-function handleTextareaValueChange (platform: PlatformName, key: keyof Platform) {
+function handleTextareaValueChange (type: PatternType) {
   return function (event: Event) {
-    if (!platformsDraft.value) return
+    const draftRef = ({
+      jobTitle: jobTitlePatternsDraft,
+      companyName: companyNamePatternsDraft,
+    })[type]
 
     const newPatterns = (event.target as HTMLTextAreaElement)
       ?.value.split('\n')
+      .map(pattern => ({ pattern }))
 
-    platformsDraft.value[platform][key] = newPatterns
+    draftRef.value = newPatterns
   }
 }
 
-async function save () {
-  if (!platformsDraft.value) return
-  await savePlatforms(platformsDraft.value)
-}
-
-watch(platformsDraft, (_, oldPlatformsDraft) => {
-  if (!oldPlatformsDraft) return
-  save()
+watch(jobTitlePatternsDraft, async function save (newDraft, oldDraft) {
+  if (!oldDraft || !newDraft) return
+  await savePatterns('jobTitle', [...newDraft])
 }, { deep: true })
 
+watch(companyNamePatternsDraft, async function save (newDraft, oldDraft) {
+  if (!oldDraft || !newDraft) return
+  await savePatterns('companyName', [...newDraft])
+}, { deep: true })
 </script>
 
 <template>
-  <div :style="{ display: 'flex', flexWrap: 'wrap', gap: '.25rem' }">
-    <div
-      v-for="platformName in platformNames"
-      :key="platformName"
-      :style="{ border: 'solid 1px black', padding: '.25rem' }"
-    >
-      <h2>{{ platformName }}</h2>
-      <h3>companyNamePatterns</h3>
-      <textarea
-        cols="30"
-        rows="5"
-        :value="getTextareaValue(platformName, 'companyNamePatterns')"
-        @input="handleTextareaValueChange(platformName, 'companyNamePatterns')($event)"
-      />
-      <hr>
-      <h3>jobTitlePatterns</h3>
-      <textarea
-        cols="30"
-        rows="5"
-        :value="getTextareaValue(platformName, 'jobTitlePatterns')"
-        @input="handleTextareaValueChange(platformName, 'jobTitlePatterns')($event)"
-      />
-    </div>
+  <div :style="{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column', gap: '.25rem', maxWidth: '20rem' }">
+    <h3>jobTitlePatterns</h3>
+    <textarea
+      cols="30"
+      rows="5"
+      :value="getTextareaValue('jobTitle')"
+      @input="handleTextareaValueChange('jobTitle')($event)"
+    />
+    <h3>companyNamePatterns</h3>
+    <textarea
+      cols="30"
+      rows="5"
+      :value="getTextareaValue('companyName')"
+      @input="handleTextareaValueChange('companyName')($event)"
+    />
   </div>
 </template>

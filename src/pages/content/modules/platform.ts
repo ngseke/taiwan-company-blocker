@@ -1,4 +1,3 @@
-import { merge } from 'lodash-es'
 import { type Entries } from '../../../types/Entries'
 
 export type PlatformName =
@@ -15,27 +14,6 @@ export const platformNames: readonly PlatformName[] = [
   '518',
   '1111',
 ]
-
-export interface Platform {
-  companyNamePatterns: string[]
-  jobTitlePatterns: string[]
-}
-
-export type Platforms = Record<PlatformName, Platform>
-
-export function generateDefaultPlatforms () {
-  return platformNames.reduce<Partial<Platforms>>((platforms, name) => ({
-    ...platforms,
-    [name]: {
-      companyNamePatterns: [],
-      jobTitlePatterns: [],
-    },
-  }), {}) as Platforms
-}
-
-export function ensurePlatforms (partialPlatforms: Partial<Platforms>) {
-  return merge(generateDefaultPlatforms(), partialPlatforms) as Platforms
-}
 
 const platformHosts: Record<PlatformName, string> = {
   cakeresume: 'cakeresume.com',

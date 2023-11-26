@@ -1,5 +1,5 @@
-import { type Platforms, ensurePlatforms, generateDefaultPlatforms } from '../pages/content/modules/platform'
-import { ENABLED_STORAGE_KEY, PLATFORMS_STORAGE_KEY } from './constants'
+import { type PatternType, type Pattern } from '../pages/content/modules/pattern'
+import { COMPANY_NAME_PATTERNS_STORAGE_KEY, ENABLED_STORAGE_KEY, JOB_TITLE_PATTERNS_STORAGE_KEY } from './constants'
 
 async function getSyncStorage <T> (key: string, defaultValue: T): Promise<T> {
   return (await chrome.storage.sync.get(key))[key] ?? defaultValue
@@ -17,12 +17,19 @@ export async function saveIsEnabled (isEnabled: boolean) {
   await setSyncStorage(ENABLED_STORAGE_KEY, isEnabled)
 }
 
-export async function loadPlatforms () {
-  return ensurePlatforms(
-    await getSyncStorage(PLATFORMS_STORAGE_KEY, generateDefaultPlatforms())
-  )
+function getStorageKeyByPatternType (type: PatternType) {
+  return {
+    jobTitle: JOB_TITLE_PATTERNS_STORAGE_KEY,
+    companyName: COMPANY_NAME_PATTERNS_STORAGE_KEY,
+  }[type]
 }
 
-export async function savePlatforms (platforms: Partial<Platforms>) {
-  await setSyncStorage(PLATFORMS_STORAGE_KEY, ensurePlatforms(platforms))
+export async function loadPatterns (type: PatternType) {
+  const key = getStorageKeyByPatternType(type)
+  return await getSyncStorage(key, [] as Pattern[])
+}
+
+export async function savePatterns (type: PatternType, patterns: Pattern[]) {
+  const key = getStorageKeyByPatternType(type)
+  await setSyncStorage(key, patterns)
 }

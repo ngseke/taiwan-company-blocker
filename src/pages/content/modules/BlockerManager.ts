@@ -1,4 +1,4 @@
-import { loadPlatforms } from '../../../modules/storage'
+import { loadPatterns } from '../../../modules/storage'
 import { type Blocker } from './Blocker'
 import { Blocker104Company } from './Blocker104Company'
 import { Blocker104Job } from './Blocker104Job'
@@ -12,12 +12,10 @@ import { type PlatformName, detectPagePlatform } from './platform'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
-  private readonly platformName: PlatformName
 
   constructor () {
     const platformName = detectPagePlatform()
     if (!platformName) throw new Error('Cannot detect platform!')
-    this.platformName = platformName
 
     const initializeActions: Record<PlatformName, () => void> = {
       cakeresume: () => {
@@ -45,15 +43,13 @@ export class BlockerManager {
   }
 
   async start () {
-    const {
-      companyNamePatterns,
-      jobTitlePatterns,
-    } = (await loadPlatforms())[this.platformName]
+    const companyNamePatterns = await loadPatterns('companyName')
+    const jobTitlePatterns = await loadPatterns('jobTitle')
 
     this.blockers.forEach((blocker) => {
       blocker
-        .setCompanyNamePatterns(companyNamePatterns)
-        .setJobTitlePatterns(jobTitlePatterns)
+        .setCompanyNamePatterns(companyNamePatterns.map(({ pattern }) => pattern))
+        .setJobTitlePatterns(jobTitlePatterns.map(({ pattern }) => pattern))
         .start()
         // .reveal()
         // .setBlockMethod('hide')
