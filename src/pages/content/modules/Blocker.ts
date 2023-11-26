@@ -6,7 +6,6 @@ import { match } from './pattern'
 import { type Nullish } from '../../../types/Nullish'
 
 const nanoid = customAlphabet(lowercase, 6)
-const DATASET_KEY = `taiwan_company_blocker_${nanoid()}`
 
 export type BlockMethod = 'opacity' | 'hide'
 export type BlockState = 'block' | 'reveal'
@@ -18,6 +17,8 @@ export abstract class Blocker {
   protected jobTitlePatterns: string[] | null = null
   protected companyNamePatterns: string[] | null = null
   protected observer: MutationObserver | null = null
+
+  private readonly datasetKey = `taiwan_company_blocker_${nanoid()}`
 
   method: BlockMethod = 'opacity'
   state: BlockState = 'block'
@@ -36,7 +37,7 @@ export abstract class Blocker {
 
   private filterMatchedItems ($items: HTMLElement[]) {
     return $items.filter(($item) => {
-      const isHandled = DATASET_KEY in $item.dataset
+      const isHandled = this.datasetKey in $item.dataset
       if (isHandled) return false
 
       const companyName = this.getItemCompanyName($item)?.trim()
@@ -58,7 +59,11 @@ export abstract class Blocker {
   }
 
   private selectHandledItems () {
-    return $$(`[data-${DATASET_KEY}]`)
+    return $$(`[data-${this.datasetKey}]`)
+  }
+
+  get blockedCount () {
+    return this.selectHandledItems().length
   }
 
   private removeAllClassNames ($item: HTMLElement) {
@@ -102,7 +107,7 @@ export abstract class Blocker {
   }
 
   private markItem ($item: HTMLElement) {
-    $item.dataset[DATASET_KEY] = ''
+    $item.dataset[this.datasetKey] = ''
 
     const action = {
       block: () => { this.blockItemByCurrentMethod($item) },
@@ -112,7 +117,7 @@ export abstract class Blocker {
   }
 
   private unmarkItem ($item: HTMLElement) {
-    $item.dataset[DATASET_KEY] = undefined
+    $item.dataset[this.datasetKey] = undefined
     this.removeAllClassNames($item)
   }
 

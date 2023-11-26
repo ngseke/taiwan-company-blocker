@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { QUERY_PLATFORM_NAME_MESSAGE_NAME, REVEAL_MESSAGE_NAME, UNREVEAL_MESSAGE_NAME } from '../../modules/constants'
+import { QUERY_BLOCKED_COUNT_MESSAGE_NAME, QUERY_PLATFORM_NAME_MESSAGE_NAME, REVEAL_MESSAGE_NAME, UNREVEAL_MESSAGE_NAME } from '../../modules/constants'
 import { type PlatformName } from '../content/modules/platform'
 
 async function getCurrentTab () {
@@ -37,6 +37,14 @@ async function queryPlatformName () {
 }
 const platformName = ref<PlatformName | null>(null)
 queryPlatformName()
+
+async function queryBlockedCount () {
+  blockedCount.value =
+    await sendMessageToCurrentTab(QUERY_BLOCKED_COUNT_MESSAGE_NAME) as any
+}
+const blockedCount = ref<number | null>(null)
+queryBlockedCount()
+
 </script>
 
 <template>
@@ -44,7 +52,7 @@ queryPlatformName()
     <h1>
       <a href="#">Blocker</a>
     </h1>
-    <h2>{{ platformName }}</h2>
+    <h2>{{ platformName }} ({{ blockedCount }})</h2>
     <hr>
     <button type="button" @click="reveal">Reveal</button>
     <button type="button" @click="unreveal">Unreveal</button>

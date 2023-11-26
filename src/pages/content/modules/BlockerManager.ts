@@ -60,6 +60,13 @@ export class BlockerManager {
     })
   }
 
+  get blockedCount () {
+    const sum = this.blockers
+      .reduce((sum, blocker) => (sum + blocker.blockedCount), 0)
+
+    return sum
+  }
+
   update () {
     // TODO: Now it only blocks new added pattern but not the removed ones. Should fix it in the future.
     this.start()

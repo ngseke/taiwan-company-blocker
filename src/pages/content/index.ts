@@ -1,4 +1,4 @@
-import { QUERY_PLATFORM_NAME_MESSAGE_NAME, REVEAL_MESSAGE_NAME, UNREVEAL_MESSAGE_NAME } from '../../modules/constants'
+import { QUERY_BLOCKED_COUNT_MESSAGE_NAME, QUERY_PLATFORM_NAME_MESSAGE_NAME, REVEAL_MESSAGE_NAME, UNREVEAL_MESSAGE_NAME } from '../../modules/constants'
 import { BlockerManager } from './modules/BlockerManager'
 import { injectGlobalCssVariables } from './modules/injectGlobalCssVariables'
 import { detectPagePlatform } from './modules/platform'
@@ -11,11 +11,6 @@ injectGlobalCssVariables()
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message === REVEAL_MESSAGE_NAME) {
-    blockerManager.update()
-    return
-  }
-
-  if (message === REVEAL_MESSAGE_NAME) {
     blockerManager.reveal()
     return
   }
@@ -26,6 +21,10 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 
   if (message === QUERY_PLATFORM_NAME_MESSAGE_NAME) {
     sendResponse(detectPagePlatform())
+    return
+  }
+  if (message === QUERY_BLOCKED_COUNT_MESSAGE_NAME) {
+    sendResponse(blockerManager.blockedCount)
   }
 })
 
