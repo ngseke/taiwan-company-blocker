@@ -5,6 +5,7 @@ import PopupLayout from './components/PopupLayout.vue'
 import Statistic from './components/Statistic.vue'
 import { sendMessageToCurrentTab } from './modules/chrome'
 import { useContentMessage } from './composables/useContentMessage'
+import Button from './components/Button.vue'
 
 async function reveal () {
   await sendMessageToCurrentTab(REVEAL_MESSAGE_NAME)
@@ -23,15 +24,26 @@ const { platformName, blockedCount } = useContentMessage()
 
 <template>
   <PopupLayout>
-    <div class="flex flex-col gap-4 py-4">
+    <div class="flex flex-col gap-4 pb-3">
+      <h1 class="text-lg font-bold leading-6">
+        <a href="#" @click.stop>Taiwan Company Blocker</a>
+      </h1>
+
       <div class="flex gap-7">
         <Statistic name="求職平台" :value="formatPlatformName(platformName)" />
         <Statistic name="頁面已過濾數量" :value="blockedCount" />
       </div>
-      <div class="flex gap-6">
-        <button type="button" @click="reveal">Reveal</button>
-        <button type="button" @click="unreveal">Unreveal</button>
-        <button type="button" @click="openOptions">Options</button>
+
+      <div class="flex flex-wrap gap-2">
+        <div class="w-2/5">
+          <Button @click="openOptions">管理篩選關鍵詞</Button>
+        </div>
+        <div class="flex-none">
+          <Button @click="reveal">Reveal</Button>
+        </div>
+        <div class="flex-none">
+          <Button @click="unreveal">Unreveal</Button>
+        </div>
       </div>
     </div>
   </PopupLayout>

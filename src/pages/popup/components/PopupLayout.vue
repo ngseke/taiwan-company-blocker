@@ -21,10 +21,7 @@ const { isEnabled } = useIsEnabled()
       </div>
     </div>
 
-    <div class="h-full flex-1 overflow-auto py-6 pr-6">
-      <h1 class="text-lg font-bold leading-6">
-        <a href="#" @click.stop>Taiwan Company Blocker</a>
-      </h1>
+    <div class="h-full flex-1 overflow-auto pr-6 pt-6">
       <slot />
     </div>
   </div>
