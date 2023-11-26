@@ -117,7 +117,7 @@ export abstract class Blocker {
   }
 
   private unmarkItem ($item: HTMLElement) {
-    $item.dataset[this.datasetKey] = undefined
+    delete $item.dataset[this.datasetKey]
     this.removeAllClassNames($item)
   }
 

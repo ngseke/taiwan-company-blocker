@@ -1,23 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { QUERY_BLOCKED_COUNT_MESSAGE_NAME, QUERY_PLATFORM_NAME_MESSAGE_NAME, REVEAL_MESSAGE_NAME, UNREVEAL_MESSAGE_NAME } from '../../modules/constants'
-import { type PlatformName } from '../content/modules/platform'
-
-async function getCurrentTab () {
-  const [tab] = await chrome.tabs.query({ active: true })
-  return tab
-}
-
-async function sendMessageToCurrentTab (message: string) {
-  const tab = await getCurrentTab()
-  return await new Promise((resolve, reject) => {
-    if (!tab.id) {
-      reject(new Error('Cannot get current `tab.id`!'))
-      return
-    }
-    chrome.tabs.sendMessage(tab.id, message, resolve)
-  })
-}
+import { REVEAL_MESSAGE_NAME, UNREVEAL_MESSAGE_NAME } from '../../modules/constants'
+import { formatPlatformName } from '../content/modules/platform'
+import PopupLayout from './components/PopupLayout.vue'
+import Statistic from './components/Statistic.vue'
+import { sendMessageToCurrentTab } from './modules/chrome'
+import { useContentMessage } from './composables/useContentMessage'
 
 async function reveal () {
   await sendMessageToCurrentTab(REVEAL_MESSAGE_NAME)
@@ -31,32 +18,21 @@ function openOptions () {
   chrome.runtime.openOptionsPage()
 }
 
-async function queryPlatformName () {
-  platformName.value =
-    await sendMessageToCurrentTab(QUERY_PLATFORM_NAME_MESSAGE_NAME) as any
-}
-const platformName = ref<PlatformName | null>(null)
-queryPlatformName()
-
-async function queryBlockedCount () {
-  blockedCount.value =
-    await sendMessageToCurrentTab(QUERY_BLOCKED_COUNT_MESSAGE_NAME) as any
-}
-const blockedCount = ref<number | null>(null)
-queryBlockedCount()
-
+const { platformName, blockedCount } = useContentMessage()
 </script>
 
 <template>
-  <div>
-    <h1>
-      <a href="#">Blocker</a>
-    </h1>
-    <h2>{{ platformName }} ({{ blockedCount }})</h2>
-    <hr>
-    <button type="button" @click="reveal">Reveal</button>
-    <button type="button" @click="unreveal">Unreveal</button>
-    <hr>
-    <button type="button" @click="openOptions">Options</button>
-  </div>
+  <PopupLayout>
+    <div class="flex flex-col gap-4 py-4">
+      <div class="flex gap-7">
+        <Statistic name="求職平台" :value="formatPlatformName(platformName)" />
+        <Statistic name="頁面已過濾數量" :value="blockedCount" />
+      </div>
+      <div class="flex gap-6">
+        <button type="button" @click="reveal">Reveal</button>
+        <button type="button" @click="unreveal">Unreveal</button>
+        <button type="button" @click="openOptions">Options</button>
+      </div>
+    </div>
+  </PopupLayout>
 </template>

@@ -45,6 +45,7 @@ module.exports = {
     '@typescript-eslint/no-misused-promises': ['error', {
       checksVoidReturn: false,
     }],
+    '@typescript-eslint/no-dynamic-delete': 'off',
 
     'vue/multi-word-component-names': 'off',
     'vue/max-attributes-per-line': ['error', {

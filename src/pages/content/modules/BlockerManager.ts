@@ -67,11 +67,6 @@ export class BlockerManager {
     return sum
   }
 
-  update () {
-    // TODO: Now it only blocks new added pattern but not the removed ones. Should fix it in the future.
-    this.start()
-  }
-
   stop () {
     this.blockers.forEach((blocker) => { blocker.stop() })
   }

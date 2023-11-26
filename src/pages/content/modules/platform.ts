@@ -1,4 +1,5 @@
 import { type Entries } from '../../../types/Entries'
+import { type Nullish } from '../../../types/Nullish'
 
 export type PlatformName =
   | 'cakeresume'
@@ -27,4 +28,15 @@ export function detectPagePlatform () {
   const entries = Object.entries(platformHosts) as Entries<typeof platformHosts>
   return entries
     .find(([_, host]) => location.host.includes(host))?.[0] ?? null
+}
+
+export function formatPlatformName (platformName: Nullish<PlatformName>) {
+  if (!platformName) return null
+  return {
+    cakeresume: 'CakeResume',
+    yourator: 'Yourator',
+    104: '104 人力銀行',
+    518: '518 熊班',
+    1111: '1111 人力銀行',
+  }[platformName] ?? platformName
 }
