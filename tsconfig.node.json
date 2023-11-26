@@ -12,6 +12,8 @@
     "vite.config.ts",
     "vitest.config.ts",
     "manifest.config.ts",
+    "tailwind.config.ts",
+    "postcss.config.cjs",
     "package.json",
     "scripts/**/*.js"
   ]
