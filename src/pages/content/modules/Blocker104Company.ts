@@ -1,3 +1,4 @@
+import { querySelectorDeep } from 'query-selector-shadow-dom'
 import { Blocker } from './Blocker'
 import { $$ } from './dom'
 
@@ -8,11 +9,13 @@ import { $$ } from './dom'
  */
 export class Blocker104Company extends Blocker {
   protected selectItems () {
-    return $$('.container .company-list')
+    return $$('.container .company-list, .company-lists__item')
   }
 
   protected getItemCompanyName ($item: HTMLElement) {
-    return $item.querySelector('.company-name-link > a')
-      ?.getAttribute('title')
+    return querySelectorDeep(
+      '.company-name-link > a, .advert-type27__middle__header__title',
+      $item
+    )?.getAttribute('title')
   }
 }

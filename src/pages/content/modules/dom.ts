@@ -1,3 +1,5 @@
+import { querySelectorAllDeep, querySelectorDeep } from 'query-selector-shadow-dom'
+
 export function htmlToElement (html: string) {
   const template = document.createElement('template')
   template.innerHTML = html.trim()
@@ -5,14 +7,14 @@ export function htmlToElement (html: string) {
 }
 
 export function $ (selector: string) {
-  const element = document.querySelector(selector)
+  const element = querySelectorDeep(selector)
   if (!element) throw new Error(`Failed to select \`${selector}\``)
 
-  return element as HTMLElement
+  return element
 }
 
 export function $$ (selector: string) {
-  return [...document.querySelectorAll(selector)] as HTMLElement[]
+  return [...querySelectorAllDeep(selector)]
 }
 
 export function $x (xpath: string) {

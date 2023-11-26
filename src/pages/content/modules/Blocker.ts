@@ -117,8 +117,8 @@ export abstract class Blocker {
     if (!this.isStarted) return
 
     const $items = this.selectItems()
-    this.filterMatchedItems($items)
-      .forEach(($item) => { this.markItem($item) })
+    const matchedItems = this.filterMatchedItems($items)
+    matchedItems.forEach(($item) => { this.markItem($item) })
   }
 
   setBlockMethod (method: BlockMethod) {
