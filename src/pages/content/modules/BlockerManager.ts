@@ -6,6 +6,8 @@ import { Blocker1111Company } from './Blocker1111Company'
 import { Blocker1111Job } from './Blocker1111Job'
 import { Blocker518 } from './Blocker518'
 import { BlockerCakeresume } from './BlockerCakeresume'
+import { BlockerCakeresumeCompany } from './BlockerCakeresumeCompany'
+import { BlockerCakeresumeCompanyJob } from './BlockerCakeresumeCompanyJob'
 import { BlockerYouratorCompany } from './BlockerYouratorCompany'
 import { BlockerYouratorJob } from './BlockerYouratorJob'
 import { type PlatformName, detectPagePlatform } from './platform'
@@ -19,7 +21,11 @@ export class BlockerManager {
 
     const initializeActions: Record<PlatformName, () => void> = {
       cakeresume: () => {
-        this.addBlocker(new BlockerCakeresume())
+        this.addBlocker(
+          new BlockerCakeresume(),
+          new BlockerCakeresumeCompany(),
+          new BlockerCakeresumeCompanyJob()
+        )
       },
       yourator: () => {
         this.addBlocker(new BlockerYouratorJob(), new BlockerYouratorCompany())
@@ -51,8 +57,6 @@ export class BlockerManager {
         .setCompanyNamePatterns(companyNamePatterns.map(({ pattern }) => pattern))
         .setJobTitlePatterns(jobTitlePatterns.map(({ pattern }) => pattern))
         .start()
-        // .reveal()
-        // .setBlockMethod('hide')
     })
   }
 

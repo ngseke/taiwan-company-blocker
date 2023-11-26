@@ -13,7 +13,6 @@ export type BlockState = 'block' | 'reveal'
 
 export abstract class Blocker {
   protected abstract selectItems (): HTMLElement[]
-  protected abstract getItemCompanyName ($item: HTMLElement): Nullish<string>
 
   protected revealClassName = style.reveal
   protected jobTitlePatterns: string[] | null = null
@@ -28,6 +27,10 @@ export abstract class Blocker {
   }
 
   protected getItemJobTitle (_$item: HTMLElement): Nullish<string> {
+    return null
+  }
+
+  protected getItemCompanyName (_$item: HTMLElement): Nullish<string> {
     return null
   }
 
