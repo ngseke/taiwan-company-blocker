@@ -14,10 +14,13 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.16",
     "matcher": "^5.0.0",
     "nanoid": "^5.0.3",
     "nanoid-dictionary": "^4.3.0",
+    "postcss": "^8.4.31",
     "query-selector-shadow-dom": "^1.0.1",
+    "tailwindcss": "^3.3.5",
     "vue": "^3.3.8"
   },
   "devDependencies": {
