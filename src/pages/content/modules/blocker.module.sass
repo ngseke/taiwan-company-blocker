@@ -4,12 +4,13 @@
   +reveal.reveal
 
 .opacity:not(.reveal)
-  position: relative
-  pointer-events: none !important
+  position: relative !important
   cursor: not-allowed !important
-  user-select: none
+  user-select: none !important
+  pointer-events: none !important
   > *
     opacity: .3 !important
+
   &::before
     $size: 100px
     content: ''
@@ -20,8 +21,8 @@
     height: $size
     width: $size
     background: var(--taiwan-company-blocker-icon) center / contain no-repeat
-    opacity: .6
-
+    opacity: .7
+    z-index: 1
 
 .hide:not(.reveal)
   display: none !important
