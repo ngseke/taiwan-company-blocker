@@ -3,8 +3,6 @@ import { onMounted, ref, watch } from 'vue'
 import { loadPatterns, savePatterns } from '../modules/storage'
 import { type PatternType, type Pattern } from '../pages/content/modules/pattern'
 
-chrome.storage.sync.get(null).then(console.log)
-
 const jobTitlePatternsDraft = ref<Pattern[] | null>(null)
 const companyNamePatternsDraft = ref<Pattern[] | null>(null)
 
