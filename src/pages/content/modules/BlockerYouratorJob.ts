@@ -8,7 +8,7 @@ import style from './blocker-yourator-jobs.module.sass'
  */
 export class BlockerYouratorJob extends Blocker {
   protected selectItems () {
-    return $$('#normal-jobs > div')
+    return $$('#normal-jobs > div > a')
   }
 
   protected getItemJobTitle ($item: HTMLElement) {
