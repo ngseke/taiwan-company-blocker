@@ -1,0 +1,23 @@
+$color: #ef4538
+
+.activator-wrapper
+  position: fixed
+  color: $color
+  z-index: 1
+  left: 0
+  top: 0
+  padding: .5rem
+
+.active
+  color: #363A39
+  display: none
+
+button.activator
+  all: unset
+  cursor: pointer
+  border-radius: 100rem
+  display: inline-flex
+  padding: .5rem
+  transition: all .2s
+  &:hover
+    background-color: rgba($color, .1)

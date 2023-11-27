@@ -2,6 +2,8 @@ import style from './blocker.module.sass'
 import { match } from './pattern'
 import { type Nullish } from '../../../types/Nullish'
 import { Marker } from './Marker'
+import { ActionActivator } from './ActionActivator'
+import { without } from 'lodash-es'
 
 export type BlockMethod = 'opacity' | 'hide'
 export type BlockState = 'block' | 'reveal'
@@ -17,6 +19,7 @@ export abstract class Blocker {
   protected observer: MutationObserver | null = null
 
   private readonly marker = new Marker()
+  private actionActivator: ActionActivator | null = null
 
   method: BlockMethod = 'opacity'
   state: BlockState = 'block'
@@ -58,8 +61,19 @@ export abstract class Blocker {
   }
 
   private removeAllClassNames ($item: HTMLElement) {
-    const classNames = [style.opacity, style.hide, this.revealClassName]
-    $item.classList.remove(...classNames)
+    const classNamesWithoutBase = without(
+      [...Object.values(style), this.revealClassName],
+      style.base
+    )
+    $item.classList.remove(...classNamesWithoutBase)
+  }
+
+  private addBaseClassName ($item: HTMLElement) {
+    $item.classList.add(style.base)
+  }
+
+  private removeBaseClassName ($item: HTMLElement) {
+    $item.classList.remove(style.base)
   }
 
   private blockItemByCurrentMethod ($item: HTMLElement) {
@@ -74,6 +88,7 @@ export abstract class Blocker {
 
   private revealItem ($item: HTMLElement) {
     this.removeAllClassNames($item)
+
     $item.classList.add(this.revealClassName)
   }
 
@@ -99,13 +114,15 @@ export abstract class Blocker {
 
   private modifyItem ($item: HTMLElement, markValue: MarkValue) {
     this.marker.mark($item, markValue)
+    this.addBaseClassName($item)
 
     const action = {
       block: () => { this.blockItemByCurrentMethod($item) },
       reveal: () => { this.revealItem($item) },
     }[this.state]
 
-    if (markValue === 'matched') {
+    const isMatched = markValue === 'matched'
+    if (isMatched) {
       action()
     }
   }
@@ -113,7 +130,9 @@ export abstract class Blocker {
   /** Should revert all changes made to `$item` by `modifyItem()`. */
   private unmodifyItem ($item: HTMLElement) {
     this.marker.unmark($item)
+
     this.removeAllClassNames($item)
+    this.removeBaseClassName($item)
   }
 
   private tryModify () {
@@ -146,6 +165,10 @@ export abstract class Blocker {
     return this
   }
 
+  handleClickItemAction ($item: HTMLElement) {
+    console.log($item, this.getItemCompanyName($item), this.getItemJobTitle($item))
+  }
+
   start () {
     if (this.isStarted) return this
 
@@ -158,6 +181,11 @@ export abstract class Blocker {
     )
     this.tryModify()
 
+    this.actionActivator = new ActionActivator(
+      this.marker,
+      ($item) => { this.handleClickItemAction($item) }
+    ).start()
+
     return this
   }
 
@@ -167,6 +195,9 @@ export abstract class Blocker {
 
     this.marker.selectMarkedItems()
       .forEach($item => { this.unmodifyItem($item) })
+
+    this.actionActivator?.stop()
+
     return this
   }
 }

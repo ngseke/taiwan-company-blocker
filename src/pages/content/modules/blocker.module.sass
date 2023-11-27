@@ -1,10 +1,12 @@
 @use '../styles/reveal'
 
+.base
+  position: relative !important
+
 .reveal
   +reveal.reveal
 
 .opacity:not(.reveal)
-  position: relative !important
   cursor: not-allowed !important
   user-select: none !important
   pointer-events: none !important
