@@ -5,7 +5,7 @@ import PopupLayout from './components/PopupLayout.vue'
 import Statistic from './components/Statistic.vue'
 import { sendMessageToCurrentTab } from './modules/chrome'
 import { useContentMessage } from './composables/useContentMessage'
-import Button from './components/Button.vue'
+import Button from '../../components/Button.vue'
 
 async function reveal () {
   await sendMessageToCurrentTab(REVEAL_MESSAGE_NAME)
