@@ -37,8 +37,5 @@ async function startOrStop () {
   }
 }
 
-chrome.storage.onChanged.addListener(async () => {
-  startOrStop()
-})
-
+chrome.storage.onChanged.addListener(startOrStop)
 startOrStop()

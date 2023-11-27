@@ -1,14 +1,12 @@
-import { customAlphabet } from 'nanoid'
-import { lowercase } from 'nanoid-dictionary'
-import { $$ } from './dom'
 import style from './blocker.module.sass'
 import { match } from './pattern'
 import { type Nullish } from '../../../types/Nullish'
-
-const nanoid = customAlphabet(lowercase, 6)
+import { Marker } from './Marker'
 
 export type BlockMethod = 'opacity' | 'hide'
 export type BlockState = 'block' | 'reveal'
+
+export type MarkValue = 'matched' | 'notMatched'
 
 export abstract class Blocker {
   protected abstract selectItems (): HTMLElement[]
@@ -18,7 +16,7 @@ export abstract class Blocker {
   protected companyNamePatterns: string[] | null = null
   protected observer: MutationObserver | null = null
 
-  private readonly datasetKey = `taiwan_company_blocker_${nanoid()}`
+  private readonly marker = new Marker()
 
   method: BlockMethod = 'opacity'
   state: BlockState = 'block'
@@ -35,35 +33,28 @@ export abstract class Blocker {
     return null
   }
 
-  private filterMatchedItems ($items: HTMLElement[]) {
-    return $items.filter(($item) => {
-      const isHandled = this.datasetKey in $item.dataset
-      if (isHandled) return false
+  private getIsMatched ($item: HTMLElement) {
+    const companyName = this.getItemCompanyName($item)?.trim()
+    const jobTitle = this.getItemJobTitle($item)?.trim()
 
-      const companyName = this.getItemCompanyName($item)?.trim()
-      const jobTitle = this.getItemJobTitle($item)?.trim()
+    const isCompanyNameMatched = Boolean(
+      companyName &&
+      this.companyNamePatterns?.some((pattern) => match(companyName, pattern))
+    )
+    const isJobTitleMatched = Boolean(
+      jobTitle &&
+      this.jobTitlePatterns?.some((pattern) => match(jobTitle, pattern))
+    )
 
-      const isCompanyNameMatched = Boolean(
-        companyName &&
-        this.companyNamePatterns?.some((pattern) => match(companyName, pattern))
-      )
-      const isJobTitleMatched = Boolean(
-        jobTitle &&
-        this.jobTitlePatterns?.some((pattern) => match(jobTitle, pattern))
-      )
+    const isMatched = isCompanyNameMatched || isJobTitleMatched
 
-      const isMatched = isCompanyNameMatched || isJobTitleMatched
-
-      return isMatched
-    })
-  }
-
-  private selectHandledItems () {
-    return $$(`[data-${this.datasetKey}]`)
+    return isMatched
   }
 
   get blockedCount () {
-    return this.selectHandledItems().length
+    return this.marker.selectMarkedItems()
+      .filter($item => this.marker.getMarkValue($item) === 'matched')
+      .length
   }
 
   private removeAllClassNames ($item: HTMLElement) {
@@ -92,7 +83,7 @@ export abstract class Blocker {
 
   reveal () {
     this.state = 'reveal'
-    this.selectHandledItems().forEach(($item) => {
+    this.marker.selectMarkedItems().forEach(($item) => {
       this.revealItem($item)
     })
     return this
@@ -100,50 +91,58 @@ export abstract class Blocker {
 
   unreveal () {
     this.state = 'block'
-    this.selectHandledItems().forEach(($item) => {
+    this.marker.selectMarkedItems().forEach(($item) => {
       this.unrevealItem($item)
     })
     return this
   }
 
-  private markItem ($item: HTMLElement) {
-    $item.dataset[this.datasetKey] = ''
+  private modifyItem ($item: HTMLElement, markValue: MarkValue) {
+    this.marker.mark($item, markValue)
 
     const action = {
       block: () => { this.blockItemByCurrentMethod($item) },
       reveal: () => { this.revealItem($item) },
     }[this.state]
-    action()
+
+    if (markValue === 'matched') {
+      action()
+    }
   }
 
-  private unmarkItem ($item: HTMLElement) {
-    delete $item.dataset[this.datasetKey]
+  /** Should revert all changes made to `$item` by `modifyItem()`. */
+  private unmodifyItem ($item: HTMLElement) {
+    this.marker.unmark($item)
     this.removeAllClassNames($item)
   }
 
-  private tryMark () {
+  private tryModify () {
     if (!this.isStarted) return
 
     const $items = this.selectItems()
-    const matchedItems = this.filterMatchedItems($items)
-    matchedItems.forEach(($item) => { this.markItem($item) })
+    $items
+      .filter($item => !this.marker.getIsMarked($item))
+      .forEach(($item) => {
+        const isMatched = this.getIsMatched($item)
+        this.modifyItem($item, isMatched ? 'matched' : 'notMatched')
+      })
   }
 
   setBlockMethod (method: BlockMethod) {
     this.method = method
-    this.tryMark()
+    this.tryModify()
     return this
   }
 
   setCompanyNamePatterns (patterns: string[]) {
     this.companyNamePatterns = patterns
-    this.tryMark()
+    this.tryModify()
     return this
   }
 
   setJobTitlePatterns (patterns: string[]) {
     this.jobTitlePatterns = patterns
-    this.tryMark()
+    this.tryModify()
     return this
   }
 
@@ -151,13 +150,13 @@ export abstract class Blocker {
     if (this.isStarted) return this
 
     this.observer = new MutationObserver(() => {
-      this.tryMark()
+      this.tryModify()
     })
     this.observer.observe(
       document.documentElement,
       { childList: true, subtree: true }
     )
-    this.tryMark()
+    this.tryModify()
 
     return this
   }
@@ -166,7 +165,8 @@ export abstract class Blocker {
     this.observer?.disconnect()
     this.observer = null
 
-    this.selectHandledItems().forEach($item => { this.unmarkItem($item) })
+    this.marker.selectMarkedItems()
+      .forEach($item => { this.unmodifyItem($item) })
     return this
   }
 }

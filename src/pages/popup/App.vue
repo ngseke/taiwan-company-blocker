@@ -31,7 +31,7 @@ const { platformName, blockedCount } = useContentMessage()
 
       <div class="flex gap-7">
         <Statistic name="求職平台" :value="formatPlatformName(platformName)" />
-        <Statistic name="頁面已過濾數量" :value="blockedCount" />
+        <Statistic name="此頁已過濾數量" :value="blockedCount" />
       </div>
 
       <div class="flex flex-wrap gap-2">
