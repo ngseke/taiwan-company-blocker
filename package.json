@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^1.0.14",
+    "@thedutchcoder/postcss-rem-to-px": "^0.0.2",
     "@types/chrome": "^0.0.253",
     "@types/lodash-es": "^4.17.12",
     "@types/nanoid-dictionary": "^4.2.3",
