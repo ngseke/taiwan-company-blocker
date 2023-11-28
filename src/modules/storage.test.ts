@@ -1,6 +1,5 @@
 import { beforeEach, expect, test, vi } from 'vitest'
-import { loadIsEnabled, saveIsEnabled } from './storage'
-import { ENABLED_STORAGE_KEY } from './constants'
+import { ENABLED_STORAGE_KEY, loadIsEnabled, saveIsEnabled } from './storage'
 import { mockChrome } from '../../__tests__/chrome'
 
 beforeEach(() => {
