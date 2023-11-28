@@ -12,6 +12,10 @@ export function mockChrome () {
         removeListener: vi.fn(),
       },
     },
+    tabs: {
+      query: vi.fn().mockResolvedValue([{ id: 1 }]),
+      sendMessage: vi.fn(),
+    },
   }
   vi.stubGlobal('chrome', mockedChrome)
   return mockedChrome
