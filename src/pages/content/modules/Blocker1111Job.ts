@@ -7,7 +7,7 @@ import { $$ } from './dom'
  */
 export class Blocker1111Job extends Blocker {
   protected selectItems () {
-    return $$('.job_item')
+    return $$('.job_item.item__job')
   }
 
   protected getItemJobTitle ($item: HTMLElement) {
