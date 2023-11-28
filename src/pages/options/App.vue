@@ -9,8 +9,8 @@ import Switch from '../../components/Switch.vue'
 import Footer from './components/Footer.vue'
 import { useChromeStorageListener } from '../../composables/useChromeStorageListener'
 import { useWindowFocus } from '@vueuse/core'
-import { formatPlatformName, platformHosts, platformNames } from '../content/modules/platform'
 import InstructionArticle from './components/InstructionArticle.vue'
+import SupportPlatformArticle from './components/SupportPlatformArticle.vue'
 import { useChromeStorage } from '../../composables/useChromeStorage'
 
 const jobTitlePatternsDraft = ref<Pattern[] | null>(null)
@@ -88,13 +88,7 @@ watch(companyNamePatternsDraft, async function save (newDraft, oldDraft) {
               啟用
             </Switch>
           </div>
-          <p>
-            目前支援平台：
-            <template v-for="(name, index) in platformNames" :key="name">
-              <a class="underline" :href="`https://${platformHosts[name]}`" target="_blank">{{ formatPlatformName(name) }}</a>
-              <span v-if="index !== platformNames.length - 1">、</span>
-            </template>
-          </p>
+          <SupportPlatformArticle />
         </div>
       </Card>
 
