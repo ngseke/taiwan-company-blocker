@@ -43,11 +43,11 @@ export abstract class Blocker {
 
     const isCompanyNameMatched = Boolean(
       companyName &&
-      this.companyNamePatterns?.some((pattern) => match(companyName, pattern))
+      match(companyName, this.companyNamePatterns ?? [])
     )
     const isJobTitleMatched = Boolean(
       jobTitle &&
-      this.jobTitlePatterns?.some((pattern) => match(jobTitle, pattern))
+      match(jobTitle, this.jobTitlePatterns ?? [])
     )
 
     const isMatched = isCompanyNameMatched || isJobTitleMatched
