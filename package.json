@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngseke/taiwan-company-blocker"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
