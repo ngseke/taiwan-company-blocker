@@ -68,7 +68,7 @@ const isSubmitDisabled = computed(() => !(
   <div class="text-left font-sans text-sm tracking-wide">
     <dialog
       ref="dialogRef"
-      class="overflow-visible bg-transparent p-0 backdrop:bg-neutral-900/70"
+      class="overflow-visible bg-transparent p-0 backdrop:bg-neutral-900/70 backdrop:backdrop-blur-[1px]"
       @click="handleDialogClick"
       @close="isOpened = false"
     >
