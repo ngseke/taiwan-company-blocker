@@ -4,12 +4,17 @@ import PopupLayout from './components/PopupLayout.vue'
 import Statistic from './components/Statistic.vue'
 import { useContentMessage } from './composables/useContentMessage'
 import Button from '../../components/Button.vue'
+import { useIsEnabled } from '../../composables/useIsEnabled'
+import { watch } from 'vue'
 
 function openOptions () {
   chrome.runtime.openOptionsPage()
 }
 
-const { platformName, blockedCount } = useContentMessage()
+const { platformName, blockedCount, query } = useContentMessage()
+
+const { isEnabled } = useIsEnabled()
+watch(isEnabled, query)
 </script>
 
 <template>
@@ -21,7 +26,7 @@ const { platformName, blockedCount } = useContentMessage()
 
       <div class="flex gap-7">
         <Statistic name="求職平台" :value="formatPlatformName(platformName)" />
-        <Statistic name="此頁已過濾數量" :value="blockedCount" />
+        <Statistic name="此頁已過濾數量" :value="isEnabled ? blockedCount : '-'" />
       </div>
 
       <div class="flex flex-wrap gap-2">

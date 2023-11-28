@@ -9,17 +9,23 @@ export function useContentMessage () {
       await sendMessageToCurrentTab(QUERY_PLATFORM_NAME_MESSAGE_NAME) as any
   }
   const platformName = ref<PlatformName | null>(null)
-  queryPlatformName()
 
   async function queryBlockedCount () {
     blockedCount.value =
       await sendMessageToCurrentTab(QUERY_BLOCKED_COUNT_MESSAGE_NAME) as any
   }
   const blockedCount = ref<number | null>(null)
-  queryBlockedCount()
+
+  function query () {
+    queryPlatformName()
+    queryBlockedCount()
+  }
+
+  query()
 
   return {
     platformName,
     blockedCount,
+    query,
   }
 }
