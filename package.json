@@ -17,6 +17,7 @@
     "@vueuse/core": "^10.6.1",
     "autoprefixer": "^10.4.16",
     "eslint-plugin-tailwindcss": "^3.13.0",
+    "eventemitter3": "^5.0.1",
     "matcher": "^5.0.0",
     "nanoid": "^5.0.3",
     "nanoid-dictionary": "^4.3.0",
