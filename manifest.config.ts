@@ -7,7 +7,7 @@ export default defineManifest(async () => ({
   manifest_version: 3,
   version,
 
-  default_locale: 'en',
+  default_locale: 'zh_TW',
   name: '__MSG_appName__',
   description: '__MSG_appDesc__',
 
