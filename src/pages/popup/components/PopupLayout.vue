@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import icon from '../../../assets/img/icon.png'
 import EnableSwitch from './EnableSwitch.vue'
-import { useIsEnabled } from '../../../composables/useIsEnabled'
+import { useChromeStorage } from '../../../composables/useChromeStorage'
+import { ENABLED_STORAGE_KEY } from '../../../modules/storage'
 
-const { isEnabled } = useIsEnabled()
+const isEnabled = useChromeStorage(ENABLED_STORAGE_KEY)
+
 </script>
 
 <template>

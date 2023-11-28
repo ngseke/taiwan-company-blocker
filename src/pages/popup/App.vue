@@ -4,8 +4,9 @@ import PopupLayout from './components/PopupLayout.vue'
 import Statistic from './components/Statistic.vue'
 import { useContentMessage } from './composables/useContentMessage'
 import Button from '../../components/Button.vue'
-import { useIsEnabled } from '../../composables/useIsEnabled'
 import { watch } from 'vue'
+import { useChromeStorage } from '../../composables/useChromeStorage'
+import { ENABLED_STORAGE_KEY } from '../../modules/storage'
 
 function openOptions () {
   chrome.runtime.openOptionsPage()
@@ -13,7 +14,8 @@ function openOptions () {
 
 const { platformName, blockedCount, query } = useContentMessage()
 
-const { isEnabled } = useIsEnabled()
+const isEnabled = useChromeStorage(ENABLED_STORAGE_KEY)
+
 watch(isEnabled, query)
 </script>
 

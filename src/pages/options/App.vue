@@ -1,22 +1,22 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { loadPatterns, savePatterns } from '../../modules/storage'
+import { ENABLED_STORAGE_KEY, loadPatterns, savePatterns } from '../../modules/storage'
 import { type PatternType, type Pattern } from '../../pages/content/modules/pattern'
 import Card from './components/Card.vue'
 import icon from '../../assets/img/icon.png'
 import Textarea from '../../components/Textarea.vue'
 import Switch from '../../components/Switch.vue'
-import { useIsEnabled } from '../../composables/useIsEnabled'
 import Footer from './components/Footer.vue'
 import { useChromeStorageListener } from '../../composables/useChromeStorageListener'
 import { useWindowFocus } from '@vueuse/core'
 import { formatPlatformName, platformHosts, platformNames } from '../content/modules/platform'
 import InstructionArticle from './components/InstructionArticle.vue'
+import { useChromeStorage } from '../../composables/useChromeStorage'
 
 const jobTitlePatternsDraft = ref<Pattern[] | null>(null)
 const companyNamePatternsDraft = ref<Pattern[] | null>(null)
 
-const { isEnabled } = useIsEnabled()
+const isEnabled = useChromeStorage(ENABLED_STORAGE_KEY)
 const isWindowFocused = useWindowFocus()
 async function initializeDrafts () {
   jobTitlePatternsDraft.value = await loadPatterns('jobTitle')
