@@ -1,5 +1,6 @@
 import { QUERY_BLOCKED_COUNT_MESSAGE_NAME, QUERY_PLATFORM_NAME_MESSAGE_NAME, REVEAL_MESSAGE_NAME, UNREVEAL_MESSAGE_NAME } from '../../modules/constants'
 import { loadIsEnabled } from '../../modules/storage'
+import { mountVueApp } from './main'
 import { BlockerManager } from './modules/BlockerManager'
 import { injectGlobalCssVariables } from './modules/injectGlobalCssVariables'
 import { detectPagePlatform } from './modules/platform'
@@ -27,15 +28,25 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   }
 })
 
+let previousIsEnabled = false
+
 async function startOrStop () {
   const isEnabled = await loadIsEnabled()
 
   if (isEnabled) {
-    blockerManager.start()
+    if (previousIsEnabled === isEnabled) {
+      await blockerManager.reload()
+    } else {
+      await blockerManager.start()
+    }
   } else {
     blockerManager.stop()
   }
+
+  previousIsEnabled = isEnabled
 }
 
 chrome.storage.onChanged.addListener(startOrStop)
 startOrStop()
+
+mountVueApp()

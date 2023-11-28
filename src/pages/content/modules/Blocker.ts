@@ -4,6 +4,7 @@ import { type Nullish } from '../../../types/Nullish'
 import { Marker } from './Marker'
 import { ActionActivator } from './ActionActivator'
 import { without } from 'lodash-es'
+import { CLICK_ITEM_ACTION, emitter } from './emitter'
 
 export type BlockMethod = 'opacity' | 'hide'
 export type BlockState = 'block' | 'reveal'
@@ -166,7 +167,10 @@ export abstract class Blocker {
   }
 
   handleClickItemAction ($item: HTMLElement) {
-    console.log($item, this.getItemCompanyName($item), this.getItemJobTitle($item))
+    emitter.emit(CLICK_ITEM_ACTION, {
+      companyName: this.getItemCompanyName($item),
+      jobTitle: this.getItemJobTitle($item),
+    })
   }
 
   start () {
@@ -197,6 +201,15 @@ export abstract class Blocker {
       .forEach($item => { this.unmodifyItem($item) })
 
     this.actionActivator?.stop()
+
+    return this
+  }
+
+  reload () {
+    this.marker.selectMarkedItems()
+      .forEach($item => { this.unmodifyItem($item) })
+
+    this.tryModify()
 
     return this
   }

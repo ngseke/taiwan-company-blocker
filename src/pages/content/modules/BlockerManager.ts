@@ -71,6 +71,18 @@ export class BlockerManager {
     this.blockers.forEach((blocker) => { blocker.stop() })
   }
 
+  async reload () {
+    const companyNamePatterns = await loadPatterns('companyName')
+    const jobTitlePatterns = await loadPatterns('jobTitle')
+
+    this.blockers.forEach((blocker) => {
+      blocker
+        .setCompanyNamePatterns(companyNamePatterns.map(({ pattern }) => pattern))
+        .setJobTitlePatterns(jobTitlePatterns.map(({ pattern }) => pattern))
+        .reload()
+    })
+  }
+
   reveal () {
     this.blockers.forEach((blocker) => { blocker.reveal() })
   }

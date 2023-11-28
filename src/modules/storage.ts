@@ -33,3 +33,10 @@ export async function savePatterns (type: PatternType, patterns: Pattern[]) {
   const key = getStorageKeyByPatternType(type)
   await setSyncStorage(key, patterns)
 }
+
+export async function appendPattern (type: PatternType, pattern: Pattern) {
+  const patterns = await loadPatterns(type)
+
+  patterns.push(pattern)
+  await savePatterns(type, patterns)
+}
