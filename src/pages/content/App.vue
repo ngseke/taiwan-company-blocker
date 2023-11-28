@@ -87,7 +87,7 @@ const isSubmitDisabled = computed(() => !(
 
         <div class="flex flex-wrap items-center justify-end gap-2 ">
           <button
-            class="hover:underline"
+            class="underline"
             href="#"
             type="button"
             @click="openOptions"

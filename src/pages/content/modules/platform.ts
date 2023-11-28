@@ -16,7 +16,7 @@ export const platformNames: readonly PlatformName[] = [
   '1111',
 ]
 
-const platformHosts: Record<PlatformName, string> = {
+export const platformHosts: Record<PlatformName, string> = {
   cakeresume: 'cakeresume.com',
   yourator: 'yourator.co',
   104: '104.com.tw',

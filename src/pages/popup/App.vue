@@ -30,7 +30,7 @@ watch(isEnabled, query)
       </div>
 
       <div class="flex flex-wrap gap-2">
-        <Button @click="openOptions">管理篩選關鍵詞</Button>
+        <Button @click="openOptions">管理封鎖關鍵詞</Button>
       </div>
     </div>
   </PopupLayout>
