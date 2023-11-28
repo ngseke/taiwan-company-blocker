@@ -22,7 +22,7 @@ export abstract class Blocker {
   private readonly marker = new Marker()
   private actionActivator: ActionActivator | null = null
 
-  method: BlockMethod = 'opacity'
+  private method: BlockMethod = 'opacity'
   state: BlockState = 'block'
 
   private get isStarted () {

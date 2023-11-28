@@ -1,5 +1,5 @@
 import { loadPatterns } from '../../../modules/storage'
-import { type Blocker } from './Blocker'
+import { type BlockMethod, type Blocker } from './Blocker'
 import { Blocker104Company } from './Blocker104Company'
 import { Blocker104Job } from './Blocker104Job'
 import { Blocker1111Company } from './Blocker1111Company'
@@ -89,5 +89,9 @@ export class BlockerManager {
 
   unreveal () {
     this.blockers.forEach((blocker) => { blocker.unreveal() })
+  }
+
+  setBlockMethod (method: BlockMethod) {
+    this.blockers.forEach((blocker) => { blocker.setBlockMethod(method) })
   }
 }

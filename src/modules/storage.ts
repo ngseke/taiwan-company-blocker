@@ -67,3 +67,11 @@ export async function appendPattern (type: PatternType, pattern: Pattern) {
   patterns.push(pattern)
   await savePatterns(type, patterns)
 }
+
+export async function loadBlockMethod () {
+  return await getSyncStorage(BLOCK_METHOD_KEY)
+}
+
+export async function saveBlockMethod (blockMethod: BlockMethod) {
+  await setSyncStorage(BLOCK_METHOD_KEY, blockMethod)
+}
