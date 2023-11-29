@@ -38,6 +38,7 @@
 - [104 人力銀行](https://www.104.com.tw/)
 - [518 熊班](https://www.518.com.tw/)
 - [1111 人力銀行](https://www.1111.com.tw/)
+- [小雞上工](https://www.chickpt.com.tw/)
 
 ## Features
 
