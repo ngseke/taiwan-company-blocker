@@ -11,6 +11,8 @@ import { BlockerCakeresumeCompany } from './BlockerCakeresumeCompany'
 import { BlockerCakeresumeCompanyJob } from './BlockerCakeresumeCompanyJob'
 import { BlockerYouratorCompany } from './BlockerYouratorCompany'
 import { BlockerYouratorCompanyJob } from './BlockerYouratorCompanyJob'
+import { BlockerYouratorEventCompany } from './BlockerYouratorEventCompany'
+import { BlockerYouratorEventJob } from './BlockerYouratorEventJob'
 import { BlockerYouratorJob } from './BlockerYouratorJob'
 import { type PlatformName, detectPagePlatform } from './platform'
 
@@ -33,7 +35,9 @@ export class BlockerManager {
         this.addBlocker(
           new BlockerYouratorJob(),
           new BlockerYouratorCompany(),
-          new BlockerYouratorCompanyJob()
+          new BlockerYouratorCompanyJob(),
+          new BlockerYouratorEventCompany(),
+          new BlockerYouratorEventJob(),
         )
       },
       104: () => {
