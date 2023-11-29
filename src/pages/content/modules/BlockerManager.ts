@@ -2,6 +2,7 @@ import { loadPatterns } from '../../../modules/storage'
 import { type BlockMethod, type Blocker } from './Blocker'
 import { Blocker104Company } from './Blocker104Company'
 import { Blocker104Job } from './Blocker104Job'
+import { Blocker104JobRecommendation } from './Blocker104JobRecommendation'
 import { Blocker1111Company } from './Blocker1111Company'
 import { Blocker1111Job } from './Blocker1111Job'
 import { Blocker518 } from './Blocker518'
@@ -31,7 +32,11 @@ export class BlockerManager {
         this.addBlocker(new BlockerYouratorJob(), new BlockerYouratorCompany())
       },
       104: () => {
-        this.addBlocker(new Blocker104Job(), new Blocker104Company())
+        this.addBlocker(
+          new Blocker104Job(),
+          new Blocker104Company(),
+          new Blocker104JobRecommendation()
+        )
       },
       518: () => {
         this.addBlocker(new Blocker518())
