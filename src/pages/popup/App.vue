@@ -21,8 +21,16 @@ const { platformName, blockedCount } = useContentMessage()
         </h1>
 
         <div class="flex gap-7">
-          <Statistic name="求職平台" :value="formatPlatformName(platformName)" />
-          <Statistic name="此頁已過濾數量" :value="blockedCount" />
+          <Statistic
+            :muted="!platformName"
+            name="求職平台"
+            :value="formatPlatformName(platformName) ?? '未偵測'"
+          />
+          <Statistic
+            :muted="blockedCount == null"
+            name="此頁已過濾數量"
+            :value="blockedCount"
+          />
         </div>
       </div>
 
