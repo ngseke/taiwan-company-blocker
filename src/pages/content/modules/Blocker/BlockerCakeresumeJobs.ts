@@ -5,7 +5,7 @@ import { $$ } from '../dom'
  * Applies to:
  * - https://www.cakeresume.com/jobs
  */
-export class BlockerCakeresume extends Blocker {
+export class BlockerCakeresumeJobs extends Blocker {
   protected selectItems () {
     return $$('[class^=JobSearchItem_wrapper__]')
   }

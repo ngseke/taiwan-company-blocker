@@ -6,7 +6,7 @@ import style from './blocker-yourator-jobs.module.sass'
  * Applies to:
  * - https://www.yourator.co/jobs
  */
-export class BlockerYouratorJob extends Blocker {
+export class BlockerYouratorJobs extends Blocker {
   protected selectItems () {
     return $$('#normal-jobs > div > a')
   }

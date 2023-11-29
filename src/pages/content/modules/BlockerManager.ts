@@ -1,21 +1,21 @@
 import { loadPatterns } from '../../../modules/storage'
 import { type BlockMethod, type Blocker } from './Blocker/Blocker'
-import { Blocker104Company } from './Blocker/Blocker104Company'
-import { Blocker104Job } from './Blocker/Blocker104Job'
+import { Blocker104Companies } from './Blocker/Blocker104Companies'
+import { Blocker104Jobs } from './Blocker/Blocker104Jobs'
 import { Blocker104JobRecommendation } from './Blocker/Blocker104JobRecommendation'
-import { Blocker1111Company } from './Blocker/Blocker1111Company'
-import { Blocker1111Job } from './Blocker/Blocker1111Job'
-import { Blocker518 } from './Blocker/Blocker518'
-import { BlockerCakeresume } from './Blocker/BlockerCakeresume'
+import { Blocker1111Companies } from './Blocker/Blocker1111Companies'
+import { Blocker1111Jobs } from './Blocker/Blocker1111Jobs'
+import { Blocker518Jobs } from './Blocker/Blocker518Jobs'
+import { BlockerCakeresumeJobs } from './Blocker/BlockerCakeresumeJobs'
+import { BlockerCakeresumeCompanies } from './Blocker/BlockerCakeresumeCompanies'
 import { BlockerCakeresumeCompany } from './Blocker/BlockerCakeresumeCompany'
-import { BlockerCakeresumeCompanyJob } from './Blocker/BlockerCakeresumeCompanyJob'
 import { BlockerCakeresumeJobAboutJob } from './Blocker/BlockerCakeresumeJobAboutJob'
 import { BlockerCakeresumeJobCommonApplied } from './Blocker/BlockerCakeresumeJobCommonApplied'
+import { BlockerYouratorCompanies } from './Blocker/BlockerYouratorCompanies'
 import { BlockerYouratorCompany } from './Blocker/BlockerYouratorCompany'
-import { BlockerYouratorCompanyJob } from './Blocker/BlockerYouratorCompanyJob'
-import { BlockerYouratorEventCompany } from './Blocker/BlockerYouratorEventCompany'
-import { BlockerYouratorEventJob } from './Blocker/BlockerYouratorEventJob'
-import { BlockerYouratorJob } from './Blocker/BlockerYouratorJob'
+import { BlockerYouratorEventCompanies } from './Blocker/BlockerYouratorEventCompanies'
+import { BlockerYouratorEventJobs } from './Blocker/BlockerYouratorEventJobs'
+import { BlockerYouratorJobs } from './Blocker/BlockerYouratorJobs'
 import { type PlatformName, detectPagePlatform } from './platform'
 
 export class BlockerManager {
@@ -27,30 +27,30 @@ export class BlockerManager {
 
     const constructorsGroup: Record<PlatformName, Array<new () => Blocker>> = {
       cakeresume: [
-        BlockerCakeresume,
+        BlockerCakeresumeJobs,
+        BlockerCakeresumeCompanies,
         BlockerCakeresumeCompany,
-        BlockerCakeresumeCompanyJob,
         BlockerCakeresumeJobCommonApplied,
         BlockerCakeresumeJobAboutJob,
       ],
       yourator: [
-        BlockerYouratorJob,
+        BlockerYouratorJobs,
+        BlockerYouratorCompanies,
         BlockerYouratorCompany,
-        BlockerYouratorCompanyJob,
-        BlockerYouratorEventCompany,
-        BlockerYouratorEventJob,
+        BlockerYouratorEventCompanies,
+        BlockerYouratorEventJobs,
       ],
       104: [
-        Blocker104Job,
-        Blocker104Company,
+        Blocker104Jobs,
+        Blocker104Companies,
         Blocker104JobRecommendation,
       ],
       518: [
-        Blocker518,
+        Blocker518Jobs,
       ],
       1111: [
-        Blocker1111Job,
-        Blocker1111Company,
+        Blocker1111Jobs,
+        Blocker1111Companies,
       ],
     }
 

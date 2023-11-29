@@ -1,22 +1,19 @@
 import { Blocker } from './Blocker'
 import { $$ } from '../dom'
+import style from './blocker-yourator-companies.module.sass'
 import { type ActivatorPositionCallback } from '../ActionActivator'
 
 /**
  * Applies to:
- * - https://www.yourator.co/events/*?tab=companies
+ * - https://www.yourator.co/companies
  */
-export class BlockerYouratorEventCompany extends Blocker {
+export class BlockerYouratorCompanies extends Blocker {
   protected selectItems () {
-    return $$(`
-      #event-detail-company-and-job-section
-      .grid.grid-cols-2.gap-x-1\\.5.gap-y-2.tablet\\:grid-cols-3.tablet\\:gap-4
-      .shadow-company-card
-    `)
+    return $$('#y-company-list-cards .container .company-cards__column')
   }
 
   protected getItemCompanyName ($item: HTMLElement) {
-    return ($item.querySelector('.text-lightest-navy.font-medium.truncate.text-general') as HTMLElement)
+    return ($item.querySelector('.y-new-card__title.flex-initial.truncate') as HTMLElement)
       ?.innerText
   }
 
@@ -29,4 +26,6 @@ export class BlockerYouratorEventCompany extends Blocker {
       y: top,
     }
   }
+
+  protected revealClassName = style.reveal
 }

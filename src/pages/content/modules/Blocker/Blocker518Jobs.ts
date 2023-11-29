@@ -5,7 +5,7 @@ import { $$ } from '../dom'
  * Applies to:
  * - https://www.518.com.tw/job-index.html
  */
-export class Blocker518 extends Blocker {
+export class Blocker518Jobs extends Blocker {
   protected selectItems () {
     return $$('.job__card')
   }

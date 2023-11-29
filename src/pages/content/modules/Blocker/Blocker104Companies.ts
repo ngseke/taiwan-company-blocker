@@ -7,7 +7,7 @@ import { $$ } from '../dom'
  * - https://www.104.com.tw/company/search/
  * - https://www.104.com.tw/company/topic/recommend
  */
-export class Blocker104Company extends Blocker {
+export class Blocker104Companies extends Blocker {
   protected selectItems () {
     return $$('.container .company-list, .company-lists__item')
   }
