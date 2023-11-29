@@ -1,6 +1,7 @@
 import { Blocker } from './Blocker'
 import { $$ } from './dom'
 import style from './blocker-yourator-companies.module.sass'
+import { type ActivatorPositionCallback } from './ActionActivator'
 
 /**
  * Applies to:
@@ -14,6 +15,16 @@ export class BlockerYouratorCompany extends Blocker {
   protected getItemCompanyName ($item: HTMLElement) {
     return ($item.querySelector('.y-new-card__title.flex-initial.truncate') as HTMLElement)
       ?.innerText
+  }
+
+  protected activatorPositionCallback: ActivatorPositionCallback = ($item, $activator) => {
+    const { left, top, width } = $item.getBoundingClientRect()
+    const { width: activatorWidth } = $activator.getBoundingClientRect()
+
+    return {
+      x: left + width - activatorWidth,
+      y: top,
+    }
   }
 
   protected revealClassName = style.reveal

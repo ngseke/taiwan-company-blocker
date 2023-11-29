@@ -2,7 +2,7 @@ import style from './blocker.module.sass'
 import { match } from './pattern'
 import { type Nullish } from '../../../types/Nullish'
 import { Marker } from './Marker'
-import { ActionActivator } from './ActionActivator'
+import { ActionActivator, type ActivatorPositionCallback } from './ActionActivator'
 import { without } from 'lodash-es'
 import { CLICK_ITEM_ACTION, emitter } from './emitter'
 
@@ -36,6 +36,8 @@ export abstract class Blocker {
   protected getItemCompanyName (_$item: HTMLElement): Nullish<string> {
     return null
   }
+
+  protected activatorPositionCallback: Nullish<ActivatorPositionCallback> = null
 
   private getIsMatched ($item: HTMLElement) {
     const companyName = this.getItemCompanyName($item)?.trim()
@@ -182,10 +184,12 @@ export abstract class Blocker {
     )
     this.tryModify()
 
-    this.actionActivator = new ActionActivator(
-      this.marker,
-      ($item) => { this.handleClickItemAction($item) }
-    ).start()
+    this.actionActivator = new ActionActivator({
+      marker: this.marker,
+      onClick: ($item) => { this.handleClickItemAction($item) },
+      activatorPositionCallback: this.activatorPositionCallback,
+    })
+      .start()
 
     return this
   }

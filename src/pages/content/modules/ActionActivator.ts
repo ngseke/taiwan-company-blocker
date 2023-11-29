@@ -2,14 +2,46 @@ import { debounce } from 'lodash-es'
 import { type Marker } from './Marker'
 import { type ActivatorOptions, renderActivator } from './activator'
 import { getIsInViewport, waitForElement } from './dom'
+import { type Nullish } from '../../../types/Nullish'
+
+export type ActivatorPositionCallback = (
+  $item: HTMLElement,
+  $activator: HTMLElement
+) =>({ x: number, y: number })
+
+/** Returns the bottom right corner of `$item`. */
+export const defaultActivatorPositionCallback: ActivatorPositionCallback =
+  ($item, $activator) => {
+    const { left, top, width, height } = $item.getBoundingClientRect()
+    const {
+      width: activatorWidth,
+      height: activatorHeight,
+    } = $activator.getBoundingClientRect()
+
+    return {
+      x: left + width - activatorWidth,
+      y: top + height - activatorHeight,
+    }
+  }
 
 export class ActionActivator {
   private readonly $container = document.createElement('div')
 
-  constructor (
-    private readonly marker: Marker,
-    private readonly onClick: ($item: HTMLElement) => void,
-  ) {
+  private readonly marker: Marker
+  private readonly onClick: ($item: HTMLElement) => void
+  private readonly activatorPositionCallback = defaultActivatorPositionCallback
+
+  constructor (options: {
+    marker: Marker
+    onClick: ($item: HTMLElement) => void
+    activatorPositionCallback?: Nullish<ActivatorPositionCallback>
+  }) {
+    this.marker = options.marker
+    this.onClick = options.onClick
+    if (options.activatorPositionCallback) {
+      this.activatorPositionCallback = options.activatorPositionCallback
+    }
+
     this.insertContainer()
   }
 
@@ -26,18 +58,10 @@ export class ActionActivator {
     const $activator = renderActivator(options)
     this.$container?.append($activator)
 
-    const { left, top, width, height } = $item.getBoundingClientRect()
-
-    const {
-      width: activatorWidth,
-      height: activatorHeight,
-    } = $activator.getBoundingClientRect()
+    const { x, y } = this.activatorPositionCallback($item, $activator)
 
     Object.assign($activator.style, {
-      transform: `translate(
-        calc(${left + width}px - ${activatorWidth}px),
-        calc(${top + height}px - ${activatorHeight}px)
-      )`,
+      transform: `translate(${x}px, ${y}px)`,
       opacity: 0,
     })
 
