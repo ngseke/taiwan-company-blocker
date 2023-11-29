@@ -26,6 +26,7 @@ import { Blocker1111CompanySimilar } from './Blocker/Blocker1111CompanySimilar'
 import { Blocker1111Company } from './Blocker/Blocker1111Company'
 import { Blocker1111JobSimilar } from './Blocker/Blocker1111JobSimilar'
 import { BlockerYouratorJob } from './Blocker/BlockerYouratorJob'
+import { BlockerCakeresumeCompanySimilar } from './Blocker/BlockerCakeresumeCompanySimilar'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
@@ -41,6 +42,7 @@ export class BlockerManager {
         BlockerCakeresumeJobAboutJob,
         BlockerCakeresumeCompanies,
         BlockerCakeresumeCompany,
+        BlockerCakeresumeCompanySimilar,
       ],
       yourator: [
         BlockerYouratorJobs,
