@@ -69,16 +69,16 @@ syncRef(isRegisteredBeforeUnload, isDirty, {})
 
 <template>
   <div class="flex flex-col gap-4">
-    <Title>職缺名稱</Title>
+    <Title>職缺名稱封鎖規則</Title>
     <Textarea
       v-model="jobTitleRef"
-      label="關鍵詞列表"
+      label="規則"
       :rows="10"
     />
-    <Title>公司名稱</Title>
+    <Title>公司名稱封鎖規則</Title>
     <Textarea
       v-model="companyNameRef"
-      label="關鍵詞列表"
+      label="規則"
       :rows="10"
     />
 
