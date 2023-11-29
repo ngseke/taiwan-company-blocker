@@ -9,6 +9,8 @@ import { Blocker518 } from './Blocker518'
 import { BlockerCakeresume } from './BlockerCakeresume'
 import { BlockerCakeresumeCompany } from './BlockerCakeresumeCompany'
 import { BlockerCakeresumeCompanyJob } from './BlockerCakeresumeCompanyJob'
+import { BlockerCakeresumeJobAboutJob } from './BlockerCakeresumeJobAboutJob'
+import { BlockerCakeresumeJobCommonApplied } from './BlockerCakeresumeJobCommonApplied'
 import { BlockerYouratorCompany } from './BlockerYouratorCompany'
 import { BlockerYouratorCompanyJob } from './BlockerYouratorCompanyJob'
 import { BlockerYouratorEventCompany } from './BlockerYouratorEventCompany'
@@ -28,7 +30,9 @@ export class BlockerManager {
         this.addBlocker(
           new BlockerCakeresume(),
           new BlockerCakeresumeCompany(),
-          new BlockerCakeresumeCompanyJob()
+          new BlockerCakeresumeCompanyJob(),
+          new BlockerCakeresumeJobCommonApplied(),
+          new BlockerCakeresumeJobAboutJob(),
         )
       },
       yourator: () => {
