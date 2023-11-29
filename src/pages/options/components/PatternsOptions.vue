@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import Textarea from '../../../components/Textarea.vue'
-import { useChromeStorage } from '../../../composables/useChromeStorage'
-import { COMPANY_NAME_PATTERNS_STORAGE_KEY, JOB_TITLE_PATTERNS_STORAGE_KEY, loadPatterns } from '../../../modules/storage'
+import { loadPatterns, savePatterns } from '../../../modules/storage'
 import { type Pattern, type PatternType } from '../../content/modules/pattern'
 import InstructionArticle from './InstructionArticle.vue'
 import Title from './Title.vue'
@@ -10,8 +9,6 @@ import Button from '../../../components/Button.vue'
 
 const jobTitlePatternsDraft = ref<Pattern[] | null>(null)
 const companyNamePatternsDraft = ref<Pattern[] | null>(null)
-const jobTitlePatterns = useChromeStorage(JOB_TITLE_PATTERNS_STORAGE_KEY)
-const companyNamePatterns = useChromeStorage(COMPANY_NAME_PATTERNS_STORAGE_KEY)
 
 async function initializeDrafts () {
   jobTitlePatternsDraft.value = await loadPatterns('jobTitle')
@@ -46,15 +43,20 @@ function getTextareaRef (type: PatternType) {
 const jobTitleRef = getTextareaRef('jobTitle')
 const companyNameRef = getTextareaRef('companyName')
 
-function submit () {
+async function submit () {
   if (jobTitlePatternsDraft.value) {
-    jobTitlePatterns.value =
+    await savePatterns(
+      'jobTitle',
       jobTitlePatternsDraft.value?.filter(({ pattern }) => Boolean(pattern))
+    )
   }
   if (companyNamePatternsDraft.value) {
-    companyNamePatterns.value =
+    await savePatterns(
+      'companyName',
       companyNamePatternsDraft.value.filter(({ pattern }) => Boolean(pattern))
+    )
   }
+  await initializeDrafts()
   isDirty.value = false
 }
 </script>
