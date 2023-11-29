@@ -10,6 +10,7 @@ import { BlockerCakeresume } from './BlockerCakeresume'
 import { BlockerCakeresumeCompany } from './BlockerCakeresumeCompany'
 import { BlockerCakeresumeCompanyJob } from './BlockerCakeresumeCompanyJob'
 import { BlockerYouratorCompany } from './BlockerYouratorCompany'
+import { BlockerYouratorCompanyJob } from './BlockerYouratorCompanyJob'
 import { BlockerYouratorJob } from './BlockerYouratorJob'
 import { type PlatformName, detectPagePlatform } from './platform'
 
@@ -29,7 +30,11 @@ export class BlockerManager {
         )
       },
       yourator: () => {
-        this.addBlocker(new BlockerYouratorJob(), new BlockerYouratorCompany())
+        this.addBlocker(
+          new BlockerYouratorJob(),
+          new BlockerYouratorCompany(),
+          new BlockerYouratorCompanyJob()
+        )
       },
       104: () => {
         this.addBlocker(
