@@ -1,5 +1,5 @@
 import { Blocker } from './Blocker'
-import { $$ } from './dom'
+import { $, $$ } from './dom'
 
 /**
  * Applies to:
@@ -13,5 +13,13 @@ export class BlockerCakeresumeCompanyJob extends Blocker {
   protected getItemJobTitle ($item: HTMLElement) {
     return ($item.querySelector('[class^=CompanyJobItemView_title]') as HTMLElement)
       ?.innerText
+  }
+
+  protected getItemCompanyName () {
+    return $(`
+      [class^=CompanyHeader_main__]
+      [class^=CompanyHeader_companyNameWrapper__]
+      [class^=CompanyHeader_companyName__]
+    `)?.innerText
   }
 }
