@@ -6,6 +6,8 @@ import { type Pattern, type PatternType } from '../../content/modules/pattern'
 import InstructionArticle from './InstructionArticle.vue'
 import Title from './Title.vue'
 import Button from '../../../components/Button.vue'
+import { useBeforeUnload } from '../../content/composables/useBeforeUnload'
+import { syncRef } from '@vueuse/core'
 
 const jobTitlePatternsDraft = ref<Pattern[] | null>(null)
 const companyNamePatternsDraft = ref<Pattern[] | null>(null)
@@ -59,6 +61,10 @@ async function submit () {
   await initializeDrafts()
   isDirty.value = false
 }
+
+const { isRegisteredBeforeUnload } = useBeforeUnload()
+
+syncRef(isRegisteredBeforeUnload, isDirty, {})
 </script>
 
 <template>
