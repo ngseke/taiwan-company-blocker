@@ -3,7 +3,7 @@ import { $$ } from '../dom'
 
 /**
  * Applies to:
- * - https://www.cakeresume.com/companies/*\/jobs/* (so called common applied jobs)
+ * - https://www.cakeresume.com/companies/.../jobs/... (so called common applied jobs)
  */
 export class BlockerCakeresumeJobCommonApplied extends Blocker {
   protected selectItems () {

@@ -4,7 +4,7 @@ import { type ActivatorPositionCallback } from '../ActionActivator'
 
 /**
  * Applies to:
- * - https://www.yourator.co/events/*?tab=companies
+ * - https://www.yourator.co/events/...?tab=companies
  */
 export class BlockerYouratorEventCompanies extends Blocker {
   protected selectItems () {

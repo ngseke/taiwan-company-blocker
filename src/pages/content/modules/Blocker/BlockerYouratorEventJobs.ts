@@ -3,7 +3,7 @@ import { $$ } from '../dom'
 
 /**
  * Applies to:
- * - https://www.yourator.co/events/*?tab=jobs
+ * - https://www.yourator.co/events/...?tab=jobs
  */
 export class BlockerYouratorEventJobs extends Blocker {
   protected selectItems () {
