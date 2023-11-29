@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
+import packageJson from './package.json'
 
 export default defineConfig({
   plugins: [vue()],
@@ -9,5 +10,8 @@ export default defineConfig({
     ],
     globals: true,
     environment: 'jsdom',
+  },
+  define: {
+    APP_VERSION: JSON.stringify(packageJson.version),
   },
 })
