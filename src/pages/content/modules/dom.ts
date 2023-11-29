@@ -7,10 +7,7 @@ export function htmlToElement (html: string) {
 }
 
 export function $ (selector: string) {
-  const element = querySelectorDeep(selector)
-  if (!element) throw new Error(`Failed to select \`${selector}\``)
-
-  return element
+  return querySelectorDeep(selector)
 }
 
 export function $$ (selector: string) {
