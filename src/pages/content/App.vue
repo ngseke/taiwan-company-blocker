@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { useScrollLock } from '@vueuse/core'
 import Button from '../../components/Button.vue'
 import Input from '../../components/Input.vue'
 import { CLICK_ITEM_ACTION } from './modules/emitter'
@@ -9,6 +8,7 @@ import Header from './components/Header.vue'
 import { OPEN_OPTIONS_PAGE_MESSAGE_NAME } from '../../modules/constants'
 import Checkbox from '../../components/Checkbox.vue'
 import { appendPattern } from '../../modules/storage'
+import { useScrollLock } from './composables/useScrollLock'
 
 const dialogRef = ref<HTMLDialogElement | null>(null)
 const isOpened = ref(false)
@@ -22,7 +22,7 @@ function close () {
   dialogRef.value?.close()
 }
 
-const isLocked = useScrollLock(document.body)
+const isLocked = useScrollLock()
 watch(isOpened, (isOpened) => { isLocked.value = isOpened })
 
 const isJobTitleChecked = ref(false)
