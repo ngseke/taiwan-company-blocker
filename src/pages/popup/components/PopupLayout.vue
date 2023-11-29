@@ -22,7 +22,7 @@ const isEnabled = useChromeStorage(ENABLED_STORAGE_KEY)
       </div>
     </div>
 
-    <div class="h-full flex-1 overflow-auto pr-6 pt-6">
+    <div class="h-full flex-1 overflow-auto py-6 pr-6">
       <slot />
     </div>
   </div>

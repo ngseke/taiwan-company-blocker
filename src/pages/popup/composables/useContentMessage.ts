@@ -1,7 +1,9 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { QUERY_PLATFORM_NAME_MESSAGE_NAME, QUERY_BLOCKED_COUNT_MESSAGE_NAME } from '../../../modules/constants'
 import { type PlatformName } from '../../content/modules/platform'
 import { sendMessageToCurrentTab } from '../modules/chrome'
+import { useChromeStorage } from '../../../composables/useChromeStorage'
+import { ENABLED_STORAGE_KEY } from '../../../modules/storage'
 
 export function useContentMessage () {
   async function queryPlatformName () {
@@ -21,11 +23,22 @@ export function useContentMessage () {
     queryBlockedCount()
   }
 
+  const isEnabled = useChromeStorage(ENABLED_STORAGE_KEY)
+
   query()
+
+  watch(isEnabled, async (isEnabled) => {
+    await new Promise(resolve => setTimeout(resolve, 100))
+
+    if (isEnabled) {
+      query()
+    } else {
+      blockedCount.value = null
+    }
+  })
 
   return {
     platformName,
     blockedCount,
-    query,
   }
 }

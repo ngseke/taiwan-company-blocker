@@ -4,31 +4,26 @@ import PopupLayout from './components/PopupLayout.vue'
 import Statistic from './components/Statistic.vue'
 import { useContentMessage } from './composables/useContentMessage'
 import Button from '../../components/Button.vue'
-import { watch } from 'vue'
-import { useChromeStorage } from '../../composables/useChromeStorage'
-import { ENABLED_STORAGE_KEY } from '../../modules/storage'
 
 function openOptions () {
   chrome.runtime.openOptionsPage()
 }
 
-const { platformName, blockedCount, query } = useContentMessage()
-
-const isEnabled = useChromeStorage(ENABLED_STORAGE_KEY)
-
-watch(isEnabled, query)
+const { platformName, blockedCount } = useContentMessage()
 </script>
 
 <template>
   <PopupLayout>
-    <div class="flex flex-col gap-4 pb-3">
-      <h1 class="text-lg font-bold leading-6">
-        <a href="#" @click.stop>Taiwan Company Blocker</a>
-      </h1>
+    <div class="flex h-full flex-col justify-between">
+      <div class="flex flex-col gap-4">
+        <h1 class="text-lg font-bold leading-6">
+          <a href="#" @click.stop>Taiwan Company Blocker</a>
+        </h1>
 
-      <div class="flex gap-7">
-        <Statistic name="求職平台" :value="formatPlatformName(platformName)" />
-        <Statistic name="此頁已過濾數量" :value="isEnabled ? blockedCount : '-'" />
+        <div class="flex gap-7">
+          <Statistic name="求職平台" :value="formatPlatformName(platformName)" />
+          <Statistic name="此頁已過濾數量" :value="blockedCount" />
+        </div>
       </div>
 
       <div class="flex flex-wrap gap-2">
