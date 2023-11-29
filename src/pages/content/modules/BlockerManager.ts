@@ -19,6 +19,9 @@ import { BlockerYouratorJobs } from './Blocker/BlockerYouratorJobs'
 import { type PlatformName, detectPagePlatform } from './platform'
 import { Blocker104Company } from './Blocker/Blocker104Company'
 import { Blocker104CompanyRecommendation } from './Blocker/Blocker104CompanyRecommendation'
+import { Blocker518JobSimilar } from './Blocker/Blocker518JobSimilar'
+import { Blocker518Company } from './Blocker/Blocker518Company'
+import { Blocker518CompanyRecommendation } from './Blocker/Blocker518CompanyRecommendation'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
@@ -51,6 +54,9 @@ export class BlockerManager {
       ],
       518: [
         Blocker518Jobs,
+        Blocker518JobSimilar,
+        Blocker518Company,
+        Blocker518CompanyRecommendation,
       ],
       1111: [
         Blocker1111Jobs,
