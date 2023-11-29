@@ -25,12 +25,6 @@ function close () {
 const isLocked = useScrollLock(document.body)
 watch(isOpened, (isOpened) => { isLocked.value = isOpened })
 
-function handleDialogClick (event: Event) {
-  if (event.target === dialogRef.value) {
-    close()
-  }
-}
-
 const isJobTitleChecked = ref(false)
 const isCompanyNameChecked = ref(false)
 const jobTitleDraft = ref('')
@@ -69,7 +63,6 @@ const isSubmitDisabled = computed(() => !(
     <dialog
       ref="dialogRef"
       class="overflow-visible bg-transparent p-0 backdrop:bg-neutral-900/70 backdrop:backdrop-blur-[1px]"
-      @click="handleDialogClick"
       @close="isOpened = false"
     >
       <div v-if="isOpened" class="flex w-[420px] max-w-full flex-col gap-4 rounded-lg bg-neutral-900 p-4 text-neutral-300 shadow-2xl">
@@ -85,7 +78,7 @@ const isSubmitDisabled = computed(() => !(
           </div>
         </div>
 
-        <div class="flex flex-wrap items-center justify-end gap-2 ">
+        <div class="flex flex-wrap items-center justify-end gap-2 pl-2">
           <button
             class="underline"
             href="#"
