@@ -4,7 +4,7 @@ const singletonRegisteredTokens = ref(new Set<symbol>())
 
 watch(singletonRegisteredTokens, (tokens) => {
   window.onbeforeunload = tokens.size
-    ? () => {}
+    ? () => ''
     : null
 }, { immediate: true })
 
