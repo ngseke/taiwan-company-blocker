@@ -20,11 +20,16 @@ export function useChromeStorage <
     value.value = newValue
   })
 
-  watch(value, (value) => {
-    if (value == null) return
+  watch(value, (newValue, oldValue) => {
+    if (newValue == null || oldValue == null) return
+
+    const rawNewValue = toRaw(newValue)
+    const rawOldValue = toRaw(oldValue)
 
     // Must use `toRaw` here to convert Proxy(Array) to a native array
-    setSyncStorage(key, toRaw(value))
+    if (isEqual(rawNewValue, rawOldValue)) return
+
+    setSyncStorage(key, rawNewValue)
   })
 
   return value
