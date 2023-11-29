@@ -12,31 +12,37 @@ export type BlockState = 'block' | 'reveal'
 export type MarkValue = 'matched' | 'notMatched'
 
 export abstract class Blocker {
-  protected abstract selectItems (): HTMLElement[]
-
-  protected revealClassName = style.reveal
-  protected jobTitlePatterns: string[] | null = null
-  protected companyNamePatterns: string[] | null = null
-  protected observer: MutationObserver | null = null
-
+  private observer: MutationObserver | null = null
+  private method: BlockMethod = 'opacity'
   private readonly marker = new Marker()
   private actionActivator: ActionActivator | null = null
-
-  private method: BlockMethod = 'opacity'
-  state: BlockState = 'block'
+  private state: BlockState = 'block'
+  private jobTitlePatterns: string[] | null = null
+  private companyNamePatterns: string[] | null = null
 
   private get isStarted () {
     return Boolean(this.observer)
   }
 
+  protected revealClassName = style.reveal
+
+  /** Select and return job or company items on the page */
+  protected abstract selectItems (): HTMLElement[]
+
+  /** Extract the job title from the HTML element of job item. */
   protected getItemJobTitle (_$item: HTMLElement): Nullish<string> {
     return null
   }
 
+  /** Extract the company name from the HTML element of job item */
   protected getItemCompanyName (_$item: HTMLElement): Nullish<string> {
     return null
   }
 
+  /**
+   * Return the position where the action activator renders based on `$item`
+   * and `$activator` HTML element
+   */
   protected activatorPositionCallback: Nullish<ActivatorPositionCallback> = null
 
   private getIsMatched ($item: HTMLElement) {
