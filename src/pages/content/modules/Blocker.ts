@@ -155,13 +155,11 @@ export abstract class Blocker {
 
   setCompanyNamePatterns (patterns: string[]) {
     this.companyNamePatterns = patterns
-    this.tryModify()
     return this
   }
 
   setJobTitlePatterns (patterns: string[]) {
     this.jobTitlePatterns = patterns
-    this.tryModify()
     return this
   }
 
