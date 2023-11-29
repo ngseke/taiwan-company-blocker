@@ -27,6 +27,9 @@ import { Blocker1111Company } from './Blocker/Blocker1111Company'
 import { Blocker1111JobSimilar } from './Blocker/Blocker1111JobSimilar'
 import { BlockerYouratorJob } from './Blocker/BlockerYouratorJob'
 import { BlockerCakeresumeCompanySimilar } from './Blocker/BlockerCakeresumeCompanySimilar'
+import { BlockerChickptJob } from './Blocker/BlockerChickptJob'
+import { BlockerChickptCompany } from './Blocker/BlockerChickptCompany'
+import { BlockerChickptJobRecommendation } from './Blocker/BlockerChickptJobRecommendation'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
@@ -71,6 +74,11 @@ export class BlockerManager {
         Blocker1111Companies,
         Blocker1111Company,
         Blocker1111CompanySimilar,
+      ],
+      chickpt: [
+        BlockerChickptJob,
+        BlockerChickptCompany,
+        BlockerChickptJobRecommendation,
       ],
     }
 

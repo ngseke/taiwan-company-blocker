@@ -29,6 +29,7 @@ export default defineManifest(async () => ({
         'https://www.yes123.com.tw/*',
         'https://www.linkedin.com/*',
         'https://www.chickpt.com.tw/*',
+        'https://chickpt.com.tw/*',
       ],
       js: ['src/pages/content/index.ts'],
       run_at: 'document_start',
