@@ -12,6 +12,10 @@ const links = [
     title: 'Chrome Web Store',
     url: 'https://chromewebstore.google.com/detail/hmkkfmjfinbllbbkgabkeponkhckmijk',
   },
+  {
+    title: `v${APP_VERSION}`,
+    url: 'https://github.com/ngseke/taiwan-company-blocker/releases',
+  },
 ]
 </script>
 
