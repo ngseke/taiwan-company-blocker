@@ -69,10 +69,6 @@ syncRef(isRegisteredBeforeUnload, isDirty, {})
 
 <template>
   <div class="flex flex-col gap-4">
-    <InstructionArticle />
-
-    <hr class="border-neutral-800">
-
     <Title>職缺名稱</Title>
     <Textarea
       v-model="jobTitleRef"
@@ -91,5 +87,8 @@ syncRef(isRegisteredBeforeUnload, isDirty, {})
         儲存
       </Button>
     </div>
+    <hr class="border-neutral-800">
+
+    <InstructionArticle />
   </div>
 </template>
