@@ -7,7 +7,7 @@ import { $$ } from './dom'
  */
 export class BlockerCakeresumeCompanyJob extends Blocker {
   protected selectItems () {
-    return $$('[class^=CompanyJobItemList_jobList] > [class^=CompanyJobItemWithAdminTool]')
+    return $$('[class^=CompanyJobItemList_jobList] > [class^=CompanyJobItemWithAdminTool_container__]')
   }
 
   protected getItemJobTitle ($item: HTMLElement) {
