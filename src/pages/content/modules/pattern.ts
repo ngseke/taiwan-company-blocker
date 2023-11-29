@@ -5,7 +5,7 @@ import { groupBy } from 'lodash-es'
 import RegexParser from 'regex-parser'
 
 function isRegexpLiteral (maybeRegexpLiteral: string) {
-  const isFormatValid = /^\/.*\/$/.test(maybeRegexpLiteral)
+  const isFormatValid = /^\/.*\/(?:([gim])(?!.*\1)){0,3}$/.test(maybeRegexpLiteral)
   try {
     const regex = new RegExp(maybeRegexpLiteral)
     return isFormatValid && Boolean(regex)
