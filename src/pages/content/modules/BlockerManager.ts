@@ -25,6 +25,7 @@ import { Blocker518CompanyRecommendation } from './Blocker/Blocker518CompanyReco
 import { Blocker1111CompanySimilar } from './Blocker/Blocker1111CompanySimilar'
 import { Blocker1111Company } from './Blocker/Blocker1111Company'
 import { Blocker1111JobSimilar } from './Blocker/Blocker1111JobSimilar'
+import { BlockerYouratorJob } from './Blocker/BlockerYouratorJob'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
@@ -36,13 +37,14 @@ export class BlockerManager {
     const constructorsGroup: Record<PlatformName, Array<new () => Blocker>> = {
       cakeresume: [
         BlockerCakeresumeJobs,
-        BlockerCakeresumeCompanies,
-        BlockerCakeresumeCompany,
         BlockerCakeresumeJobCommonApplied,
         BlockerCakeresumeJobAboutJob,
+        BlockerCakeresumeCompanies,
+        BlockerCakeresumeCompany,
       ],
       yourator: [
         BlockerYouratorJobs,
+        BlockerYouratorJob,
         BlockerYouratorCompanies,
         BlockerYouratorCompany,
         BlockerYouratorEventCompanies,
@@ -50,8 +52,8 @@ export class BlockerManager {
       ],
       104: [
         Blocker104Jobs,
-        Blocker104Companies,
         Blocker104JobRecommendation,
+        Blocker104Companies,
         Blocker104Company,
         Blocker104CompanyRecommendation,
       ],
