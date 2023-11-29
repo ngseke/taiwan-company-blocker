@@ -1,7 +1,7 @@
 import { Blocker } from './Blocker'
-import { $, $$ } from './dom'
+import { $, $$ } from '../dom'
 import style from './blocker-yourator-companies.module.sass'
-import { type ActivatorPositionCallback } from './ActionActivator'
+import { type ActivatorPositionCallback } from '../ActionActivator'
 
 /**
  * Applies to:

@@ -1,6 +1,6 @@
 import { Blocker } from './Blocker'
-import { $$ } from './dom'
-import { type ActivatorPositionCallback } from './ActionActivator'
+import { $$ } from '../dom'
+import { type ActivatorPositionCallback } from '../ActionActivator'
 
 /**
  * Applies to:

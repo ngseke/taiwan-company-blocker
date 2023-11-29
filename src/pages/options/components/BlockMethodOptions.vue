@@ -2,7 +2,7 @@
 import Radio from '../../../components/Radio.vue'
 import { useChromeStorage } from '../../../composables/useChromeStorage'
 import { BLOCK_METHOD_KEY } from '../../../modules/storage'
-import { type BlockMethod } from '../../content/modules/Blocker'
+import { type BlockMethod } from '../../content/modules/Blocker/Blocker'
 import Title from './Title.vue'
 
 const blockMethod = useChromeStorage(BLOCK_METHOD_KEY)

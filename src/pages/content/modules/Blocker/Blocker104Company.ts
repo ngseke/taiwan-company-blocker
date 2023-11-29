@@ -1,6 +1,6 @@
 import { querySelectorDeep } from 'query-selector-shadow-dom'
 import { Blocker } from './Blocker'
-import { $$ } from './dom'
+import { $$ } from '../dom'
 
 /**
  * Applies to:

@@ -1,14 +1,16 @@
 import { Blocker } from './Blocker'
-import { $$ } from './dom'
-import style from './blocker-yourator-jobs.module.sass'
+import { $$ } from '../dom'
 
 /**
  * Applies to:
- * - https://www.yourator.co/jobs
+ * - https://www.yourator.co/events/*?tab=jobs
  */
-export class BlockerYouratorJob extends Blocker {
+export class BlockerYouratorEventJob extends Blocker {
   protected selectItems () {
-    return $$('#normal-jobs > div > a')
+    return $$(`
+      #event-detail-company-and-job-section
+      .flex.flex-col.tablet\\:gap-4 > div > a
+    `)
   }
 
   protected getItemJobTitle ($item: HTMLElement) {
@@ -17,9 +19,7 @@ export class BlockerYouratorJob extends Blocker {
   }
 
   protected getItemCompanyName ($item: HTMLElement) {
-    return ($item.querySelector('.flex-initial.text-sub.text-main-blue.truncate') as HTMLElement)
+    return ($item.querySelector('.flex-initial.text-sub.text-main-blue.hover\\:text-darkest-blue.truncate') as HTMLElement)
       ?.innerText
   }
-
-  protected revealClassName = style.reveal
 }
