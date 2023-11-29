@@ -1,4 +1,4 @@
-import { type Ref, onMounted, ref, watch } from 'vue'
+import { type Ref, onMounted, ref, watch, toRaw } from 'vue'
 import { type SyncStorageKey, type SyncStorageSchema, getSyncStorage, setSyncStorage } from '../modules/storage'
 import { useChromeStorageListener } from './useChromeStorageListener'
 import { isEqual } from 'lodash-es'
@@ -11,6 +11,7 @@ export function useChromeStorage <
   onMounted(async () => {
     value.value = await getSyncStorage(key)
   })
+
   useChromeStorageListener((changes) => {
     if (!(key in changes)) return
     const { newValue, oldValue } = changes[key]
@@ -21,7 +22,9 @@ export function useChromeStorage <
 
   watch(value, (value) => {
     if (value == null) return
-    setSyncStorage(key, value)
+
+    // Must use `toRaw` here to convert Proxy(Array) to a native array
+    setSyncStorage(key, toRaw(value))
   })
 
   return value

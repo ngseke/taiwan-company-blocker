@@ -150,7 +150,6 @@ export abstract class Blocker {
 
   setBlockMethod (method: BlockMethod) {
     this.method = method
-    this.tryModify()
     return this
   }
 

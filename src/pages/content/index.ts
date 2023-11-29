@@ -34,6 +34,8 @@ async function startOrStop () {
   const isEnabled = await loadIsEnabled()
   const blockMethod = await loadBlockMethod()
 
+  blockerManager.setBlockMethod(blockMethod)
+
   if (isEnabled) {
     if (previousIsEnabled === isEnabled) {
       await blockerManager.reload()
@@ -43,8 +45,6 @@ async function startOrStop () {
   } else {
     blockerManager.stop()
   }
-
-  blockerManager.setBlockMethod(blockMethod)
 
   previousIsEnabled = isEnabled
 }

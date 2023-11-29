@@ -1,29 +1,34 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { ENABLED_STORAGE_KEY, loadPatterns, savePatterns } from '../../modules/storage'
+import { COMPANY_NAME_PATTERNS_STORAGE_KEY, ENABLED_STORAGE_KEY, JOB_TITLE_PATTERNS_STORAGE_KEY, loadPatterns } from '../../modules/storage'
 import { type PatternType, type Pattern } from '../../pages/content/modules/pattern'
 import Card from './components/Card.vue'
 import icon from '../../assets/img/icon.png'
 import Textarea from '../../components/Textarea.vue'
 import Switch from '../../components/Switch.vue'
 import Footer from './components/Footer.vue'
-import { useChromeStorageListener } from '../../composables/useChromeStorageListener'
 import { useWindowFocus } from '@vueuse/core'
 import InstructionArticle from './components/InstructionArticle.vue'
 import SupportPlatformArticle from './components/SupportPlatformArticle.vue'
+import Title from './components/Title.vue'
 import { useChromeStorage } from '../../composables/useChromeStorage'
+import BlockMethodOptions from './components/BlockMethodOptions.vue'
 
 const jobTitlePatternsDraft = ref<Pattern[] | null>(null)
 const companyNamePatternsDraft = ref<Pattern[] | null>(null)
 
 const isEnabled = useChromeStorage(ENABLED_STORAGE_KEY)
 const isWindowFocused = useWindowFocus()
+
+const jobTitlePatterns = useChromeStorage(JOB_TITLE_PATTERNS_STORAGE_KEY)
+const companyNamePatterns = useChromeStorage(COMPANY_NAME_PATTERNS_STORAGE_KEY)
+
 async function initializeDrafts () {
   jobTitlePatternsDraft.value = await loadPatterns('jobTitle')
   companyNamePatternsDraft.value = await loadPatterns('companyName')
 }
 
-useChromeStorageListener(() => {
+watch([jobTitlePatterns, companyNamePatterns], () => {
   if (isWindowFocused.value) return
   initializeDrafts()
 })
@@ -34,6 +39,7 @@ function getTextareaRef (type: PatternType) {
     jobTitle: jobTitlePatternsDraft,
     companyName: companyNamePatternsDraft,
   })[type]
+
   return computed({
     get () {
       return draftRef.value?.map(({ pattern }) => pattern)?.join('\n') ?? ''
@@ -51,20 +57,14 @@ function getTextareaRef (type: PatternType) {
 const jobTitleRef = getTextareaRef('jobTitle')
 const companyNameRef = getTextareaRef('companyName')
 
-watch(jobTitlePatternsDraft, async function save (newDraft, oldDraft) {
+watch(jobTitlePatternsDraft, function save (newDraft, oldDraft) {
   if (!oldDraft || !newDraft) return
-  await savePatterns(
-    'jobTitle',
-    newDraft.filter(({ pattern }) => Boolean(pattern))
-  )
+  jobTitlePatterns.value = newDraft.filter(({ pattern }) => Boolean(pattern))
 }, { deep: true })
 
-watch(companyNamePatternsDraft, async function save (newDraft, oldDraft) {
+watch(companyNamePatternsDraft, function save (newDraft, oldDraft) {
   if (!oldDraft || !newDraft) return
-  await savePatterns(
-    'companyName',
-    newDraft.filter(({ pattern }) => Boolean(pattern))
-  )
+  companyNamePatterns.value = newDraft.filter(({ pattern }) => Boolean(pattern))
 }, { deep: true })
 </script>
 
@@ -93,18 +93,22 @@ watch(companyNamePatternsDraft, async function save (newDraft, oldDraft) {
       </Card>
 
       <Card>
+        <BlockMethodOptions />
+      </Card>
+
+      <Card>
         <div class="flex flex-col gap-4">
           <InstructionArticle />
 
           <hr class="border-neutral-800">
 
-          <h2 class="text-base font-medium">職缺名稱</h2>
+          <Title>職缺名稱</Title>
           <Textarea
             v-model="jobTitleRef"
             label="關鍵詞列表"
             :rows="10"
           />
-          <h2 class="text-base font-medium">公司名稱</h2>
+          <Title>公司名稱</Title>
           <Textarea
             v-model="companyNameRef"
             label="關鍵詞列表"
