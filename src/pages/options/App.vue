@@ -17,11 +17,11 @@ import EnableOptions from './components/EnableOptions.vue'
       </Card>
 
       <Card>
-        <BlockMethodOptions />
+        <PatternsOptions />
       </Card>
 
       <Card>
-        <PatternsOptions />
+        <BlockMethodOptions />
       </Card>
 
       <Card>
