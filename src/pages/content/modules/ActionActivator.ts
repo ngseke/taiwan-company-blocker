@@ -79,19 +79,13 @@ export class ActionActivator {
     const $activators = [...this.$container.children] as HTMLElement[]
 
     $activators.forEach(($activator) => {
-      Object.assign($activator.style, {
-        transition: undefined,
-        opacity: 0,
-      })
-
-      $activator.addEventListener('transitionend', () => {
-        $activator.remove()
-      })
+      $activator.remove()
     })
   }
 
   private handler: (() => void) | null = null
 
+  // TODO: Find a better way to render activator buttons without positional offset when the page shifts
   start () {
     if (this.handler) return this
 
