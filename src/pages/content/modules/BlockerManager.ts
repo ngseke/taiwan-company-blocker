@@ -22,6 +22,9 @@ import { Blocker104CompanyRecommendation } from './Blocker/Blocker104CompanyReco
 import { Blocker518JobSimilar } from './Blocker/Blocker518JobSimilar'
 import { Blocker518Company } from './Blocker/Blocker518Company'
 import { Blocker518CompanyRecommendation } from './Blocker/Blocker518CompanyRecommendation'
+import { Blocker1111CompanySimilar } from './Blocker/Blocker1111CompanySimilar'
+import { Blocker1111Company } from './Blocker/Blocker1111Company'
+import { Blocker1111JobSimilar } from './Blocker/Blocker1111JobSimilar'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
@@ -60,7 +63,10 @@ export class BlockerManager {
       ],
       1111: [
         Blocker1111Jobs,
+        Blocker1111JobSimilar,
         Blocker1111Companies,
+        Blocker1111Company,
+        Blocker1111CompanySimilar,
       ],
     }
 
