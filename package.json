@@ -25,6 +25,7 @@
     "matcher": "^5.0.0",
     "nanoid": "^5.0.3",
     "nanoid-dictionary": "^4.3.0",
+    "pinia": "^2.1.7",
     "postcss": "^8.4.31",
     "query-selector-shadow-dom": "^1.0.1",
     "regex-parser": "^2.2.11",
