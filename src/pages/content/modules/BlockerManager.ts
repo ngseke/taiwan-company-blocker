@@ -1,14 +1,9 @@
 import { loadPatterns } from '../../../modules/storage'
 import { type BlockMethod, type Blocker } from './Blocker/Blocker'
-import { Blocker104Companies } from './Blocker/Blocker104Companies'
-import { Blocker104Jobs } from './Blocker/Blocker104Jobs'
-import { Blocker104JobRecommendation } from './Blocker/Blocker104JobRecommendation'
 import { Blocker1111Companies } from './Blocker/Blocker1111Companies'
 import { Blocker1111Jobs } from './Blocker/Blocker1111Jobs'
 import { Blocker518Jobs } from './Blocker/Blocker518Jobs'
 import { type PlatformName, detectPagePlatform } from './platform'
-import { Blocker104Company } from './Blocker/Blocker104Company'
-import { Blocker104CompanyRecommendation } from './Blocker/Blocker104CompanyRecommendation'
 import { Blocker518JobSimilar } from './Blocker/Blocker518JobSimilar'
 import { Blocker518Company } from './Blocker/Blocker518Company'
 import { Blocker518CompanyRecommendation } from './Blocker/Blocker518CompanyRecommendation'
@@ -20,6 +15,7 @@ import { BlockerChickptCompany } from './Blocker/BlockerChickptCompany'
 import { BlockerChickptJobRecommendation } from './Blocker/BlockerChickptJobRecommendation'
 import { cakeresumeBlockers } from './Blocker/blockerCakeresume'
 import { youratorBlockers } from './Blocker/blockerYourator'
+import { _104Blockers } from './Blocker/blocker104'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
@@ -31,16 +27,10 @@ export class BlockerManager {
     const blockersGroup: Partial<Record<PlatformName, Blocker[]>> = {
       cakeresume: cakeresumeBlockers,
       yourator: youratorBlockers,
+      104: _104Blockers,
     }
 
     const constructorsGroup: Partial<Record<PlatformName, Array<new () => Blocker>>> = {
-      104: [
-        Blocker104Jobs,
-        Blocker104JobRecommendation,
-        Blocker104Companies,
-        Blocker104Company,
-        Blocker104CompanyRecommendation,
-      ],
       518: [
         Blocker518Jobs,
         Blocker518JobSimilar,
