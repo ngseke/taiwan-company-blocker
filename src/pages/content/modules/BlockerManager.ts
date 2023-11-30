@@ -6,11 +6,6 @@ import { Blocker104JobRecommendation } from './Blocker/Blocker104JobRecommendati
 import { Blocker1111Companies } from './Blocker/Blocker1111Companies'
 import { Blocker1111Jobs } from './Blocker/Blocker1111Jobs'
 import { Blocker518Jobs } from './Blocker/Blocker518Jobs'
-import { BlockerYouratorCompanies } from './Blocker/BlockerYouratorCompanies'
-import { BlockerYouratorCompany } from './Blocker/BlockerYouratorCompany'
-import { BlockerYouratorEventCompanies } from './Blocker/BlockerYouratorEventCompanies'
-import { BlockerYouratorEventJobs } from './Blocker/BlockerYouratorEventJobs'
-import { BlockerYouratorJobs } from './Blocker/BlockerYouratorJobs'
 import { type PlatformName, detectPagePlatform } from './platform'
 import { Blocker104Company } from './Blocker/Blocker104Company'
 import { Blocker104CompanyRecommendation } from './Blocker/Blocker104CompanyRecommendation'
@@ -20,11 +15,11 @@ import { Blocker518CompanyRecommendation } from './Blocker/Blocker518CompanyReco
 import { Blocker1111CompanySimilar } from './Blocker/Blocker1111CompanySimilar'
 import { Blocker1111Company } from './Blocker/Blocker1111Company'
 import { Blocker1111JobSimilar } from './Blocker/Blocker1111JobSimilar'
-import { BlockerYouratorJob } from './Blocker/BlockerYouratorJob'
 import { BlockerChickptJob } from './Blocker/BlockerChickptJob'
 import { BlockerChickptCompany } from './Blocker/BlockerChickptCompany'
 import { BlockerChickptJobRecommendation } from './Blocker/BlockerChickptJobRecommendation'
 import { cakeresumeBlockers } from './Blocker/blockerCakeresume'
+import { youratorBlockers } from './Blocker/blockerYourator'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
@@ -35,17 +30,10 @@ export class BlockerManager {
 
     const blockersGroup: Partial<Record<PlatformName, Blocker[]>> = {
       cakeresume: cakeresumeBlockers,
+      yourator: youratorBlockers,
     }
 
     const constructorsGroup: Partial<Record<PlatformName, Array<new () => Blocker>>> = {
-      yourator: [
-        BlockerYouratorJobs,
-        BlockerYouratorJob,
-        BlockerYouratorCompanies,
-        BlockerYouratorCompany,
-        BlockerYouratorEventCompanies,
-        BlockerYouratorEventJobs,
-      ],
       104: [
         Blocker104Jobs,
         Blocker104JobRecommendation,
