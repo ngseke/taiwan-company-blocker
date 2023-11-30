@@ -1,14 +1,12 @@
 import { loadPatterns } from '../../../modules/storage'
 import { type BlockMethod, type Blocker } from './Blocker/Blocker'
 import { type PlatformName, detectPagePlatform } from './platform'
-import { BlockerChickptJob } from './Blocker/BlockerChickptJob'
-import { BlockerChickptCompany } from './Blocker/BlockerChickptCompany'
-import { BlockerChickptJobRecommendation } from './Blocker/BlockerChickptJobRecommendation'
 import { cakeresumeBlockers } from './Blocker/cakeresumeBlockers'
 import { youratorBlockers } from './Blocker/youratorBlockers'
 import { _104Blockers } from './Blocker/104Blockers'
 import { _518Blockers } from './Blocker/518Blockers'
 import { _1111Blockers } from './Blocker/1111Blockers'
+import { chickptBlockers } from './Blocker/chickptBlockers'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
@@ -17,30 +15,18 @@ export class BlockerManager {
     const platformName = detectPagePlatform()
     if (!platformName) throw new Error('Cannot detect platform!')
 
-    const blockersGroup: Partial<Record<PlatformName, Blocker[]>> = {
+    const blockersGroup: Record<PlatformName, Blocker[]> = {
       cakeresume: cakeresumeBlockers,
       yourator: youratorBlockers,
       104: _104Blockers,
       518: _518Blockers,
       1111: _1111Blockers,
-    }
-
-    const constructorsGroup: Partial<Record<PlatformName, Array<new () => Blocker>>> = {
-      chickpt: [
-        BlockerChickptJob,
-        BlockerChickptCompany,
-        BlockerChickptJobRecommendation,
-      ],
+      chickpt: chickptBlockers,
     }
 
     const blockers = blockersGroup[platformName]
-    blockers?.forEach(blocker => {
+    blockers.forEach(blocker => {
       this.addBlocker(blocker)
-    })
-
-    const constructors = constructorsGroup[platformName]
-    constructors?.forEach(Constructor => {
-      this.addBlocker(new Constructor())
     })
   }
 
