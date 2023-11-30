@@ -2,11 +2,7 @@ import { loadPatterns } from '../../../modules/storage'
 import { type BlockMethod, type Blocker } from './Blocker/Blocker'
 import { Blocker1111Companies } from './Blocker/Blocker1111Companies'
 import { Blocker1111Jobs } from './Blocker/Blocker1111Jobs'
-import { Blocker518Jobs } from './Blocker/Blocker518Jobs'
 import { type PlatformName, detectPagePlatform } from './platform'
-import { Blocker518JobSimilar } from './Blocker/Blocker518JobSimilar'
-import { Blocker518Company } from './Blocker/Blocker518Company'
-import { Blocker518CompanyRecommendation } from './Blocker/Blocker518CompanyRecommendation'
 import { Blocker1111CompanySimilar } from './Blocker/Blocker1111CompanySimilar'
 import { Blocker1111Company } from './Blocker/Blocker1111Company'
 import { Blocker1111JobSimilar } from './Blocker/Blocker1111JobSimilar'
@@ -16,6 +12,7 @@ import { BlockerChickptJobRecommendation } from './Blocker/BlockerChickptJobReco
 import { cakeresumeBlockers } from './Blocker/blockerCakeresume'
 import { youratorBlockers } from './Blocker/blockerYourator'
 import { _104Blockers } from './Blocker/blocker104'
+import { _518Blockers } from './Blocker/blocker518'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
@@ -28,15 +25,10 @@ export class BlockerManager {
       cakeresume: cakeresumeBlockers,
       yourator: youratorBlockers,
       104: _104Blockers,
+      518: _518Blockers,
     }
 
     const constructorsGroup: Partial<Record<PlatformName, Array<new () => Blocker>>> = {
-      518: [
-        Blocker518Jobs,
-        Blocker518JobSimilar,
-        Blocker518Company,
-        Blocker518CompanyRecommendation,
-      ],
       1111: [
         Blocker1111Jobs,
         Blocker1111JobSimilar,
