@@ -9,10 +9,10 @@ import { Blocker1111JobSimilar } from './Blocker/Blocker1111JobSimilar'
 import { BlockerChickptJob } from './Blocker/BlockerChickptJob'
 import { BlockerChickptCompany } from './Blocker/BlockerChickptCompany'
 import { BlockerChickptJobRecommendation } from './Blocker/BlockerChickptJobRecommendation'
-import { cakeresumeBlockers } from './Blocker/blockerCakeresume'
-import { youratorBlockers } from './Blocker/blockerYourator'
-import { _104Blockers } from './Blocker/blocker104'
-import { _518Blockers } from './Blocker/blocker518'
+import { cakeresumeBlockers } from './Blocker/cakeresumeBlockers'
+import { youratorBlockers } from './Blocker/youratorBlockers'
+import { _104Blockers } from './Blocker/104Blockers'
+import { _518Blockers } from './Blocker/518Blockers'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
