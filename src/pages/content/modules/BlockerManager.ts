@@ -6,11 +6,6 @@ import { Blocker104JobRecommendation } from './Blocker/Blocker104JobRecommendati
 import { Blocker1111Companies } from './Blocker/Blocker1111Companies'
 import { Blocker1111Jobs } from './Blocker/Blocker1111Jobs'
 import { Blocker518Jobs } from './Blocker/Blocker518Jobs'
-import { BlockerCakeresumeJobs } from './Blocker/BlockerCakeresumeJobs'
-import { BlockerCakeresumeCompanies } from './Blocker/BlockerCakeresumeCompanies'
-import { BlockerCakeresumeCompany } from './Blocker/BlockerCakeresumeCompany'
-import { BlockerCakeresumeJobAboutJob } from './Blocker/BlockerCakeresumeJobAboutJob'
-import { BlockerCakeresumeJobCommonApplied } from './Blocker/BlockerCakeresumeJobCommonApplied'
 import { BlockerYouratorCompanies } from './Blocker/BlockerYouratorCompanies'
 import { BlockerYouratorCompany } from './Blocker/BlockerYouratorCompany'
 import { BlockerYouratorEventCompanies } from './Blocker/BlockerYouratorEventCompanies'
@@ -26,10 +21,10 @@ import { Blocker1111CompanySimilar } from './Blocker/Blocker1111CompanySimilar'
 import { Blocker1111Company } from './Blocker/Blocker1111Company'
 import { Blocker1111JobSimilar } from './Blocker/Blocker1111JobSimilar'
 import { BlockerYouratorJob } from './Blocker/BlockerYouratorJob'
-import { BlockerCakeresumeCompanySimilar } from './Blocker/BlockerCakeresumeCompanySimilar'
 import { BlockerChickptJob } from './Blocker/BlockerChickptJob'
 import { BlockerChickptCompany } from './Blocker/BlockerChickptCompany'
 import { BlockerChickptJobRecommendation } from './Blocker/BlockerChickptJobRecommendation'
+import { cakeresumeBlockers } from './Blocker/blockerCakeresume'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
@@ -38,15 +33,11 @@ export class BlockerManager {
     const platformName = detectPagePlatform()
     if (!platformName) throw new Error('Cannot detect platform!')
 
-    const constructorsGroup: Record<PlatformName, Array<new () => Blocker>> = {
-      cakeresume: [
-        BlockerCakeresumeJobs,
-        BlockerCakeresumeJobCommonApplied,
-        BlockerCakeresumeJobAboutJob,
-        BlockerCakeresumeCompanies,
-        BlockerCakeresumeCompany,
-        BlockerCakeresumeCompanySimilar,
-      ],
+    const blockersGroup: Partial<Record<PlatformName, Blocker[]>> = {
+      cakeresume: cakeresumeBlockers,
+    }
+
+    const constructorsGroup: Partial<Record<PlatformName, Array<new () => Blocker>>> = {
       yourator: [
         BlockerYouratorJobs,
         BlockerYouratorJob,
@@ -82,8 +73,13 @@ export class BlockerManager {
       ],
     }
 
+    const blockers = blockersGroup[platformName]
+    blockers?.forEach(blocker => {
+      this.addBlocker(blocker)
+    })
+
     const constructors = constructorsGroup[platformName]
-    constructors.forEach(Constructor => {
+    constructors?.forEach(Constructor => {
       this.addBlocker(new Constructor())
     })
   }
