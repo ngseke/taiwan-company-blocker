@@ -6,7 +6,7 @@ import { type Pattern, type PatternType } from '../../content/modules/pattern'
 import InstructionArticle from './InstructionArticle.vue'
 import Title from './Title.vue'
 import Button from '../../../components/Button.vue'
-import { useBeforeUnload } from '../../content/composables/useBeforeUnload'
+import { useBeforeUnload } from '../../popup/composables/useBeforeUnload'
 import { syncRef } from '@vueuse/core'
 
 const jobTitlePatternsDraft = ref<Pattern[] | null>(null)
