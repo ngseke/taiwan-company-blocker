@@ -138,4 +138,8 @@ export class BlockerManager {
   setBlockMethod (method: BlockMethod) {
     this.blockers.forEach((blocker) => { blocker.setBlockMethod(method) })
   }
+
+  enableDebugger () {
+    this.blockers.forEach((blocker) => { blocker.enableDebugger() })
+  }
 }

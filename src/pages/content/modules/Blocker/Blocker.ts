@@ -5,6 +5,7 @@ import { Marker } from '../Marker'
 import { ActionActivator, type ActivatorPositionCallback } from '../ActionActivator'
 import { without } from 'lodash-es'
 import { CLICK_ITEM_ACTION, emitter } from '../emitter'
+import { BlockerDebugger } from '../BlockerDebugger'
 
 export type BlockMethod = 'opacity' | 'hide'
 export type BlockState = 'block' | 'reveal'
@@ -16,9 +17,12 @@ export abstract class Blocker {
   private method: BlockMethod = 'opacity'
   private readonly marker = new Marker()
   private actionActivator: ActionActivator | null = null
+  private blockerDebugger: BlockerDebugger | null = null
   private state: BlockState = 'block'
   private jobTitlePatterns: string[] | null = null
   private companyNamePatterns: string[] | null = null
+
+  protected readonly description: string | null = null
 
   private get isStarted () {
     return Boolean(this.observer)
@@ -197,6 +201,18 @@ export abstract class Blocker {
     })
       .start()
 
+    if (this.isDebuggerEnabled) {
+      this.blockerDebugger = new BlockerDebugger({
+        marker: this.marker,
+        getDebuggerInfo: ($item) => ({
+          description: this.description,
+          jobTitle: this.getItemJobTitle($item),
+          companyName: this.getItemCompanyName($item),
+        }),
+      })
+        .start()
+    }
+
     return this
   }
 
@@ -208,6 +224,7 @@ export abstract class Blocker {
       .forEach($item => { this.unmodifyItem($item) })
 
     this.actionActivator?.stop()
+    this.blockerDebugger?.stop()
 
     return this
   }
@@ -219,5 +236,11 @@ export abstract class Blocker {
     this.tryModify()
 
     return this
+  }
+
+  private isDebuggerEnabled = false
+
+  enableDebugger () {
+    this.isDebuggerEnabled = true
   }
 }

@@ -3,12 +3,14 @@ import { type BlockMethod } from '../pages/content/modules/Blocker/Blocker'
 import { type PatternType, type Pattern } from '../pages/content/modules/pattern'
 
 export const ENABLED_STORAGE_KEY = 'enabled'
+export const DEBUGGER_ENABLED_STORAGE_KEY = 'debuggerEnabled'
 export const JOB_TITLE_PATTERNS_STORAGE_KEY = 'jobTitlePatterns'
 export const COMPANY_NAME_PATTERNS_STORAGE_KEY = 'companyNamePatterns'
 export const BLOCK_METHOD_KEY = 'blockMethod'
 
 export interface SyncStorageSchema {
   [ENABLED_STORAGE_KEY]: boolean
+  [DEBUGGER_ENABLED_STORAGE_KEY]: boolean
   [JOB_TITLE_PATTERNS_STORAGE_KEY]: Pattern[]
   [COMPANY_NAME_PATTERNS_STORAGE_KEY]: Pattern[]
   [BLOCK_METHOD_KEY]: BlockMethod
@@ -16,6 +18,7 @@ export interface SyncStorageSchema {
 
 export const syncStorageDefaultValues: SyncStorageSchema = {
   [ENABLED_STORAGE_KEY]: true,
+  [DEBUGGER_ENABLED_STORAGE_KEY]: false,
   [JOB_TITLE_PATTERNS_STORAGE_KEY]: [],
   [COMPANY_NAME_PATTERNS_STORAGE_KEY]: [],
   [BLOCK_METHOD_KEY]: 'opacity',
@@ -42,6 +45,14 @@ export async function loadIsEnabled () {
 
 export async function saveIsEnabled (isEnabled: boolean) {
   await setSyncStorage(ENABLED_STORAGE_KEY, isEnabled)
+}
+
+export async function loadIsDebuggerEnabled () {
+  return await getSyncStorage(DEBUGGER_ENABLED_STORAGE_KEY)
+}
+
+export async function saveIsDebuggerEnabled (isEnabled: boolean) {
+  await setSyncStorage(DEBUGGER_ENABLED_STORAGE_KEY, isEnabled)
 }
 
 function getStorageKeyByPatternType (type: PatternType) {

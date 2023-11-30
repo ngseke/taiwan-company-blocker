@@ -1,5 +1,5 @@
 import { QUERY_BLOCKED_COUNT_MESSAGE_NAME, QUERY_PLATFORM_NAME_MESSAGE_NAME, REVEAL_MESSAGE_NAME, UNREVEAL_MESSAGE_NAME } from '../../modules/constants'
-import { loadBlockMethod, loadIsEnabled } from '../../modules/storage'
+import { loadBlockMethod, loadIsDebuggerEnabled, loadIsEnabled } from '../../modules/storage'
 import { mountVueApp } from './main'
 import { BlockerManager } from './modules/BlockerManager'
 import { injectGlobalCssVariables } from './modules/injectGlobalCssVariables'
@@ -33,8 +33,13 @@ let previousIsEnabled = false
 async function startOrStop () {
   const isEnabled = await loadIsEnabled()
   const blockMethod = await loadBlockMethod()
+  const isDebuggerEnabled = await loadIsDebuggerEnabled()
 
   blockerManager.setBlockMethod(blockMethod)
+
+  if (isDebuggerEnabled) {
+    blockerManager.enableDebugger()
+  }
 
   if (isEnabled) {
     if (previousIsEnabled === isEnabled) {
