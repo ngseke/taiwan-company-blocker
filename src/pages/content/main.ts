@@ -2,7 +2,7 @@ import { waitForElement } from './modules/dom'
 import { createApp } from 'vue'
 import App from './App.vue'
 
-import tailwindStyle from './styles/tailwind.sass?inline'
+import style from './content.sass?inline'
 
 export async function mountVueApp () {
   const $root = document.createElement('div')
@@ -12,7 +12,7 @@ export async function mountVueApp () {
   const $shadow = $root.attachShadow({ mode: 'open' })
 
   const $style = document.createElement('style')
-  $style.innerText = tailwindStyle
+  $style.innerText = style
   $shadow.append($style)
 
   const $vueApp = document.createElement('div')
