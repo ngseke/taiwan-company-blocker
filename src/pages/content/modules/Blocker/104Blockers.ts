@@ -1,6 +1,6 @@
-import { type CreateBlockerOptions, createBlocker } from './createBlocker'
+import { type CreateBlockerOptions } from './createBlocker'
 
-const options: CreateBlockerOptions[] = [
+export const _104BlockerOptions: CreateBlockerOptions[] = [
   {
     description: '`/search` 公司列表、 `/topic/recommend` 「為你推薦」公司列表',
     itemsSelector: '.container .company-list, .company-lists__item',
@@ -62,5 +62,3 @@ const options: CreateBlockerOptions[] = [
     companyNameStrategy: 'b.h4.d-block.text-truncate',
   },
 ]
-
-export const _104Blockers = options.map(createBlocker)

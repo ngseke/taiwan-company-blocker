@@ -1,6 +1,6 @@
-import { type CreateBlockerOptions, createBlocker } from './createBlocker'
+import { type CreateBlockerOptions } from './createBlocker'
 
-const options: CreateBlockerOptions[] = [
+export const youratorBlockerOptions: CreateBlockerOptions[] = [
   {
     description: '`/companies` 公司列表',
     itemsSelector: '#y-company-list-cards .container .company-cards__column',
@@ -54,5 +54,3 @@ const options: CreateBlockerOptions[] = [
     activatorPosition: 'bottom-right',
   },
 ]
-
-export const youratorBlockers = options.map(createBlocker)

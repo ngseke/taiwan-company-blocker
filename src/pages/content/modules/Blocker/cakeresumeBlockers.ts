@@ -1,6 +1,6 @@
-import { type CreateBlockerOptions, createBlocker } from './createBlocker'
+import { type CreateBlockerOptions } from './createBlocker'
 
-const options: CreateBlockerOptions[] = [
+export const cakeresumeBlockerOptions: CreateBlockerOptions[] = [
   {
     description: '`/companies` 公司列表',
     itemsSelector: '[class^=CompanySearchItem_wrapper]',
@@ -68,5 +68,3 @@ const options: CreateBlockerOptions[] = [
     companyNameStrategy: '[class^=JobSearchItem_companyName]',
   },
 ]
-
-export const cakeresumeBlockers = options.map(createBlocker)

@@ -1,6 +1,6 @@
-import { type CreateBlockerOptions, createBlocker } from './createBlocker'
+import { type CreateBlockerOptions } from './createBlocker'
 
-const options: CreateBlockerOptions[] = [
+export const chickptBlockerOptions: CreateBlockerOptions[] = [
   {
     description: '`/` 職缺列表',
     itemsSelector: 'ul#job-list li',
@@ -30,5 +30,3 @@ const options: CreateBlockerOptions[] = [
     activatorPosition: 'bottom-right',
   },
 ]
-
-export const chickptBlockers = options.map(createBlocker)

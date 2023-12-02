@@ -1,13 +1,14 @@
 import { loadPatterns } from '../../../modules/storage'
 import { type Blocker } from './Blocker/Blocker'
 import { type PlatformName, detectPagePlatform } from './platform'
-import { cakeresumeBlockers } from './Blocker/cakeresumeBlockers'
-import { youratorBlockers } from './Blocker/youratorBlockers'
-import { _104Blockers } from './Blocker/104Blockers'
-import { _518Blockers } from './Blocker/518Blockers'
-import { _1111Blockers } from './Blocker/1111Blockers'
-import { chickptBlockers } from './Blocker/chickptBlockers'
+import { cakeresumeBlockerOptions } from './Blocker/cakeresumeBlockers'
+import { youratorBlockerOptions } from './Blocker/youratorBlockers'
+import { _104BlockerOptions } from './Blocker/104Blockers'
+import { _518BlockerOptions } from './Blocker/518Blockers'
+import { _1111BlockerOptions } from './Blocker/1111Blockers'
+import { chickptBlockerOptions } from './Blocker/chickptBlockers'
 import { type BlockMethod } from '../../../modules/BlockMethod'
+import { createBlocker, type CreateBlockerOptions } from './Blocker/createBlocker'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
@@ -16,17 +17,19 @@ export class BlockerManager {
     const platformName = detectPagePlatform()
     if (!platformName) throw new Error('Cannot detect platform!')
 
-    const blockersGroup: Record<PlatformName, Blocker[]> = {
-      cakeresume: cakeresumeBlockers,
-      yourator: youratorBlockers,
-      104: _104Blockers,
-      518: _518Blockers,
-      1111: _1111Blockers,
-      chickpt: chickptBlockers,
+    const blockerOptionsGroup: Record<PlatformName, CreateBlockerOptions[]> = {
+      cakeresume: cakeresumeBlockerOptions,
+      yourator: youratorBlockerOptions,
+      104: _104BlockerOptions,
+      518: _518BlockerOptions,
+      1111: _1111BlockerOptions,
+      chickpt: chickptBlockerOptions,
     }
 
-    const blockers = blockersGroup[platformName]
-    blockers.forEach(blocker => {
+    const blockerOptions = blockerOptionsGroup[platformName]
+
+    blockerOptions.forEach(option => {
+      const blocker = createBlocker(option)
       this.addBlocker(blocker)
     })
   }
