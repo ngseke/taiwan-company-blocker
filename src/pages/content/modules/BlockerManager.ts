@@ -1,5 +1,5 @@
 import { loadPatterns } from '../../../modules/storage'
-import { type BlockMethod, type Blocker } from './Blocker/Blocker'
+import { type Blocker } from './Blocker/Blocker'
 import { type PlatformName, detectPagePlatform } from './platform'
 import { cakeresumeBlockers } from './Blocker/cakeresumeBlockers'
 import { youratorBlockers } from './Blocker/youratorBlockers'
@@ -7,6 +7,7 @@ import { _104Blockers } from './Blocker/104Blockers'
 import { _518Blockers } from './Blocker/518Blockers'
 import { _1111Blockers } from './Blocker/1111Blockers'
 import { chickptBlockers } from './Blocker/chickptBlockers'
+import { type BlockMethod } from '../../../modules/BlockMethod'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []

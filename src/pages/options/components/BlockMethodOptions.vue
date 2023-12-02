@@ -1,21 +1,23 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import Radio from '../../../components/Radio.vue'
 import { useChromeStorage } from '../../../composables/useChromeStorage'
+import { blockMethods, formatBlockMethod } from '../../../modules/BlockMethod'
 import { BLOCK_METHOD_KEY } from '../../../modules/storage'
-import { type BlockMethod } from '../../content/modules/Blocker/Blocker'
+
 import Title from './Title.vue'
 
 const blockMethod = useChromeStorage(BLOCK_METHOD_KEY)
 
-const options: Array<{ label: string, value: BlockMethod }> = [
-  { label: '淡化', value: 'opacity' },
-  { label: '隱藏', value: 'hide' },
-]
+const options = computed(() => blockMethods.map((value) => ({
+  label: formatBlockMethod(value),
+  value,
+})))
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
-    <Title>封鎖方式</Title>
+    <Title>封鎖模式</Title>
 
     <div class="flex gap-6">
       <Radio

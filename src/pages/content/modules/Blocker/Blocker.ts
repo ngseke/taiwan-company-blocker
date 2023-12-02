@@ -6,8 +6,8 @@ import { ActionActivator, type ActivatorPositionCallback } from '../ActionActiva
 import { without } from 'lodash-es'
 import { CLICK_ITEM_ACTION, emitter } from '../emitter'
 import { BlockerDebugger } from '../BlockerDebugger'
+import { type BlockMethod } from '../../../../modules/BlockMethod'
 
-export type BlockMethod = 'opacity' | 'hide'
 export type BlockState = 'block' | 'reveal'
 
 export type MarkValue = 'matched' | 'notMatched'

@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash-es'
-import { type BlockMethod } from '../pages/content/modules/Blocker/Blocker'
+import { type BlockMethod } from './BlockMethod'
 import { type PatternType, type Pattern } from '../pages/content/modules/pattern'
 
 export const ENABLED_STORAGE_KEY = 'enabled'
