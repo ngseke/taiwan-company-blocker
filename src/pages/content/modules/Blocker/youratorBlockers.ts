@@ -3,7 +3,7 @@ import { type CreateBlockerOptions } from './createBlocker'
 export const youratorBlockerOptions: CreateBlockerOptions[] = [
   {
     description: '`/companies` 公司列表',
-    itemsSelector: '#y-company-list-cards .container .company-cards__column',
+    itemsSelector: '#y-company-list-cards .container .y-company-card',
     companyNameStrategy: '.y-new-card__title.flex-initial.truncate',
   },
   {
@@ -18,7 +18,7 @@ export const youratorBlockerOptions: CreateBlockerOptions[] = [
   },
   {
     description: '`/companies/*` 公司頁下方「相關推薦公司」列表（登入後可見）',
-    itemsSelector: '.recommend-companies > .col-sm-3.col-xs-12.flex',
+    itemsSelector: '.recommend-companies .y-company-card',
     companyNameStrategy: '.y-new-card__title',
   },
   {
