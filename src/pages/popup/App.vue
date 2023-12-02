@@ -4,6 +4,7 @@ import PopupLayout from './components/PopupLayout.vue'
 import Statistic from './components/Statistic.vue'
 import { useContentMessage } from './composables/useContentMessage'
 import Button from '../../components/Button.vue'
+import BlockMethodSelect from './components/BlockMethodSelect.vue'
 
 function openOptions () {
   chrome.runtime.openOptionsPage()
@@ -17,7 +18,7 @@ const { platformName, blockedCount } = useContentMessage()
     <div class="flex h-full flex-col justify-between">
       <div class="flex flex-col gap-4">
         <h1 class="text-lg font-bold leading-6">
-          <a href="#" @click.stop>Taiwan Company Blocker</a>
+          Taiwan Company Blocker
         </h1>
 
         <div class="flex gap-7">
@@ -26,6 +27,9 @@ const { platformName, blockedCount } = useContentMessage()
             name="求職平台"
             :value="formatPlatformName(platformName) ?? '未偵測'"
           />
+          <Statistic :muted="blockedCount == null" name="封鎖模式">
+            <BlockMethodSelect />
+          </Statistic>
           <Statistic
             :muted="blockedCount == null"
             name="此頁已過濾數量"

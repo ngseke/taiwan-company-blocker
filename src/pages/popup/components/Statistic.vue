@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   name: string
-  value: unknown
+  value?: unknown
   muted?: boolean
 }>()
 </script>
@@ -13,7 +13,10 @@ defineProps<{
       class="text-xl font-medium"
       :class="{ ' text-neutral-600': muted }"
     >
-      {{ value ?? '-' }}
+      <slot />
+      <template v-if="!$slots.default">
+        {{ value ?? '-' }}
+      </template>
     </div>
   </div>
 </template>
