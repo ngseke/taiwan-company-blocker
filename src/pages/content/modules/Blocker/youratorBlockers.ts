@@ -17,6 +17,11 @@ const options: CreateBlockerOptions[] = [
     },
   },
   {
+    description: '`/companies/*` 公司頁下方「相關推薦公司」列表（登入後可見）',
+    itemsSelector: '.recommend-companies > .col-sm-3.col-xs-12.flex',
+    companyNameStrategy: '.y-new-card__title',
+  },
+  {
     description: '`/jobs` 職缺列表',
     itemsSelector: '#normal-jobs > div > a',
     jobTitleStrategy: '.flex-initial.mb-1.text-general.font-bold.text-lightest-navy.truncate',
