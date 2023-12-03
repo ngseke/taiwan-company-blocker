@@ -82,11 +82,16 @@ syncRef(isRegisteredBeforeUnload, isDirty, {})
       :rows="10"
     />
 
-    <div class="flex justify-end">
+    <div
+      class="
+      sticky bottom-0 -my-4 flex justify-end bg-neutral-900 py-4 before:absolute
+      before:-top-2 before:left-0 before:h-2 before:w-full before:bg-gradient-to-t before:from-neutral-900 before:to-transparent before:content-['']"
+    >
       <Button color="primary" :disabled="!isDirty" @click="submit">
         儲存
       </Button>
     </div>
+
     <hr class="border-neutral-800">
 
     <InstructionArticle />
