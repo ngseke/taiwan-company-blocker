@@ -62,6 +62,15 @@ export const cakeresumeBlockerOptions: CreateBlockerOptions[] = [
     activatorPosition: 'bottom-right',
   },
   {
+    description: '`/companies/*/jobs/*` 職缺最下方「相似職缺」列表',
+    itemsSelector: `
+      [class^=SimilarJobsBlock_jobItemsContainer__] >
+      [class^=JobItemLarge_container__]
+    `,
+    jobTitleStrategy: 'a[class^=JobItemLarge_jobTitle__]',
+    companyNameStrategy: 'a[class^=JobItemLarge_pageName__]',
+  },
+  {
     description: '`/jobs` 職缺列表',
     itemsSelector: '[class^=JobSearchItem_wrapper__]',
     jobTitleStrategy: '[class^=JobSearchItem_jobTitle]',
