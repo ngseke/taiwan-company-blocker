@@ -1,11 +1,6 @@
-import { beforeEach, expect, test, vi } from 'vitest'
+import { expect, test, vi } from 'vitest'
 import { ENABLED_STORAGE_KEY, loadIsEnabled, saveIsEnabled } from './storage'
 import { mockChrome } from '../../__tests__/chrome'
-
-beforeEach(() => {
-  // To ensure that Chrome is mocked in every test
-  vi.stubGlobal('chrome', undefined)
-})
 
 test('loadIsEnabled', async () => {
   const chrome = mockChrome()
