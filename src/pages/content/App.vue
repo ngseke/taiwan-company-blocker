@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import Button from '../../components/Button.vue'
 import Input from '../../components/Input.vue'
 import { CLICK_ITEM_ACTION } from './modules/emitter'
@@ -8,24 +8,13 @@ import Header from './components/Header.vue'
 import { OPEN_OPTIONS_PAGE_MESSAGE_NAME } from '../../modules/constants'
 import Checkbox from '../../components/Checkbox.vue'
 import { appendRule } from '../../modules/storage'
-import { useScrollLock } from './composables/useScrollLock'
 import { type Nullish } from '../../types/Nullish'
 import SearchLink from './components/SearchLink.vue'
+import Dialog from '../../components/Dialog.vue'
 
-const dialogRef = ref<HTMLDialogElement | null>(null)
 const isOpened = ref(false)
-
-function open () {
-  dialogRef.value?.showModal()
-  isOpened.value = true
-}
-
-function close () {
-  dialogRef.value?.close()
-}
-
-const isLocked = useScrollLock()
-watch(isOpened, (isOpened) => { isLocked.value = isOpened })
+function open () { isOpened.value = true }
+function close () { isOpened.value = false }
 
 const isJobTitleChecked = ref(false)
 const isCompanyNameChecked = ref(false)
@@ -72,12 +61,8 @@ const searchSuffixes = ['PTT', '面試', '薪水']
 
 <template>
   <div class="text-left font-sans text-sm tracking-wide">
-    <dialog
-      ref="dialogRef"
-      class="overflow-visible bg-transparent p-0 backdrop:bg-neutral-900/70 backdrop:backdrop-blur-[1px]"
-      @close="isOpened = false"
-    >
-      <div v-if="isOpened" class="flex w-[420px] max-w-full flex-col gap-4 rounded-xl bg-neutral-900 p-5 text-neutral-300 shadow-2xl">
+    <Dialog :open="isOpened" @close="close">
+      <div v-if="isOpened" class="flex flex-col gap-4">
         <Header />
         <div class="flex flex-col gap-4">
           <div class="flex items-center gap-2">
@@ -131,6 +116,6 @@ const searchSuffixes = ['PTT', '面試', '薪水']
           </SearchLink>
         </div>
       </div>
-    </dialog>
+    </Dialog>
   </div>
 </template>
