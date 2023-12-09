@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import Textarea from '../../../components/Textarea.vue'
 import { loadRules, saveRules } from '../../../modules/storage'
 import InstructionArticle from './InstructionArticle.vue'
@@ -7,6 +7,8 @@ import Title from './Title.vue'
 import Button from '../../../components/Button.vue'
 import { useBeforeUnload } from '../../popup/composables/useBeforeUnload'
 import { syncRef } from '@vueuse/core'
+import IllogicalRulesAlert from './IllogicalRulesAlert.vue'
+import { checkHasIllogicalRule } from '../../content/modules/rule'
 
 const jobTitleRulesDraft = ref<string | null>(null)
 const companyNameRulesDraft = ref<string | null>(null)
@@ -38,6 +40,15 @@ async function submit () {
 const { isRegisteredBeforeUnload } = useBeforeUnload()
 
 syncRef(isRegisteredBeforeUnload, isDirty, {})
+
+const hasIllogicalRules = computed(() => (
+  jobTitleRulesDraft.value != null &&
+  companyNameRulesDraft.value != null &&
+  (
+    checkHasIllogicalRule(jobTitleRulesDraft.value) ||
+    checkHasIllogicalRule(companyNameRulesDraft.value)
+  )
+))
 </script>
 
 <template>
@@ -58,13 +69,15 @@ syncRef(isRegisteredBeforeUnload, isDirty, {})
     />
 
     <div
-      class="
-      sticky bottom-0 -my-4 flex justify-end bg-neutral-900 py-4 before:absolute
+      class="sticky bottom-0 -my-4 flex flex-col gap-4 bg-neutral-900 py-4 before:absolute
       before:-top-2 before:left-0 before:h-2 before:w-full before:bg-gradient-to-t before:from-neutral-900 before:to-transparent before:content-['']"
     >
-      <Button color="primary" :disabled="!isDirty" @click="submit">
-        儲存
-      </Button>
+      <IllogicalRulesAlert :show="hasIllogicalRules" />
+      <div class="flex justify-end">
+        <Button color="primary" :disabled="!isDirty" @click="submit">
+          儲存
+        </Button>
+      </div>
     </div>
 
     <hr class="border-neutral-800">

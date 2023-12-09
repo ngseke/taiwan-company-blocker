@@ -9,3 +9,9 @@ export function normalizeRulesString (rules: string) {
     ),
   ].join('\n')
 }
+
+export function checkHasIllogicalRule (rules: string) {
+  return rules.split('\n')
+    .map((rule) => rule.trim())
+    .some(rule => rule === '*' || rule === '**')
+}
