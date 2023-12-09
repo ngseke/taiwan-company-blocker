@@ -1,4 +1,4 @@
-import { loadPatterns } from '../../../modules/storage'
+import { loadRules } from '../../../modules/storage'
 import { type Blocker } from './Blocker/Blocker'
 import { type PlatformName, detectPagePlatform } from './platform'
 import { cakeresumeBlockerOptions } from './Blocker/cakeresumeBlockers'
@@ -39,13 +39,13 @@ export class BlockerManager {
   }
 
   async start () {
-    const companyNamePatterns = await loadPatterns('companyName')
-    const jobTitlePatterns = await loadPatterns('jobTitle')
+    const companyNameRules = await loadRules('companyName')
+    const jobTitleRules = await loadRules('jobTitle')
 
     this.blockers.forEach((blocker) => {
       blocker
-        .setCompanyNamePatterns(companyNamePatterns.map(({ pattern }) => pattern))
-        .setJobTitlePatterns(jobTitlePatterns.map(({ pattern }) => pattern))
+        .setCompanyNamePatterns(companyNameRules.split('\n'))
+        .setJobTitlePatterns(jobTitleRules.split('\n'))
         .start()
     })
   }
@@ -62,13 +62,13 @@ export class BlockerManager {
   }
 
   async reload () {
-    const companyNamePatterns = await loadPatterns('companyName')
-    const jobTitlePatterns = await loadPatterns('jobTitle')
+    const companyNameRules = await loadRules('companyName')
+    const jobTitleRules = await loadRules('jobTitle')
 
     this.blockers.forEach((blocker) => {
       blocker
-        .setCompanyNamePatterns(companyNamePatterns.map(({ pattern }) => pattern))
-        .setJobTitlePatterns(jobTitlePatterns.map(({ pattern }) => pattern))
+        .setCompanyNamePatterns(companyNameRules.split('\n'))
+        .setJobTitlePatterns(jobTitleRules.split('\n'))
         .reload()
     })
   }

@@ -1,6 +1,4 @@
 import { isMatch } from 'matcher'
-import { type Nullish } from '../../../types/Nullish'
-import { type PlatformName } from './platform'
 import RegexParser from 'regex-parser'
 
 export function isRegexpLiteral (maybeRegexpLiteral: string) {
@@ -71,13 +69,4 @@ export function match (input: string, pattern: string | string[]) {
     .some((regex) => regex.test(trimmedInput))
 
   return isMatchedStringPatterns || isMatchedRegexpPatterns
-}
-
-export type PatternType = 'jobTitle' | 'companyName'
-
-export type RuleType = PatternType
-
-export interface Pattern {
-  pattern: string
-  platform?: Nullish<PlatformName[]>
 }

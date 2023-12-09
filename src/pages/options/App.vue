@@ -2,9 +2,9 @@
 import Card from './components/Card.vue'
 import Footer from './components/Footer.vue'
 import BlockMethodOptions from './components/BlockMethodOptions.vue'
-import PatternsOptions from './components/PatternsOptions.vue'
 import Header from './components/Header.vue'
 import EnableOptions from './components/EnableOptions.vue'
+import RulesOptions from './components/RulesOptions.vue'
 </script>
 
 <template>
@@ -17,7 +17,7 @@ import EnableOptions from './components/EnableOptions.vue'
       </Card>
 
       <Card>
-        <PatternsOptions />
+        <RulesOptions />
       </Card>
 
       <Card>

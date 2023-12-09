@@ -7,7 +7,7 @@ import { useEmitter } from './composables/useEmitter'
 import Header from './components/Header.vue'
 import { OPEN_OPTIONS_PAGE_MESSAGE_NAME } from '../../modules/constants'
 import Checkbox from '../../components/Checkbox.vue'
-import { appendPattern } from '../../modules/storage'
+import { appendRule } from '../../modules/storage'
 import { useScrollLock } from './composables/useScrollLock'
 import { type Nullish } from '../../types/Nullish'
 import SearchLink from './components/SearchLink.vue'
@@ -55,10 +55,10 @@ function openOptions () {
 async function submit () {
   close()
   if (isJobTitleChecked.value) {
-    await appendPattern('jobTitle', { pattern: jobTitleDraft.value })
+    await appendRule('jobTitle', jobTitleDraft.value)
   }
   if (isCompanyNameChecked.value) {
-    await appendPattern('companyName', { pattern: companyNameDraft.value })
+    await appendRule('companyName', companyNameDraft.value)
   }
 }
 
