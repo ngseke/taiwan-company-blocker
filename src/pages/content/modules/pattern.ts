@@ -1,4 +1,3 @@
-import { isMatch } from 'matcher'
 import RegexParser from 'regex-parser'
 
 export function isRegexpLiteral (maybeRegexpLiteral: string) {
@@ -42,6 +41,32 @@ export function parsePattern (value: string) {
   return result
 }
 
+function isMatch (input: string, patterns: string[]): boolean {
+  input = input.trim().toLowerCase()
+
+  for (let pattern of patterns) {
+    pattern = pattern.trim().toLowerCase()
+    if (pattern === input) return true
+
+    const startsWithWildcard = pattern.startsWith('*')
+    const endsWithWildcard = pattern.endsWith('*')
+    const trimmedPattern = pattern.slice(
+      startsWithWildcard ? 1 : 0,
+      endsWithWildcard ? -1 : undefined
+    )
+
+    if (startsWithWildcard && endsWithWildcard) {
+      if (input.includes(trimmedPattern)) return true
+    } else if (startsWithWildcard) {
+      if (input.endsWith(trimmedPattern)) return true
+    } else if (endsWithWildcard) {
+      if (input.startsWith(trimmedPattern)) return true
+    }
+  }
+
+  return false
+}
+
 export function match (input: string, pattern: string | string[]) {
   input = input.trim()
   if (!input) return false
@@ -58,15 +83,12 @@ export function match (input: string, pattern: string | string[]) {
     .filter((pattern): pattern is ParsedRegexPattern => pattern?.type === 'regex')
     .map(({ value }) => value)
 
-  const trimmedInput = input.trim()
-
   const isMatchedStringPatterns = isMatch(
-    trimmedInput,
+    input,
     parsedStringPatterns ?? [],
-    { caseSensitive: false }
   )
   const isMatchedRegexpPatterns = parsedRegexPatterns
-    .some((regex) => regex.test(trimmedInput))
+    .some((regex) => regex.test(input))
 
   return isMatchedStringPatterns || isMatchedRegexpPatterns
 }

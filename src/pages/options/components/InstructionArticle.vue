@@ -9,7 +9,6 @@ import Code from './Code.vue'
     </p>
     <ol class="list-inside list-decimal">
       <li><Code>*打字員</Code> 會匹配到以「<i>打字員</i>」結尾的項目</li>
-      <li><Code>*海外*實習*</Code> 會匹配到有包含「<i>海外</i>」...「<i>實習</i>」的項目</li>
       <li><Code>產品行銷專員</Code> 只會匹配到和「<i>產品行銷專員</i>」<strong>一字不差</strong>的項目</li>
     </ol>
     <p>
