@@ -75,6 +75,8 @@ export function match (input: string, pattern: string | string[]) {
 
 export type PatternType = 'jobTitle' | 'companyName'
 
+export type RuleType = PatternType
+
 export interface Pattern {
   pattern: string
   platform?: Nullish<PlatformName[]>
