@@ -35,7 +35,7 @@ export async function getSyncStorage <
 
 export async function setSyncStorage<
   Key extends SyncStorageKey
-> (key: string, value: SyncStorageSchema[Key]) {
+> (key: Key, value: SyncStorageSchema[Key]) {
   await chrome.storage.sync.set({ [key]: value })
 }
 
