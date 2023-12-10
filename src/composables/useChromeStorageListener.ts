@@ -1,13 +1,18 @@
 import { onMounted, onUnmounted } from 'vue'
+import { type SyncStorageKey } from '../modules/storage'
+
+type Handler = Parameters<typeof chrome.storage.onChanged.addListener>[0]
 
 export function useChromeStorageListener (
-  handler: Parameters<typeof chrome.storage.onChanged.addListener>[0]
+  handler: Handler,
+  key?: SyncStorageKey
 ) {
-  onMounted(async () => {
-    chrome.storage.onChanged.addListener(handler)
-  })
+  const changeHandler: Handler = (changes, ...rest) => {
+    if (!key || key in changes) {
+      handler(changes, ...rest)
+    }
+  }
 
-  onUnmounted(() => {
-    chrome.storage.onChanged.removeListener(handler)
-  })
+  onMounted(() => { chrome.storage.onChanged.addListener(changeHandler) })
+  onUnmounted(() => { chrome.storage.onChanged.removeListener(changeHandler) })
 }
