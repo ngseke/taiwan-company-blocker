@@ -9,8 +9,8 @@ import { OPEN_OPTIONS_PAGE_MESSAGE_NAME } from '../../modules/constants'
 import Checkbox from '../../components/Checkbox.vue'
 import { appendRule } from '../../modules/storage'
 import { type Nullish } from '../../types/Nullish'
-import SearchLink from './components/SearchLink.vue'
 import Dialog from '../../components/Dialog.vue'
+import SearchLinkSection from './components/SearchLinkSection.vue'
 
 const isOpened = ref(false)
 function open () { isOpened.value = true }
@@ -55,8 +55,6 @@ const isSubmitDisabled = computed(() => !(
   (isJobTitleChecked.value && jobTitleDraft.value.trim()) ||
   (isCompanyNameChecked.value && companyNameDraft.value.trim())
 ))
-
-const searchSuffixes = ['PTT', '面試', '薪水']
 </script>
 
 <template>
@@ -96,25 +94,10 @@ const searchSuffixes = ['PTT', '面試', '薪水']
           </Button>
         </div>
 
-        <hr class="border-neutral-800">
-
-        <div class="flex flex-wrap gap-3">
-          <span>搜尋公司：</span>
-          <SearchLink
-            :disabled="!companyName"
-            :href="`https://www.google.com/search?q=${companyName}`"
-          >
-            Google
-          </SearchLink>
-          <SearchLink
-            v-for="suffix in searchSuffixes"
-            :key="suffix"
-            :disabled="!companyName"
-            :href="`https://www.google.com/search?q=${companyName} ${suffix}`"
-          >
-            {{ suffix }}
-          </SearchLink>
-        </div>
+        <template v-if="companyName">
+          <hr class="border-neutral-800">
+          <SearchLinkSection :companyName="companyName" />
+        </template>
       </div>
     </Dialog>
   </div>
