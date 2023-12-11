@@ -31,6 +31,7 @@ export default defineManifest(async () => ({
         'https://www.chickpt.com.tw/*',
         'https://chickpt.com.tw/*',
         'https://meet.jobs/*',
+        'https://job.taiwanjobs.gov.tw/*',
       ],
       js: ['src/pages/content/index.ts'],
       run_at: 'document_start',

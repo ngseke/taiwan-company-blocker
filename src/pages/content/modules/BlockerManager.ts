@@ -10,6 +10,7 @@ import { type BlockMethod } from '../../../modules/BlockMethod'
 import { createBlocker, type CreateBlockerOptions } from './Blocker/createBlocker'
 import { loadParsedRules } from '../../../modules/ruleStorage'
 import { meetJobsBlockerOptions } from './Blocker/meetJobsBlockers'
+import { taiwanJobsBlockerOptions } from './Blocker/taiwanJobsBlocker'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
@@ -26,6 +27,7 @@ export class BlockerManager {
       1111: _1111BlockerOptions,
       chickpt: chickptBlockerOptions,
       meetJobs: meetJobsBlockerOptions,
+      taiwanJobs: taiwanJobsBlockerOptions,
     }
 
     const blockerOptions = blockerOptionsGroup[platformName]
