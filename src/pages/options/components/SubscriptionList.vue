@@ -5,6 +5,7 @@ import { type Nullish } from '../../../types/Nullish'
 import Checkbox from '../../../components/Checkbox.vue'
 import { type SubscriptionResults, type Subscription } from '../../../modules/Subscription'
 import { formatRelativeTime } from '../../../modules/date'
+import { useNow } from '@vueuse/core'
 
 const props = defineProps<{
   modelValue?: Nullish<Subscription[]>
@@ -37,6 +38,11 @@ function setCheckboxValue (index: number, isEnabled: boolean) {
   newList[index] = newSubscription
   emit('update:modelValue', newList)
 }
+
+const now = useNow({ interval: 1000 })
+function getRelativeTime (timestamp?: number) {
+  return formatRelativeTime(timestamp, now.value)
+}
 </script>
 
 <template>
@@ -67,7 +73,7 @@ function setCheckboxValue (index: number, isEnabled: boolean) {
             </span>
             <span v-else-if="getResult(item.url)?.status === 'success'">
               <FontAwesomeIcon :icon="faCheck" />
-              {{ formatRelativeTime(getResult(item.url)?.timestamp) }}
+              {{ getRelativeTime(getResult(item.url)?.timestamp) }}
             </span>
             <span v-else>
               <FontAwesomeIcon :icon="faTriangleExclamation" />
