@@ -93,7 +93,7 @@ export function match (input: string, ruleOrRules: string | string[]) {
   return isMatchedStringPatterns || isMatchedRegexpPatterns
 }
 
-export function matchDetail (input: string, rules: string[]) {
+export function getMatchedRules (input: string, rules: string[]) {
   input = input.trim()
   if (!input) return []
 
@@ -109,7 +109,7 @@ export function matchDetail (input: string, rules: string[]) {
       return false
     })
     .map((pattern) => ({
-      pattern: pattern.rawValue,
+      rule: pattern.rawValue,
       input,
     }))
 }

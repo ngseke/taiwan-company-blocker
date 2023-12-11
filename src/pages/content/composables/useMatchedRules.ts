@@ -3,7 +3,7 @@ import { useChromeStorage } from '../../../composables/useChromeStorage'
 import { COMPANY_NAME_RULES_STORAGE_KEY, JOB_TITLE_RULES_STORAGE_KEY, SUBSCRIPTION_RESULTS_KEY } from '../../../modules/storage'
 import { type SubscriptionResultSuccess } from '../../../modules/Subscription'
 import { type Nullish } from '../../../types/Nullish'
-import { matchRulesDetail } from '../../../modules/rule'
+import { getMatchedRulesWithGroupName } from '../../../modules/rule'
 
 export function useMatchedRules ({
   jobTitle,
@@ -22,17 +22,17 @@ export function useMatchedRules ({
           result.status === 'success'
         ))
         .map((result) => (
-          matchRulesDetail(input, `訂閱-${result.name}`, result.rules)
+          getMatchedRulesWithGroupName(input, `訂閱-${result.name}`, result.rules)
         ))
         .flat(1),
-      ...matchRulesDetail(input, '公司名稱', companyNameRules.value ?? ''),
+      ...getMatchedRulesWithGroupName(input, '公司名稱', companyNameRules.value ?? ''),
     ]
   })
 
   const jobTitleMatchedRules = computed(() => {
     const input = unref(jobTitle)
     if (!input) return []
-    return matchRulesDetail(input, '職缺名稱', jobTitleRules.value ?? '')
+    return getMatchedRulesWithGroupName(input, '職缺名稱', jobTitleRules.value ?? '')
   })
 
   const matchedRules = computed(() => ([

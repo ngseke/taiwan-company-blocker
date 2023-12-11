@@ -1,4 +1,4 @@
-import { matchDetail } from './pattern'
+import { getMatchedRules } from './pattern'
 import { unique } from './unique'
 
 export type RuleType = 'jobTitle' | 'companyName'
@@ -27,9 +27,9 @@ export function parseRulesString (rules: string) {
   )
 }
 
-export function matchRulesDetail (
+export function getMatchedRulesWithGroupName (
   input: string, groupName: string, rules: string
 ) {
-  return matchDetail(input, parseRulesString(rules))
+  return getMatchedRules(input, parseRulesString(rules))
     .map((item) => ({ ...item, groupName }))
 }

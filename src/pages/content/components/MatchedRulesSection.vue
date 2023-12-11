@@ -3,7 +3,11 @@ import { type Nullish } from '../../../types/Nullish'
 import Badge from './Badge.vue'
 
 defineProps<{
-  matchedRules?: Nullish<any[]>
+  matchedRules?: Nullish<Array<{
+    groupName: string
+    rule: string
+    input: string
+  }>>
 }>()
 </script>
 
@@ -21,7 +25,7 @@ defineProps<{
       >
         <Badge>{{ item.groupName }}</Badge>
         <span class="text-red-500">
-          {{ item.pattern }}
+          {{ item.rule }}
         </span>
       </li>
     </ol>
