@@ -8,6 +8,7 @@ export type PlatformName =
   | '518'
   | '1111'
   | 'chickpt'
+  | 'meetJobs'
 
 export const platformNames: readonly PlatformName[] = [
   'cakeresume',
@@ -16,6 +17,7 @@ export const platformNames: readonly PlatformName[] = [
   '518',
   '1111',
   'chickpt',
+  'meetJobs',
 ]
 
 export const platformHosts: Record<PlatformName, string> = {
@@ -25,6 +27,7 @@ export const platformHosts: Record<PlatformName, string> = {
   518: '518.com.tw',
   1111: '1111.com.tw',
   chickpt: 'chickpt.com.tw',
+  meetJobs: 'meet.jobs',
 }
 
 export function detectPagePlatform () {
@@ -42,5 +45,6 @@ export function formatPlatformName (platformName: Nullish<PlatformName>) {
     518: '518 熊班',
     1111: '1111 人力銀行',
     chickpt: '小雞上工',
+    meetJobs: 'Meet.jobs',
   }[platformName] ?? platformName
 }

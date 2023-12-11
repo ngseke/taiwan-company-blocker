@@ -9,6 +9,7 @@ import { chickptBlockerOptions } from './Blocker/chickptBlockers'
 import { type BlockMethod } from '../../../modules/BlockMethod'
 import { createBlocker, type CreateBlockerOptions } from './Blocker/createBlocker'
 import { loadParsedRules } from '../../../modules/ruleStorage'
+import { meetJobsBlockerOptions } from './Blocker/meetJobsBlockers'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
@@ -24,6 +25,7 @@ export class BlockerManager {
       518: _518BlockerOptions,
       1111: _1111BlockerOptions,
       chickpt: chickptBlockerOptions,
+      meetJobs: meetJobsBlockerOptions,
     }
 
     const blockerOptions = blockerOptionsGroup[platformName]
