@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'vitest'
 import { isRegexpLiteral, match, parsePattern } from './pattern'
 
 describe('pattern.ts', () => {

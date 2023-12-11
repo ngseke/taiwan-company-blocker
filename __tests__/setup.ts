@@ -1,5 +1,4 @@
 import ResizeObserver from 'resize-observer-polyfill'
-import { vi } from 'vitest'
 
 window.ResizeObserver = ResizeObserver
 
