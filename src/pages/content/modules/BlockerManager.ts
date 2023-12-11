@@ -1,4 +1,4 @@
-import { loadRules } from '../../../modules/storage'
+import { loadRules, loadSubscriptionResults } from '../../../modules/storage'
 import { type Blocker } from './Blocker/Blocker'
 import { type PlatformName, detectPagePlatform } from './platform'
 import { cakeresumeBlockerOptions } from './Blocker/cakeresumeBlockers'
@@ -9,6 +9,40 @@ import { _1111BlockerOptions } from './Blocker/1111Blockers'
 import { chickptBlockerOptions } from './Blocker/chickptBlockers'
 import { type BlockMethod } from '../../../modules/BlockMethod'
 import { createBlocker, type CreateBlockerOptions } from './Blocker/createBlocker'
+import { type SubscriptionResultSuccess } from '../../../modules/Subscription'
+import { unique } from '../../../modules/unique'
+
+async function loadParsedRules () {
+  function parse (rules: string) {
+    const separator = '\n'
+    return unique(
+      rules
+        .split(separator)
+        .map((rule) => rule.trim())
+        .filter(Boolean)
+    )
+  }
+  const storageCompanyNameRules = parse(await loadRules('companyName'))
+  const storageJobTitleRules = parse(await loadRules('jobTitle'))
+
+  const subscriptionResults = await loadSubscriptionResults()
+  const subscriptionRules = Object.values(subscriptionResults)
+    .filter((result): result is SubscriptionResultSuccess => (
+      result.status === 'success'
+    ))
+    .map((result) => parse(result.rules))
+    .flat(1)
+
+  const companyNameRules = [
+    ...storageCompanyNameRules,
+    ...subscriptionRules,
+  ]
+
+  return {
+    companyNameRules,
+    jobTitleRules: storageJobTitleRules,
+  }
+}
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
@@ -39,13 +73,13 @@ export class BlockerManager {
   }
 
   async start () {
-    const companyNameRules = await loadRules('companyName')
-    const jobTitleRules = await loadRules('jobTitle')
+    const { companyNameRules, jobTitleRules } =
+      await loadParsedRules()
 
     this.blockers.forEach((blocker) => {
       blocker
-        .setCompanyNamePatterns(companyNameRules.split('\n'))
-        .setJobTitlePatterns(jobTitleRules.split('\n'))
+        .setCompanyNamePatterns(companyNameRules)
+        .setJobTitlePatterns(jobTitleRules)
         .start()
     })
   }
@@ -62,13 +96,13 @@ export class BlockerManager {
   }
 
   async reload () {
-    const companyNameRules = await loadRules('companyName')
-    const jobTitleRules = await loadRules('jobTitle')
+    const { companyNameRules, jobTitleRules } =
+      await loadParsedRules()
 
     this.blockers.forEach((blocker) => {
       blocker
-        .setCompanyNamePatterns(companyNameRules.split('\n'))
-        .setJobTitlePatterns(jobTitleRules.split('\n'))
+        .setCompanyNamePatterns(companyNameRules)
+        .setJobTitlePatterns(jobTitleRules)
         .reload()
     })
   }

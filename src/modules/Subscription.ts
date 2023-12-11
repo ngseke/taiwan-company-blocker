@@ -7,19 +7,25 @@ export interface Subscription {
   isEnabled: boolean
 }
 
-export type SubscriptionResult = {
+export interface SubscriptionResultSuccess {
   name: string
   url: string
   timestamp: number
   status: 'success'
   rules: string
-} | {
+}
+
+export interface SubscriptionResultError {
   name: string
   url: string
   timestamp: number
   status: 'error'
   error: string
 }
+
+export type SubscriptionResult =
+  | SubscriptionResultSuccess
+  | SubscriptionResultError
 
 export type SubscriptionResults = Record<string, SubscriptionResult>
 
