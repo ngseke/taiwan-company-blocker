@@ -11,6 +11,8 @@ import { appendRule } from '../../modules/storage'
 import { type Nullish } from '../../types/Nullish'
 import Dialog from '../../components/Dialog.vue'
 import SearchLinkSection from './components/SearchLinkSection.vue'
+import { useMatchedRules } from './composables/useMatchedRules'
+import MatchedRulesSection from './components/MatchedRulesSection.vue'
 
 const isOpened = ref(false)
 function open () { isOpened.value = true }
@@ -55,6 +57,8 @@ const isSubmitDisabled = computed(() => !(
   (isJobTitleChecked.value && jobTitleDraft.value.trim()) ||
   (isCompanyNameChecked.value && companyNameDraft.value.trim())
 ))
+
+const { matchedRules } = useMatchedRules({ companyName, jobTitle })
 </script>
 
 <template>
@@ -73,7 +77,9 @@ const isSubmitDisabled = computed(() => !(
           </div>
         </div>
 
-        <div class="flex flex-wrap items-center justify-end gap-2 pl-2">
+        <MatchedRulesSection :matchedRules="matchedRules" />
+
+        <div class="flex flex-wrap items-center justify-end gap-2">
           <button
             class="underline"
             href="#"
@@ -82,7 +88,9 @@ const isSubmitDisabled = computed(() => !(
           >
             管理封鎖關鍵詞
           </button>
+
           <div class="flex-1" />
+
           <Button type="button" @click="close">取消</Button>
           <Button
             color="primary"

@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash-es'
 import { type BlockMethod } from './BlockMethod'
-import { normalizeRulesString, type RuleType } from '../pages/content/modules/rule'
+import { normalizeRulesString, type RuleType } from './rule'
 import { type SubscriptionResults, type Subscription } from './Subscription'
 
 export const ENABLED_STORAGE_KEY = 'enabled'

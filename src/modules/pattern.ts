@@ -12,8 +12,8 @@ export function isRegexpLiteral (maybeRegexpLiteral: string) {
   }
 }
 
-interface ParsedRegexPattern { type: 'regex', value: RegExp }
-interface ParsedStringPattern { type: 'string', value: string }
+interface ParsedRegexPattern { type: 'regex', value: RegExp, rawValue: string }
+interface ParsedStringPattern { type: 'string', value: string, rawValue: string }
 
 type ParsedPattern = ParsedRegexPattern | ParsedStringPattern
 
@@ -23,19 +23,19 @@ export function parsePattern (value: string) {
   value = value.trim()
 
   if (parsePatternCache.has(value)) {
-    return parsePatternCache.get(value)
+    return parsePatternCache.get(value) as ParsedPattern
   }
 
   if (isRegexpLiteral(value)) {
     try {
       const regex = RegexParser(value)
-      const result = { type: 'regex', value: regex } as const
+      const result = { type: 'regex', value: regex, rawValue: value } as const
       parsePatternCache.set(value, result)
 
       return result
     } catch (err) {}
   }
-  const result = { type: 'string', value } as const
+  const result = { type: 'string', value, rawValue: value } as const
   parsePatternCache.set(value, result)
 
   return result
@@ -91,4 +91,25 @@ export function match (input: string, pattern: string | string[]) {
     .some((regex) => regex.test(input))
 
   return isMatchedStringPatterns || isMatchedRegexpPatterns
+}
+
+export function matchDetail (input: string, patterns: string[]) {
+  input = input.trim()
+  if (!input) return []
+
+  const parsedPatterns = patterns.map(parsePattern)
+
+  return parsedPatterns
+    .filter((parsedPattern) => {
+      if (parsedPattern.type === 'string') {
+        return isMatch(input, [parsedPattern.value])
+      } else if (parsedPattern.type === 'regex') {
+        return parsedPattern.value.test(input)
+      }
+      return false
+    })
+    .map((parsedPattern) => ({
+      pattern: parsedPattern.rawValue,
+      input,
+    }))
 }

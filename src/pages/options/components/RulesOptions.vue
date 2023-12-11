@@ -8,7 +8,7 @@ import Button from '../../../components/Button.vue'
 import { useBeforeUnload } from '../../popup/composables/useBeforeUnload'
 import { syncRef } from '@vueuse/core'
 import IllogicalRulesAlert from './IllogicalRulesAlert.vue'
-import { checkHasIllogicalRule } from '../../content/modules/rule'
+import { checkHasIllogicalRule } from '../../../modules/rule'
 
 const jobTitleRulesDraft = ref<string | null>(null)
 const companyNameRulesDraft = ref<string | null>(null)
