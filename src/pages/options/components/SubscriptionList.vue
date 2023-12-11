@@ -29,6 +29,7 @@ function getResultError (url: string) {
 function getCheckboxValue (index: number) {
   return props.modelValue?.[index]?.isEnabled
 }
+
 function setCheckboxValue (index: number, isEnabled: boolean) {
   if (!props.modelValue) return
   const newList = [...props.modelValue]
@@ -41,14 +42,17 @@ function setCheckboxValue (index: number, isEnabled: boolean) {
 <template>
   <div v-if="modelValue?.length" class="flex flex-col rounded-lg">
     <div class="flex min-w-[240px] flex-col gap-1 font-normal">
-      <div
+      <button
         v-for="(item, index) in modelValue"
         :key="index"
-        class="flex w-full items-center rounded-lg text-start"
+        class="flex w-full items-center rounded-lg p-1 text-start hover:bg-neutral-800/50"
+        type="button"
+        @click="$emit('clickDetail', index)"
       >
         <div>
           <Checkbox
             :modelValue="getCheckboxValue(index)"
+            @click.stop
             @update:modelValue="setCheckboxValue(index, $event)"
           />
         </div>
@@ -76,12 +80,12 @@ function setCheckboxValue (index: number, isEnabled: boolean) {
           <button
             class="h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase transition-all hover:bg-neutral-500/10 active:bg-neutral-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="button"
-            @click="$emit('clickDetail', index)"
+            @click.stop="$emit('clickDetail', index)"
           >
             <FontAwesomeIcon :icon="faEllipsisVertical" />
           </button>
         </div>
-      </div>
+      </button>
     </div>
   </div>
 </template>
