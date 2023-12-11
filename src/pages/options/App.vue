@@ -5,6 +5,7 @@ import BlockMethodOptions from './components/BlockMethodOptions.vue'
 import Header from './components/Header.vue'
 import EnableOptions from './components/EnableOptions.vue'
 import RulesOptions from './components/RulesOptions.vue'
+import SubscriptionOptions from './components/SubscriptionOptions.vue'
 </script>
 
 <template>
@@ -18,6 +19,10 @@ import RulesOptions from './components/RulesOptions.vue'
 
       <Card>
         <RulesOptions />
+      </Card>
+
+      <Card>
+        <SubscriptionOptions />
       </Card>
 
       <Card>
