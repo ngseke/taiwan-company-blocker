@@ -33,12 +33,16 @@
 
 ## Support Employment Websites
 
-- [CakeResume](https://www.cakeresume.com/)
-- [Yourator](https://www.yourator.co/)
-- [104 人力銀行](https://www.104.com.tw/)
-- [518 熊班](https://www.518.com.tw/)
-- [1111 人力銀行](https://www.1111.com.tw/)
-- [小雞上工](https://www.chickpt.com.tw/)
+1. [CakeResume](https://www.cakeresume.com/)
+1. [Yourator](https://www.yourator.co/)
+1. [104 人力銀行](https://www.104.com.tw/)
+1. [518 熊班](https://www.518.com.tw/)
+1. [1111 人力銀行](https://www.1111.com.tw/)
+1. [小雞上工](https://www.chickpt.com.tw/)
+
+## Recommended Subscription Source
+
+- https://github.com/ngseke/company-list
 
 ## Features
 
