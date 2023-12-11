@@ -1,13 +1,13 @@
+import { unique } from '../../../modules/unique'
+
 export type RuleType = 'jobTitle' | 'companyName'
 
 export function normalizeRulesString (rules: string) {
-  return [
-    ...new Set(
-      rules.split('\n')
-        .map((rule) => rule.trim())
-        .filter(Boolean)
-    ),
-  ].join('\n')
+  return unique(
+    rules.split('\n')
+      .map((rule) => rule.trim())
+      .filter(Boolean)
+  ).join('\n')
 }
 
 export function checkHasIllogicalRule (rules: string) {
