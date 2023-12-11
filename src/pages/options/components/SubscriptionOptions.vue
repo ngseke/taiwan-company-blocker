@@ -81,7 +81,11 @@ function removeActiveSubscription () {
       <Button color="primary" @click="create">
         新增訂閱
       </Button>
-      <Button :disabled="isUpdating || !subscriptions?.length" @click="update">
+      <Button
+        :disabled="isUpdating || !subscriptions?.length"
+        :loading="isUpdating"
+        @click="update"
+      >
         更新
       </Button>
     </div>
