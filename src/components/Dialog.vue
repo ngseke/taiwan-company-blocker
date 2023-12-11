@@ -45,7 +45,7 @@ function handleClickDialog (event: Event) {
 <template>
   <dialog
     ref="dialogRef"
-    class="max-h-full overflow-auto bg-transparent p-4 backdrop:bg-neutral-900/80 backdrop:backdrop-blur-[1px]"
+    class="max-h-full overflow-auto border-none bg-transparent p-4 outline-none backdrop:bg-neutral-900/80 backdrop:backdrop-blur-[1px]"
     @click="handleClickDialog"
     @close="close"
   >
