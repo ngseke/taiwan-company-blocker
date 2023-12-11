@@ -1,5 +1,4 @@
-import { describe, expect, test } from 'vitest'
-import { isRegexpLiteral, match, parsePattern } from './pattern'
+import { isRegexpLiteral, match, parseRuleIntoPattern } from './pattern'
 
 describe('pattern.ts', () => {
   test('isRegexpLiteral', () => {
@@ -24,29 +23,29 @@ describe('pattern.ts', () => {
   })
 
   test('parsePattern', () => {
-    expect(parsePattern(' /pattern(.+?)/ '))
-      .toEqual({ type: 'regex', value: /pattern(.+?)/ })
-    expect(parsePattern(' /pat/ tern/ '))
-      .toEqual({ type: 'regex', value: /pat\/ tern/ })
-    expect(parsePattern('/(內|外)場/'))
-      .toEqual({ type: 'regex', value: /(內|外)場/ })
-    expect(parsePattern('/xyz/i'))
-      .toEqual({ type: 'regex', value: /xyz/i })
-    expect(parsePattern('/abc/img  '))
-      .toEqual({ type: 'regex', value: /abc/img })
+    expect(parseRuleIntoPattern(' /pattern(.+?)/ '))
+      .toMatchObject({ type: 'regex', value: /pattern(.+?)/ })
+    expect(parseRuleIntoPattern(' /pat/ tern/ '))
+      .toMatchObject({ type: 'regex', value: /pat\/ tern/ })
+    expect(parseRuleIntoPattern('/(內|外)場/'))
+      .toMatchObject({ type: 'regex', value: /(內|外)場/ })
+    expect(parseRuleIntoPattern('/xyz/i'))
+      .toMatchObject({ type: 'regex', value: /xyz/i })
+    expect(parseRuleIntoPattern('/abc/img  '))
+      .toMatchObject({ type: 'regex', value: /abc/img })
 
-    expect(parsePattern('//'))
-      .toEqual({ type: 'string', value: '//' })
-    expect(parsePattern('**'))
-      .toEqual({ type: 'string', value: '**' })
-    expect(parsePattern(''))
-      .toEqual({ type: 'string', value: '' })
-    expect(parsePattern('*打字員  '))
-      .toEqual({ type: 'string', value: '*打字員' })
-    expect(parsePattern(' 產品行銷專員 '))
-      .toEqual({ type: 'string', value: '產品行銷專員' })
-    expect(parsePattern('\\\\\\'))
-      .toEqual({ type: 'string', value: '\\\\\\' })
+    expect(parseRuleIntoPattern('//'))
+      .toMatchObject({ type: 'string', value: '//' })
+    expect(parseRuleIntoPattern('**'))
+      .toMatchObject({ type: 'string', value: '**' })
+    expect(parseRuleIntoPattern(''))
+      .toMatchObject({ type: 'string', value: '' })
+    expect(parseRuleIntoPattern('*打字員  '))
+      .toMatchObject({ type: 'string', value: '*打字員' })
+    expect(parseRuleIntoPattern(' 產品行銷專員 '))
+      .toMatchObject({ type: 'string', value: '產品行銷專員' })
+    expect(parseRuleIntoPattern('\\\\\\'))
+      .toMatchObject({ type: 'string', value: '\\\\\\' })
   })
 
   test('match', () => {

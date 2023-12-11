@@ -2,6 +2,7 @@
 defineProps<{
   label?: string
   modelValue?: string
+  maxLength?: number
 }>()
 
 defineEmits<{
@@ -15,6 +16,7 @@ defineEmits<{
   <div class="relative h-10 w-full min-w-[200px]">
     <input
       class="peer h-full w-full rounded-[7px] border border-neutral-800 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-neutral-300 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-neutral-800 focus:border-2 focus:border-neutral-400 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-neutral-50"
+      :maxlength="maxLength"
       placeholder=" "
       :value="modelValue"
       @input="$emit('update:modelValue', ($event.target as HTMLInputElement)?.value)"

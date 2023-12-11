@@ -1,12 +1,15 @@
 import { cloneDeep } from 'lodash-es'
 import { type BlockMethod } from './BlockMethod'
-import { normalizeRulesString, type RuleType } from '../pages/content/modules/rule'
+import { normalizeRulesString, type RuleType } from './rule'
+import { type SubscriptionResults, type Subscription } from './Subscription'
 
 export const ENABLED_STORAGE_KEY = 'enabled'
 export const DEBUGGER_ENABLED_STORAGE_KEY = 'debuggerEnabled'
 export const JOB_TITLE_RULES_STORAGE_KEY = 'jobTitleRules'
 export const COMPANY_NAME_RULES_STORAGE_KEY = 'companyNameRules'
 export const BLOCK_METHOD_KEY = 'blockMethod'
+export const SUBSCRIPTIONS_KEY = 'subscriptions'
+export const SUBSCRIPTION_RESULTS_KEY = 'subscriptionResults'
 
 export interface SyncStorageSchema {
   [ENABLED_STORAGE_KEY]: boolean
@@ -14,6 +17,8 @@ export interface SyncStorageSchema {
   [BLOCK_METHOD_KEY]: BlockMethod
   [JOB_TITLE_RULES_STORAGE_KEY]: string
   [COMPANY_NAME_RULES_STORAGE_KEY]: string
+  [SUBSCRIPTIONS_KEY]: Subscription[]
+  [SUBSCRIPTION_RESULTS_KEY]: SubscriptionResults
 }
 
 export const syncStorageDefaultValues: SyncStorageSchema = {
@@ -22,6 +27,8 @@ export const syncStorageDefaultValues: SyncStorageSchema = {
   [BLOCK_METHOD_KEY]: 'opacity',
   [JOB_TITLE_RULES_STORAGE_KEY]: '',
   [COMPANY_NAME_RULES_STORAGE_KEY]: '',
+  [SUBSCRIPTIONS_KEY]: [],
+  [SUBSCRIPTION_RESULTS_KEY]: {},
 }
 
 export type SyncStorageKey = keyof SyncStorageSchema
@@ -35,7 +42,7 @@ export async function getSyncStorage <
 
 export async function setSyncStorage<
   Key extends SyncStorageKey
-> (key: string, value: SyncStorageSchema[Key]) {
+> (key: Key, value: SyncStorageSchema[Key]) {
   await chrome.storage.sync.set({ [key]: value })
 }
 
@@ -87,4 +94,20 @@ export async function appendRule (type: RuleType, rule: string) {
   const rules = await loadRules(type)
 
   await saveRules(type, `${rules}\n${rule}`)
+}
+
+export async function loadSubscriptions () {
+  return await getSyncStorage(SUBSCRIPTIONS_KEY)
+}
+
+export async function saveSubscriptions (subscriptions: Subscription[]) {
+  await setSyncStorage(SUBSCRIPTIONS_KEY, subscriptions)
+}
+
+export async function loadSubscriptionResults () {
+  return await getSyncStorage(SUBSCRIPTION_RESULTS_KEY)
+}
+
+export async function saveSubscriptionResults (results: SubscriptionResults) {
+  await setSyncStorage(SUBSCRIPTION_RESULTS_KEY, results)
 }

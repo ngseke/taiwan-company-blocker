@@ -43,5 +43,8 @@ export default defineManifest(async () => ({
     service_worker: 'src/pages/background/index.ts',
     type: 'module',
   },
-  permissions: ['storage'],
+  permissions: [
+    'storage',
+    'alarms',
+  ],
 }))

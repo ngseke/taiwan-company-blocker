@@ -3,6 +3,7 @@ defineProps<{
   label?: string
   modelValue?: string
   rows?: number
+  readOnly?: boolean
 }>()
 
 defineEmits<{
@@ -17,6 +18,7 @@ defineEmits<{
     <textarea
       class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-neutral-800 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-neutral-300 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-neutral-800 focus:border-2 focus:border-neutral-400 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-neutral-50"
       placeholder=" "
+      :readonly="readOnly"
       :rows="rows"
       :value="modelValue"
       @input="$emit('update:modelValue', ($event.target as HTMLTextAreaElement).value)"

@@ -1,5 +1,5 @@
 import { ref, watch } from 'vue'
-import style from '../styles/scroll-lock.module.sass'
+import style from './scroll-lock.module.sass'
 
 export function useScrollLock () {
   const isLocked = ref(false)

@@ -1,4 +1,3 @@
-import { expect, test, vi } from 'vitest'
 import { ENABLED_STORAGE_KEY, loadIsEnabled, saveIsEnabled } from './storage'
 import { mockChrome } from '../../__tests__/chrome'
 

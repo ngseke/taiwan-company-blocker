@@ -1,4 +1,3 @@
-import { loadRules } from '../../../modules/storage'
 import { type Blocker } from './Blocker/Blocker'
 import { type PlatformName, detectPagePlatform } from './platform'
 import { cakeresumeBlockerOptions } from './Blocker/cakeresumeBlockers'
@@ -9,6 +8,7 @@ import { _1111BlockerOptions } from './Blocker/1111Blockers'
 import { chickptBlockerOptions } from './Blocker/chickptBlockers'
 import { type BlockMethod } from '../../../modules/BlockMethod'
 import { createBlocker, type CreateBlockerOptions } from './Blocker/createBlocker'
+import { loadParsedRules } from '../../../modules/ruleStorage'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
@@ -39,13 +39,13 @@ export class BlockerManager {
   }
 
   async start () {
-    const companyNameRules = await loadRules('companyName')
-    const jobTitleRules = await loadRules('jobTitle')
+    const { companyNameRules, jobTitleRules } =
+      await loadParsedRules()
 
     this.blockers.forEach((blocker) => {
       blocker
-        .setCompanyNamePatterns(companyNameRules.split('\n'))
-        .setJobTitlePatterns(jobTitleRules.split('\n'))
+        .setCompanyNamePatterns(companyNameRules)
+        .setJobTitlePatterns(jobTitleRules)
         .start()
     })
   }
@@ -62,13 +62,13 @@ export class BlockerManager {
   }
 
   async reload () {
-    const companyNameRules = await loadRules('companyName')
-    const jobTitleRules = await loadRules('jobTitle')
+    const { companyNameRules, jobTitleRules } =
+      await loadParsedRules()
 
     this.blockers.forEach((blocker) => {
       blocker
-        .setCompanyNamePatterns(companyNameRules.split('\n'))
-        .setJobTitlePatterns(jobTitleRules.split('\n'))
+        .setCompanyNamePatterns(companyNameRules)
+        .setJobTitlePatterns(jobTitleRules)
         .reload()
     })
   }

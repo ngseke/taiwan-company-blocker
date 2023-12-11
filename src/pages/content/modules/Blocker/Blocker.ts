@@ -1,5 +1,5 @@
 import style from './blocker.module.sass'
-import { match } from '../pattern'
+import { match } from '../../../../modules/pattern'
 import { type Nullish } from '../../../../types/Nullish'
 import { Marker } from '../Marker'
 import { ActionActivator, type ActivatorPositionCallback } from '../ActionActivator'

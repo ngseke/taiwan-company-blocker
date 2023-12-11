@@ -1,5 +1,3 @@
-import { beforeEach, vi } from 'vitest'
-
 export function mockChrome () {
   const mockedChrome = {
     storage: {
