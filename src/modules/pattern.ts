@@ -12,36 +12,36 @@ export function isRegexpLiteral (maybeRegexpLiteral: string) {
   }
 }
 
-interface ParsedRegexPattern { type: 'regex', value: RegExp, rawValue: string }
-interface ParsedStringPattern { type: 'string', value: string, rawValue: string }
+interface RegexPattern { type: 'regex', value: RegExp, rawValue: string }
+interface StringPattern { type: 'string', value: string, rawValue: string }
 
-type ParsedPattern = ParsedRegexPattern | ParsedStringPattern
+type Pattern = RegexPattern | StringPattern
 
-const parsePatternCache = new Map<string, ParsedPattern>()
+const patternCache = new Map<string, Pattern>()
 
-export function parsePattern (value: string) {
-  value = value.trim()
+export function parseRuleIntoPattern (rule: string): Pattern {
+  rule = rule.trim()
 
-  if (parsePatternCache.has(value)) {
-    return parsePatternCache.get(value) as ParsedPattern
+  if (patternCache.has(rule)) {
+    return patternCache.get(rule) as Pattern
   }
 
-  if (isRegexpLiteral(value)) {
+  if (isRegexpLiteral(rule)) {
     try {
-      const regex = RegexParser(value)
-      const result = { type: 'regex', value: regex, rawValue: value } as const
-      parsePatternCache.set(value, result)
+      const regex = RegexParser(rule)
+      const result = { type: 'regex', value: regex, rawValue: rule } as const
+      patternCache.set(rule, result)
 
       return result
     } catch (err) {}
   }
-  const result = { type: 'string', value, rawValue: value } as const
-  parsePatternCache.set(value, result)
+  const pattern = { type: 'string', value: rule, rawValue: rule } as const
+  patternCache.set(rule, pattern)
 
-  return result
+  return pattern
 }
 
-function isMatch (input: string, patterns: string[]): boolean {
+function matchStringPatterns (input: string, patterns: string[]): boolean {
   input = input.trim().toLowerCase()
 
   for (let pattern of patterns) {
@@ -67,49 +67,49 @@ function isMatch (input: string, patterns: string[]): boolean {
   return false
 }
 
-export function match (input: string, pattern: string | string[]) {
+export function match (input: string, ruleOrRules: string | string[]) {
   input = input.trim()
   if (!input) return false
 
-  const patterns = Array.isArray(pattern) ? pattern : [pattern]
+  const rules = Array.isArray(ruleOrRules) ? ruleOrRules : [ruleOrRules]
 
-  const parsedPatterns = patterns.map(parsePattern)
+  const patterns = rules.map(parseRuleIntoPattern)
 
-  const parsedStringPatterns = parsedPatterns
-    .filter((pattern): pattern is ParsedStringPattern => pattern?.type === 'string')
+  const stringPatterns = patterns
+    .filter((pattern): pattern is StringPattern => pattern?.type === 'string')
     .map(({ value }) => value)
 
-  const parsedRegexPatterns = parsedPatterns
-    .filter((pattern): pattern is ParsedRegexPattern => pattern?.type === 'regex')
+  const regexPatterns = patterns
+    .filter((pattern): pattern is RegexPattern => pattern?.type === 'regex')
     .map(({ value }) => value)
 
-  const isMatchedStringPatterns = isMatch(
+  const isMatchedStringPatterns = matchStringPatterns(
     input,
-    parsedStringPatterns ?? [],
+    stringPatterns ?? [],
   )
-  const isMatchedRegexpPatterns = parsedRegexPatterns
+  const isMatchedRegexpPatterns = regexPatterns
     .some((regex) => regex.test(input))
 
   return isMatchedStringPatterns || isMatchedRegexpPatterns
 }
 
-export function matchDetail (input: string, patterns: string[]) {
+export function matchDetail (input: string, rules: string[]) {
   input = input.trim()
   if (!input) return []
 
-  const parsedPatterns = patterns.map(parsePattern)
+  const patterns = rules.map(parseRuleIntoPattern)
 
-  return parsedPatterns
-    .filter((parsedPattern) => {
-      if (parsedPattern.type === 'string') {
-        return isMatch(input, [parsedPattern.value])
-      } else if (parsedPattern.type === 'regex') {
-        return parsedPattern.value.test(input)
+  return patterns
+    .filter((pattern) => {
+      if (pattern.type === 'string') {
+        return matchStringPatterns(input, [pattern.value])
+      } else if (pattern.type === 'regex') {
+        return pattern.value.test(input)
       }
       return false
     })
-    .map((parsedPattern) => ({
-      pattern: parsedPattern.rawValue,
+    .map((pattern) => ({
+      pattern: pattern.rawValue,
       input,
     }))
 }
