@@ -50,7 +50,7 @@ function handleClickDialog (event: Event) {
     @close="close"
   >
     <div
-      class="max-h-full max-w-full rounded-xl bg-neutral-900 p-5 text-neutral-300 shadow-2xl"
+      class="max-h-full max-w-full rounded-xl border border-neutral-800 bg-neutral-900 p-5 text-neutral-300 shadow-2xl"
       :style="{ width }"
     >
       <slot />
