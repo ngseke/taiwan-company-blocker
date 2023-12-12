@@ -77,14 +77,6 @@ export class BlockerManager {
     })
   }
 
-  reveal () {
-    this.blockers.forEach((blocker) => { blocker.reveal() })
-  }
-
-  unreveal () {
-    this.blockers.forEach((blocker) => { blocker.unreveal() })
-  }
-
   setBlockMethod (method: BlockMethod) {
     this.blockers.forEach((blocker) => { blocker.setBlockMethod(method) })
   }

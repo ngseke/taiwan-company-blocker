@@ -8,8 +8,6 @@ import { CLICK_ITEM_ACTION, emitter } from '../emitter'
 import { BlockerDebugger } from '../BlockerDebugger'
 import { type BlockMethod } from '../../../../modules/BlockMethod'
 
-export type BlockState = 'block' | 'reveal'
-
 export type MarkValue = 'matched' | 'notMatched'
 
 export abstract class Blocker {
@@ -18,7 +16,6 @@ export abstract class Blocker {
   private readonly marker = new Marker()
   private actionActivator: ActionActivator | null = null
   private blockerDebugger: BlockerDebugger | null = null
-  private state: BlockState = 'block'
   private jobTitlePatterns: string[] | null = null
   private companyNamePatterns: string[] | null = null
 
@@ -27,8 +24,6 @@ export abstract class Blocker {
   private get isStarted () {
     return Boolean(this.observer)
   }
-
-  protected revealClassName = style.reveal
 
   /** Select and return job or company items on the page */
   protected abstract selectItems (): HTMLElement[]
@@ -75,7 +70,7 @@ export abstract class Blocker {
 
   private removeAllClassNames ($item: HTMLElement) {
     const classNamesWithoutBase = without(
-      [...Object.values(style), this.revealClassName],
+      Object.values(style),
       style.base
     )
     $item.classList.remove(...classNamesWithoutBase)
@@ -99,44 +94,13 @@ export abstract class Blocker {
     $item.classList.add(className)
   }
 
-  private revealItem ($item: HTMLElement) {
-    this.removeAllClassNames($item)
-
-    $item.classList.add(this.revealClassName)
-  }
-
-  private unrevealItem ($item: HTMLElement) {
-    this.blockItemByCurrentMethod($item)
-  }
-
-  reveal () {
-    this.state = 'reveal'
-    this.marker.selectMarkedItems().forEach(($item) => {
-      this.revealItem($item)
-    })
-    return this
-  }
-
-  unreveal () {
-    this.state = 'block'
-    this.marker.selectMarkedItems().forEach(($item) => {
-      this.unrevealItem($item)
-    })
-    return this
-  }
-
   private modifyItem ($item: HTMLElement, markValue: MarkValue) {
     this.marker.mark($item, markValue)
     this.addBaseClassName($item)
 
-    const action = {
-      block: () => { this.blockItemByCurrentMethod($item) },
-      reveal: () => { this.revealItem($item) },
-    }[this.state]
-
     const isMatched = markValue === 'matched'
     if (isMatched) {
-      action()
+      this.blockItemByCurrentMethod($item)
     }
   }
 

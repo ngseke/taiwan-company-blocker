@@ -1,4 +1,4 @@
-import { QUERY_BLOCKED_COUNT_MESSAGE_NAME, QUERY_PLATFORM_NAME_MESSAGE_NAME, REVEAL_MESSAGE_NAME, UNREVEAL_MESSAGE_NAME } from '../../modules/constants'
+import { QUERY_BLOCKED_COUNT_MESSAGE_NAME, QUERY_PLATFORM_NAME_MESSAGE_NAME } from '../../modules/constants'
 import { loadBlockMethod, loadIsDebuggerEnabled, loadIsEnabled } from '../../modules/storage'
 import { mountVueApp } from './main'
 import { BlockerManager } from './modules/BlockerManager'
@@ -10,15 +10,6 @@ const blockerManager = new BlockerManager()
 injectGlobalCssVariables()
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
-  if (message === REVEAL_MESSAGE_NAME) {
-    blockerManager.reveal()
-    return
-  }
-  if (message === UNREVEAL_MESSAGE_NAME) {
-    blockerManager.unreveal()
-    return
-  }
-
   if (message === QUERY_PLATFORM_NAME_MESSAGE_NAME) {
     sendResponse(detectPagePlatform())
     return

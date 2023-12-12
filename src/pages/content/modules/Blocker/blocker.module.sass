@@ -1,12 +1,7 @@
-@use './reveal'
-
 .base
   position: relative !important
 
-.reveal
-  +reveal.reveal
-
-.opacity:not(.reveal)
+.opacity
   cursor: not-allowed !important
   user-select: none !important
   pointer-events: none !important
@@ -28,5 +23,5 @@
     opacity: .7
     z-index: 1
 
-.hide:not(.reveal)
+.hide
   display: none !important
