@@ -3,7 +3,8 @@ import { computed } from 'vue'
 import { useChromeStorage } from '../../../composables/useChromeStorage'
 import { blockMethods, formatBlockMethod } from '../../../modules/BlockMethod'
 import { BLOCK_METHOD_KEY } from '../../../modules/storage'
-import DownIcon from './DownIcon.vue'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const blockMethodOptions = computed(() => blockMethods.map((value) => ({
   label: formatBlockMethod(value),
@@ -17,7 +18,7 @@ const blockMethod = useChromeStorage(BLOCK_METHOD_KEY)
   <label class="group relative select-none">
     <span class="inline-flex items-center gap-1">
       {{ formatBlockMethod(blockMethod) }}
-      <DownIcon class="duration-200 group-hover:translate-y-[2px]" :size="12" />
+      <FontAwesomeIcon class="text-sm" :icon="faChevronDown" />
     </span>
     <select
       v-model="blockMethod"

@@ -3,7 +3,7 @@ import icon from '../../../assets/img/icon.png'
 import EnableSwitch from './EnableSwitch.vue'
 import { useChromeStorage } from '../../../composables/useChromeStorage'
 import { ENABLED_STORAGE_KEY } from '../../../modules/storage'
-import GearIcon from './GearIcon.vue'
+import OptionsButton from './OptionsButton.vue'
 
 const isEnabled = useChromeStorage(ENABLED_STORAGE_KEY)
 
@@ -25,9 +25,7 @@ function openOptions () {
         <EnableSwitch v-if="isEnabled != null" v-model="isEnabled" />
       </div>
       <div class="flex flex-1 flex-col justify-end">
-        <button class="group px-2" type="button" @click="openOptions">
-          <GearIcon class="duration-500 group-hover:rotate-90" />
-        </button>
+        <OptionsButton @click="openOptions" />
       </div>
     </div>
 
