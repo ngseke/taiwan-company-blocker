@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { flushPromises, mount } from '@vue/test-utils'
 
 import { mockChrome } from '../../../__tests__/chrome'
