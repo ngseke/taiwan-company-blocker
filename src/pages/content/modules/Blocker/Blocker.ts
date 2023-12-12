@@ -69,7 +69,7 @@ export abstract class Blocker {
 
   get blockedCount () {
     return this.marker.selectMarkedItems()
-      .filter($item => this.marker.getMarkValue($item) === 'matched')
+      .filter(($item) => this.marker.getMarkValue($item) === 'matched')
       .length
   }
 
@@ -153,7 +153,7 @@ export abstract class Blocker {
 
     const $items = this.selectItems()
     $items
-      .filter($item => !this.marker.getIsMarked($item))
+      .filter(($item) => !this.marker.getIsMarked($item))
       .forEach(($item) => {
         const isMatched = this.getIsMatched($item)
         this.modifyItem($item, isMatched ? 'matched' : 'notMatched')
@@ -221,7 +221,7 @@ export abstract class Blocker {
     this.observer = null
 
     this.marker.selectMarkedItems()
-      .forEach($item => { this.unmodifyItem($item) })
+      .forEach(($item) => { this.unmodifyItem($item) })
 
     this.actionActivator?.stop()
     this.blockerDebugger?.stop()
@@ -231,7 +231,7 @@ export abstract class Blocker {
 
   reload () {
     this.marker.selectMarkedItems()
-      .forEach($item => { this.unmodifyItem($item) })
+      .forEach(($item) => { this.unmodifyItem($item) })
 
     this.tryModify()
 

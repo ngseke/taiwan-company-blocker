@@ -14,7 +14,7 @@ export function normalizeRulesString (rules: string) {
 export function checkHasIllogicalRule (rules: string) {
   return rules.split('\n')
     .map((rule) => rule.trim())
-    .some(rule => rule === '*' || rule === '**')
+    .some((rule) => rule === '*' || rule === '**')
 }
 
 export function parseRulesString (rules: string) {

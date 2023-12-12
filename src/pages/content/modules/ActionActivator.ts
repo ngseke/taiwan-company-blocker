@@ -65,7 +65,7 @@ export class ActionActivator {
       opacity: 0,
     })
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+    await new Promise((resolve) => setTimeout(resolve, 0))
 
     Object.assign($activator.style, {
       opacity: 1,

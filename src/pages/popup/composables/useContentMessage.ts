@@ -28,7 +28,7 @@ export function useContentMessage () {
   query()
 
   watch(isEnabled, async (isEnabled) => {
-    await new Promise(resolve => setTimeout(resolve, 100))
+    await new Promise((resolve) => setTimeout(resolve, 100))
 
     if (isEnabled) {
       query()

@@ -39,7 +39,7 @@ export function getIsInViewport (element: HTMLElement) {
 }
 
 export async function waitForElement (selector: string): Promise<HTMLElement> {
-  return await new Promise(resolve => {
+  return await new Promise((resolve) => {
     const element = document.querySelector(selector)
     if (element) {
       resolve(element as HTMLElement)

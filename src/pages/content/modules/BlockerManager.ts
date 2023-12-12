@@ -32,7 +32,7 @@ export class BlockerManager {
 
     const blockerOptions = blockerOptionsGroup[platformName]
 
-    blockerOptions.forEach(option => {
+    blockerOptions.forEach((option) => {
       const blocker = createBlocker(option)
       this.addBlocker(blocker)
     })

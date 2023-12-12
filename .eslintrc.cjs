@@ -32,6 +32,7 @@ module.exports = {
   },
   ignorePatterns: ['dist', 'coverage'],
   rules: {
+    'arrow-parens': ['error', 'always'],
     '@typescript-eslint/comma-dangle': ['error', {
       arrays: 'always-multiline',
       objects: 'always-multiline',
