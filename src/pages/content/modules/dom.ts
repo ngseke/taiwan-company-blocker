@@ -24,7 +24,7 @@ export function $x (xpath: string) {
 }
 
 export function getIsInViewport (element: HTMLElement) {
-  if (!element || element.style.display === 'none') {
+  if (!element || getComputedStyle(element).display === 'none') {
     return false
   }
 
