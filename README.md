@@ -39,6 +39,8 @@
 1. [518 熊班](https://www.518.com.tw/)
 1. [1111 人力銀行](https://www.1111.com.tw/)
 1. [小雞上工](https://www.chickpt.com.tw/)
+1. [Meet.jobs](https://meet.jobs/)
+1. [台灣就業通](https://job.taiwanjobs.gov.tw/)
 
 ## Recommended Subscription Source
 
