@@ -8,7 +8,7 @@ withDefaults(defineProps<{
 
 <template>
   <svg
-    fill="currentColor"
+    class="fill-current"
     :height="size"
     viewBox="0 0 512 512"
     :width="size"

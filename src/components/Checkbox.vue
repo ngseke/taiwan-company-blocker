@@ -24,10 +24,7 @@ defineEmits<{
     >
     <div class="pointer-events-none absolute left-2/4 top-2/4 -translate-x-2/4 -translate-y-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
       <svg
-        class="h-3.5 w-3.5"
-        fill="currentColor"
-        stroke="currentColor"
-        stroke-width="1"
+        class="h-3.5 w-3.5 fill-current stroke-current stroke-1"
         viewBox="0 0 20 20"
       >
         <path
