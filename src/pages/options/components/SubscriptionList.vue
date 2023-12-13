@@ -4,8 +4,7 @@ import { faCheck, faEllipsisVertical, faTriangleExclamation } from '@fortawesome
 import { type Nullish } from '../../../types/Nullish'
 import Checkbox from '../../../components/Checkbox.vue'
 import { type SubscriptionResults, type Subscription } from '../../../modules/Subscription'
-import { formatRelativeTime, formatTime } from '../../../modules/date'
-import { useNow } from '@vueuse/core'
+import { useTime } from '../../../composables/useTime'
 
 const props = defineProps<{
   modelValue?: Nullish<Subscription[]>
@@ -38,15 +37,7 @@ function setCheckboxValue (index: number, isEnabled: boolean) {
   newList[index] = newSubscription
   emit('update:modelValue', newList)
 }
-
-const now = useNow({ interval: 1000 })
-function getRelativeTime (timestamp?: number) {
-  return formatRelativeTime(timestamp, now.value)
-}
-function getFormattedTime (timestamp?: number) {
-  if (!timestamp) return
-  return formatTime(timestamp)
-}
+const { getFormattedTime, getRelativeTime } = useTime()
 </script>
 
 <template>
