@@ -4,7 +4,7 @@ import { faCheck, faEllipsisVertical, faTriangleExclamation } from '@fortawesome
 import { type Nullish } from '../../../types/Nullish'
 import Checkbox from '../../../components/Checkbox.vue'
 import { type SubscriptionResults, type Subscription } from '../../../modules/Subscription'
-import { formatRelativeTime } from '../../../modules/date'
+import { formatRelativeTime, formatTime } from '../../../modules/date'
 import { useNow } from '@vueuse/core'
 
 const props = defineProps<{
@@ -43,6 +43,10 @@ const now = useNow({ interval: 1000 })
 function getRelativeTime (timestamp?: number) {
   return formatRelativeTime(timestamp, now.value)
 }
+function getFormattedTime (timestamp?: number) {
+  if (!timestamp) return
+  return formatTime(timestamp)
+}
 </script>
 
 <template>
@@ -71,7 +75,10 @@ function getRelativeTime (timestamp?: number) {
             <span v-if="!getResult(item.url)">
               -
             </span>
-            <span v-else-if="getResult(item.url)?.status === 'success'">
+            <span
+              v-else-if="getResult(item.url)?.status === 'success'"
+              :title="getFormattedTime(getResult(item.url)?.timestamp)"
+            >
               <FontAwesomeIcon :icon="faCheck" />
               {{ getRelativeTime(getResult(item.url)?.timestamp) }}
             </span>
