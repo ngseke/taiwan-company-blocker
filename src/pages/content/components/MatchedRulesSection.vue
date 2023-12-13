@@ -24,9 +24,9 @@ defineProps<{
         class="space-x-2 truncate"
       >
         <Badge>{{ item.groupName }}</Badge>
-        <span class="text-red-500">
+        <code class="text-red-500">
           {{ item.rule }}
-        </span>
+        </code>
       </li>
     </ol>
   </div>
