@@ -61,4 +61,10 @@ export const _104BlockerOptions: CreateBlockerOptions[] = [
     `,
     companyNameStrategy: 'b.h4.d-block.text-truncate',
   },
+  {
+    description: '`/job/*` 已關閉了的職缺頁下方「這些工作也很適合你」',
+    itemsSelector: '.row.job-card__column.d-none.d-md-flex [gtm=你可能有興趣的工作]',
+    jobTitleStrategy: 'h3 a',
+    companyNameStrategy: '.mb-1.t4.font-weight-bold a',
+  },
 ]
