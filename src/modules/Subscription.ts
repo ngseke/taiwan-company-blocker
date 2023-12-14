@@ -36,6 +36,11 @@ export async function fetchSubscriptionResult (subscriptions: Subscription[]) {
 
   const resultList = await Promise.all(
     enabledSubscriptions.map<Promise<SubscriptionResult>>(async (subscription) => {
+      const baseResult = {
+        name: subscription.name,
+        url: subscription.url,
+        timestamp: +new Date(),
+      }
       try {
         const response = await fetch(subscription.url, { cache: 'no-store' })
 
@@ -44,17 +49,13 @@ export async function fetchSubscriptionResult (subscriptions: Subscription[]) {
         const data = await response.text()
 
         return {
-          name: subscription.name,
-          url: subscription.url,
-          timestamp: +new Date(),
+          ...baseResult,
           status: 'success',
           rules: String(data),
         }
       } catch (err) {
         return {
-          name: subscription.name,
-          url: subscription.url,
-          timestamp: +new Date(),
+          ...baseResult,
           status: 'error',
           error: extractErrorMessage(err),
         }

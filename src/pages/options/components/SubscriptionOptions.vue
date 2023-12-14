@@ -30,11 +30,18 @@ async function create () {
 const subscriptionResults = useChromeStorage(SUBSCRIPTION_RESULTS_KEY)
 
 const isUpdating = ref(false)
-
+const updateError = ref<string | null>(null)
 async function update () {
-  isUpdating.value = true
-  await updateSubscriptionResult()
-  isUpdating.value = false
+  try {
+    isUpdating.value = true
+    updateError.value = null
+    await updateSubscriptionResult()
+  } catch (err) {
+    updateError.value = '發生錯誤，請稍候再試一次'
+    throw err
+  } finally {
+    isUpdating.value = false
+  }
 }
 
 useChromeStorageListener(update, SUBSCRIPTIONS_KEY)
@@ -77,7 +84,7 @@ function removeActiveSubscription () {
       @clickDetail="handleClickDetail"
     />
 
-    <div class="flex gap-2">
+    <div class="flex items-start gap-2">
       <Button color="primary" @click="create">
         新增訂閱
       </Button>
@@ -89,5 +96,6 @@ function removeActiveSubscription () {
         更新
       </Button>
     </div>
+    <div v-if="updateError" class="text-xs">{{ updateError }}</div>
   </div>
 </template>

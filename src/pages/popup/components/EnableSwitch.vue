@@ -5,15 +5,11 @@ defineProps<{
   modelValue: boolean
 }>()
 
-const emit = defineEmits<{
+defineEmits<{
   'update:modelValue': [value: boolean]
 }>()
 
 const id = nanoid()
-
-function handleChange (event: Event) {
-  emit('update:modelValue', (event.target as HTMLInputElement).checked)
-}
 </script>
 
 <template>
@@ -24,7 +20,7 @@ function handleChange (event: Event) {
         :checked="modelValue"
         class="peer sr-only"
         type="checkbox"
-        @change="handleChange"
+        @click.prevent="$emit('update:modelValue', !modelValue)"
       >
       <div
         class="h-5 w-14 rounded-full transition-colors duration-300"
