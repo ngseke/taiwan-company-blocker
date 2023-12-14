@@ -37,7 +37,7 @@ export async function fetchSubscriptionResult (subscriptions: Subscription[]) {
   const resultList = await Promise.all(
     enabledSubscriptions.map<Promise<SubscriptionResult>>(async (subscription) => {
       try {
-        const response = await fetch(subscription.url)
+        const response = await fetch(subscription.url, { cache: 'no-store' })
 
         if (!response.ok) throw new Error(String(response.status))
 
