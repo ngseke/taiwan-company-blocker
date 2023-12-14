@@ -1,17 +1,17 @@
 import { type SubscriptionResultSuccess } from './Subscription'
-import { parseRulesString } from './rule'
+import { convertRulesStringToArray } from './rule'
 import { loadRules, loadSubscriptionResults } from './storage'
 
 export async function loadParsedRules () {
-  const storageCompanyNameRules = parseRulesString(await loadRules('companyName'))
-  const storageJobTitleRules = parseRulesString(await loadRules('jobTitle'))
+  const storageCompanyNameRules = convertRulesStringToArray(await loadRules('companyName'))
+  const storageJobTitleRules = convertRulesStringToArray(await loadRules('jobTitle'))
 
   const subscriptionResults = await loadSubscriptionResults()
   const subscriptionRules = Object.values(subscriptionResults)
     .filter((result): result is SubscriptionResultSuccess => (
       result.status === 'success'
     ))
-    .map((result) => parseRulesString(result.rules))
+    .map((result) => convertRulesStringToArray(result.rules))
     .flat(1)
 
   const companyNameRules = [

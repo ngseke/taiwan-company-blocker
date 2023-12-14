@@ -1,12 +1,11 @@
 <script setup lang="ts">
+import { type MatchedRules } from '../../../modules/pattern'
 import { type Nullish } from '../../../types/Nullish'
 import Badge from './Badge.vue'
 
 defineProps<{
-  matchedRules?: Nullish<Array<{
+  matchedRules?: Nullish<Array<MatchedRules & {
     groupName: string
-    rule: string
-    input: string
   }>>
 }>()
 </script>
@@ -25,7 +24,7 @@ defineProps<{
       >
         <Badge>{{ item.groupName }}</Badge>
         <code class="text-red-500">
-          {{ item.rule }}
+          {{ item.raw }}
         </code>
       </li>
     </ol>

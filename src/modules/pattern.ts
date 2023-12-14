@@ -1,9 +1,7 @@
-import RegexParser from 'regex-parser'
-
 export function isRegexpLiteral (maybeRegexpLiteral: string) {
   if (maybeRegexpLiteral === '//') return false
 
-  const isFormatValid = /^\/.*\/(?:([gim])(?!.*\1)){0,3}$/.test(maybeRegexpLiteral)
+  const isFormatValid = /^\/.*\/(?:([iu])(?!.*\1)){0,2}$/.test(maybeRegexpLiteral)
   try {
     const regex = new RegExp(maybeRegexpLiteral)
     return isFormatValid && Boolean(regex)
@@ -12,33 +10,93 @@ export function isRegexpLiteral (maybeRegexpLiteral: string) {
   }
 }
 
-interface RegexPattern { type: 'regex', value: RegExp, rawValue: string }
-interface StringPattern { type: 'string', value: string, rawValue: string }
+interface BasePattern {
+  raw: string
+  comment: string | null
+}
 
-type Pattern = RegexPattern | StringPattern
+type RegexPattern = BasePattern & {
+  type: 'regex'
+  value: RegExp
+}
+
+type StringPattern = BasePattern & {
+  type: 'string'
+  value: string
+}
+
+export type Pattern = RegexPattern | StringPattern
+
+interface Groups {
+  leadingSpace: string
+  regex: string
+  pattern: string
+  flags: string
+  wildcard: string
+  spaceAfterRule: string
+  comment: string
+}
+
+export function parseRawIntoGroups (input: string): Groups | null {
+  const leadingSpace = '(?<leadingSpace>\\s*)'
+
+  const flags = '(?<flags>iu?|ui?)'
+  const pattern = '(?<pattern>.+)'
+  const regex = `(?<regex>/${pattern}/${flags}?)`
+  const wildcard = '(?<wildcard>.*?)'
+  const rule = `(?:${regex}|${wildcard})`
+
+  const spaceAfterRule = '(?<spaceAfterRule>\\s*)'
+
+  const comment = '(?<comment>#.*)'
+
+  const onlyCommentInstance = new RegExp(`^${leadingSpace}?${comment}$`)
+  const instance = new RegExp(`^${leadingSpace}?(?:${rule}${spaceAfterRule}?)?${comment}?$`)
+
+  const { groups } = onlyCommentInstance.exec(input) ?? instance.exec(input) ?? {}
+  if (!groups) return null
+
+  return {
+    leadingSpace: groups?.leadingSpace ?? '',
+    regex: groups?.regex ?? '',
+    pattern: groups?.pattern ?? '',
+    flags: groups?.flags ?? '',
+    wildcard: groups?.wildcard ?? '',
+    spaceAfterRule: groups?.spaceAfterRule ?? '',
+    comment: groups?.comment ?? '',
+  }
+}
 
 const patternCache = new Map<string, Pattern>()
 
-export function parseRuleIntoPattern (rule: string): Pattern {
-  rule = rule.trim()
-
-  if (patternCache.has(rule)) {
-    return patternCache.get(rule) as Pattern
+export function parseRuleIntoPattern (raw: string): Pattern | null {
+  if (patternCache.has(raw)) {
+    return patternCache.get(raw) as Pattern
   }
 
-  if (isRegexpLiteral(rule)) {
+  const groups = parseRawIntoGroups(raw)
+  if (!groups) return null
+
+  const { comment, pattern, flags, wildcard } = groups
+
+  const baseResult = { raw, comment }
+
+  if (pattern) {
     try {
-      const regex = RegexParser(rule)
-      const result = { type: 'regex', value: regex, rawValue: rule } as const
-      patternCache.set(rule, result)
+      const value = new RegExp(pattern, flags)
+      const result = { ...baseResult, type: 'regex', value } as const
+      patternCache.set(raw, result)
 
       return result
-    } catch (err) {}
+    } catch (err) {
+      return null
+    }
   }
-  const pattern = { type: 'string', value: rule, rawValue: rule } as const
-  patternCache.set(rule, pattern)
 
-  return pattern
+  const result = { ...baseResult, type: 'string', value: wildcard } as const
+  patternCache.set(raw, result)
+
+  return result
 }
 
 function matchStringPatterns (input: string, patterns: string[]): boolean {
@@ -93,6 +151,10 @@ export function match (input: string, ruleOrRules: string | string[]) {
   return isMatchedStringPatterns || isMatchedRegexpPatterns
 }
 
+export type MatchedRules = Pattern & {
+  input: string
+}
+
 export function getMatchedRules (input: string, rules: string[]) {
   input = input.trim()
   if (!input) return []
@@ -100,6 +162,7 @@ export function getMatchedRules (input: string, rules: string[]) {
   const patterns = rules.map(parseRuleIntoPattern)
 
   return patterns
+    .filter((pattern): pattern is Pattern => Boolean(pattern))
     .filter((pattern) => {
       if (pattern.type === 'string') {
         return matchStringPatterns(input, [pattern.value])
@@ -108,8 +171,5 @@ export function getMatchedRules (input: string, rules: string[]) {
       }
       return false
     })
-    .map((pattern) => ({
-      rule: pattern.rawValue,
-      input,
-    }))
+    .map<MatchedRules>((pattern) => ({ ...pattern, input }))
 }

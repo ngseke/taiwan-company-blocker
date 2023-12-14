@@ -1,15 +1,53 @@
-import { isRegexpLiteral, match, parseRuleIntoPattern } from './pattern'
+import { isRegexpLiteral, match, parseRawIntoGroups, parseRuleIntoPattern } from './pattern'
 
 describe('pattern.ts', () => {
+  test('parseRule', () => {
+    expect(parseRawIntoGroups('  /regex.*/  ## comment'))
+      .toMatchObject({
+        leadingSpace: '  ',
+        pattern: 'regex.*',
+        regex: '/regex.*/',
+        spaceAfterRule: '  ',
+        comment: '## comment',
+      })
+    expect(parseRawIntoGroups('  /regex-with-flags/iu  ## comment'))
+      .toMatchObject({
+        leadingSpace: '  ',
+        pattern: 'regex-with-flags',
+        regex: '/regex-with-flags/iu',
+        flags: 'iu',
+        spaceAfterRule: '  ',
+        comment: '## comment',
+      })
+    expect(parseRawIntoGroups('  string  #  comment#with space '))
+      .toMatchObject({
+        leadingSpace: '  ',
+        wildcard: 'string',
+        spaceAfterRule: '  ',
+        comment: '#  comment#with space ',
+      })
+    expect(parseRawIntoGroups('\\a中文b 字串c# 中文#註解  '))
+      .toMatchObject({
+        leadingSpace: '',
+        wildcard: '\\a中文b 字串c',
+        spaceAfterRule: '',
+        comment: '# 中文#註解  ',
+      })
+    expect(parseRawIntoGroups('# only comment'))
+      .toMatchObject({
+        comment: '# only comment',
+        wildcard: '',
+      })
+  })
+
   test('isRegexpLiteral', () => {
     expect(isRegexpLiteral('/abc/')).toBe(true)
     expect(isRegexpLiteral('/123/')).toBe(true)
     expect(isRegexpLiteral('/ pattern(.+?)/i')).toBe(true)
-    expect(isRegexpLiteral('/pattern/g')).toBe(true)
-    expect(isRegexpLiteral('/pattern/m')).toBe(true)
-    expect(isRegexpLiteral('/pattern/ig')).toBe(true)
-    expect(isRegexpLiteral('/pattern/mig')).toBe(true)
-    expect(isRegexpLiteral('/pattern/gim')).toBe(true)
+    expect(isRegexpLiteral('/pattern/i')).toBe(true)
+    expect(isRegexpLiteral('/pattern/u')).toBe(true)
+    expect(isRegexpLiteral('/pattern/iu')).toBe(true)
+    expect(isRegexpLiteral('/pattern/ui')).toBe(true)
 
     expect(isRegexpLiteral('')).toBe(false)
     expect(isRegexpLiteral(' ')).toBe(false)
@@ -24,15 +62,15 @@ describe('pattern.ts', () => {
 
   test('parsePattern', () => {
     expect(parseRuleIntoPattern(' /pattern(.+?)/ '))
-      .toMatchObject({ type: 'regex', value: /pattern(.+?)/ })
+      .toMatchObject({ type: 'regex' })
     expect(parseRuleIntoPattern(' /pat/ tern/ '))
-      .toMatchObject({ type: 'regex', value: /pat\/ tern/ })
+      .toMatchObject({ type: 'regex' })
     expect(parseRuleIntoPattern('/(內|外)場/'))
-      .toMatchObject({ type: 'regex', value: /(內|外)場/ })
+      .toMatchObject({ type: 'regex' })
     expect(parseRuleIntoPattern('/xyz/i'))
-      .toMatchObject({ type: 'regex', value: /xyz/i })
-    expect(parseRuleIntoPattern('/abc/img  '))
-      .toMatchObject({ type: 'regex', value: /abc/img })
+      .toMatchObject({ type: 'regex' })
+    expect(parseRuleIntoPattern('/abc/ui  '))
+      .toMatchObject({ type: 'regex' })
 
     expect(parseRuleIntoPattern('//'))
       .toMatchObject({ type: 'string', value: '//' })
@@ -57,7 +95,7 @@ describe('pattern.ts', () => {
     expect(match('', '**')).toEqual(false)
 
     expect(match('\n  去除頭尾空格一字不差  ', ' 去除頭尾空格一字不差 \n')).toEqual(true)
-    expect(match('CaSe~@#$%^&()_+{}[]<>,.InSeNsItIvE', 'case~@#$%^&()_+{}[]<>,.insensitive')).toEqual(true)
+    expect(match('CaSe~@$%^&()_+{}[]<>,.InSeNsItIvE', 'case~@$%^&()_+{}[]<>,.insensitive')).toEqual(true)
     expect(match('電子商務專案助理  ', ' *專案助理* ')).toEqual(true)
     expect(match('  電子商務專案助理', ' *專案助理 ')).toEqual(true)
     expect(match('電子商務專案助理', ' 電子商務* ')).toEqual(true)
@@ -70,6 +108,7 @@ describe('pattern.ts', () => {
 
     expect(match('back-end  ', '/back(-?)END/i')).toEqual(true)
     expect(match('  BaCk-eNd', '/back(-?)END/i')).toEqual(true)
+    expect(match('  BaCk-eNd', '/BaCk-eNd/')).toEqual(true)
     expect(match(' back-end ', '/BACK(-?)end/')).toEqual(false)
 
     expect(match('內場正職人員', '/(內|外)場/')).toEqual(true)

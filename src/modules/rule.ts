@@ -1,4 +1,4 @@
-import { getMatchedRules } from './pattern'
+import { type Pattern, getMatchedRules, parseRuleIntoPattern } from './pattern'
 import { unique } from './unique'
 
 export type RuleType = 'jobTitle' | 'companyName'
@@ -13,11 +13,12 @@ export function normalizeRulesString (rules: string) {
 
 export function checkHasIllogicalRule (rules: string) {
   return rules.split('\n')
-    .map((rule) => rule.trim())
-    .some((rule) => rule === '*' || rule === '**')
+    .map((rule) => parseRuleIntoPattern(rule.trim()))
+    .filter((pattern): pattern is Pattern => Boolean(pattern))
+    .some(({ value }) => value === '*' || value === '**')
 }
 
-export function parseRulesString (rules: string) {
+export function convertRulesStringToArray (rules: string) {
   const separator = '\n'
   return unique(
     rules
@@ -30,6 +31,6 @@ export function parseRulesString (rules: string) {
 export function getMatchedRulesWithGroupName (
   input: string, groupName: string, rules: string
 ) {
-  return getMatchedRules(input, parseRulesString(rules))
+  return getMatchedRules(input, convertRulesStringToArray(rules))
     .map((item) => ({ ...item, groupName }))
 }
