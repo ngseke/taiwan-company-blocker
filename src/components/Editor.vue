@@ -5,10 +5,13 @@ import { rulesLanguage } from '../modules/codeMirror'
 import { codeMirrorTheme } from '../modules/codeMirrorTheme'
 import { type Nullish } from '../types/Nullish'
 
-const props = defineProps<{
-  modelValue?: Nullish<string>
+const props = withDefaults(defineProps<{
+  modelValue: Nullish<string>
   disabled?: boolean
-}>()
+  height?: number
+}>(), {
+  height: 350,
+})
 
 const emit = defineEmits<{
   'update:modelValue': [value: string]
@@ -25,6 +28,6 @@ const vModel = useVModel(props, 'modelValue', emit)
     v-model="vModel"
     :disabled="disabled"
     :extensions="extensions"
-    :style="{ height: '350px' }"
+    :style="{ height: `${height}px` }"
   />
 </template>

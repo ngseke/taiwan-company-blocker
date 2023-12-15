@@ -45,7 +45,7 @@ const resultError = computed(() => {
   <Dialog
     closeOnClickOutside
     :open="Boolean(subscription)"
-    width="450px"
+    width="500px"
     @close="close"
   >
     <div class="flex flex-col gap-4">
@@ -59,6 +59,7 @@ const resultError = computed(() => {
         <Editor
           v-if="resultRules != null"
           disabled
+          :height="300"
           :modelValue="resultRules"
         />
 
