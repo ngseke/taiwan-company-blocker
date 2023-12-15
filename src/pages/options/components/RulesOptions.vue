@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import Textarea from '../../../components/Textarea.vue'
 import { loadRules, saveRules } from '../../../modules/storage'
 import InstructionArticle from './InstructionArticle.vue'
 import Title from './Title.vue'
@@ -9,6 +8,7 @@ import { useBeforeUnload } from '../../popup/composables/useBeforeUnload'
 import { syncRef } from '@vueuse/core'
 import IllogicalRulesAlert from './IllogicalRulesAlert.vue'
 import { checkHasIllogicalRule } from '../../../modules/rule'
+import Editor from '../../../components/Editor.vue'
 
 const jobTitleRulesDraft = ref<string | null>(null)
 const companyNameRulesDraft = ref<string | null>(null)
@@ -54,22 +54,12 @@ const hasIllogicalRules = computed(() => (
 <template>
   <div class="flex flex-col gap-4">
     <Title>職缺名稱</Title>
-    <Textarea
-      v-if="jobTitleRulesDraft != null"
-      v-model="jobTitleRulesDraft"
-      label="規則"
-      :rows="10"
-    />
+    <Editor v-model="jobTitleRulesDraft" />
     <Title>公司名稱</Title>
-    <Textarea
-      v-if="companyNameRulesDraft != null"
-      v-model="companyNameRulesDraft"
-      label="規則"
-      :rows="10"
-    />
+    <Editor v-model="companyNameRulesDraft" />
 
     <div
-      class="sticky bottom-0 -my-4 flex flex-col gap-4 bg-neutral-900 py-4 before:absolute
+      class="sticky bottom-0 -mx-6 -my-2 flex flex-col gap-4 bg-neutral-900 px-6 py-4 before:absolute
       before:-top-2 before:left-0 before:h-2 before:w-full before:bg-gradient-to-t before:from-neutral-900 before:to-transparent before:content-['']"
     >
       <IllogicalRulesAlert :show="hasIllogicalRules" />

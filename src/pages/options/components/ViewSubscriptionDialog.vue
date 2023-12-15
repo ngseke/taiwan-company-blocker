@@ -4,9 +4,9 @@ import Button from '../../../components/Button.vue'
 import { type SubscriptionResult, type Subscription } from '../../../modules/Subscription'
 import { type Nullish } from '../../../types/Nullish'
 import { computed } from 'vue'
-import Textarea from '../../../components/Textarea.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import Editor from '../../../components/Editor.vue'
 
 const props = defineProps<{
   subscription: Nullish<Subscription>
@@ -55,12 +55,11 @@ const resultError = computed(() => {
         <div class="leading-none">
           <a class="break-all text-xs" :href="url" target="_blank">{{ url }}</a>
         </div>
-        <Textarea
+
+        <Editor
           v-if="resultRules != null"
-          label="預覽"
+          disabled
           :modelValue="resultRules"
-          readOnly
-          :rows="10"
         />
 
         <div v-if="resultError != null">
