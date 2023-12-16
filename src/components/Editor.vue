@@ -25,7 +25,7 @@ const vModel = useVModel(props, 'modelValue', emit)
 const codeMirrorRef = ref<InstanceType<typeof Codemirror> | null>(null)
 async function handleReady () {
   await new Promise((resolve) => setTimeout(resolve, 0))
-  codeMirrorRef.value?.$el.querySelector('.cm-scroller')?.scrollTo(0, 0)
+  codeMirrorRef.value?.$el.querySelector('.cm-scroller')?.scrollTo?.(0, 0)
 }
 </script>
 
