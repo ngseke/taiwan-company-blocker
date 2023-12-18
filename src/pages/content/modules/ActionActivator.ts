@@ -76,7 +76,7 @@ export class ActionActivator {
   }
 
   private destroyAll () {
-    const $activators = [...this.$container.children] as HTMLElement[]
+    const $activators = [...this.$container.children]
 
     $activators.forEach(($activator) => {
       $activator.remove()
@@ -84,10 +84,10 @@ export class ActionActivator {
   }
 
   private handler: (() => void) | null = null
+  private observer: MutationObserver | null = null
 
-  // TODO: Find a better way to render activator buttons without positional offset when the page shifts
   start () {
-    if (this.handler) return this
+    if (this.handler ?? this.observer) return this
 
     const debouncedRenderAll = debounce(() => {
       const $items = this.marker.selectMarkedItems()
@@ -107,18 +107,33 @@ export class ActionActivator {
     window.addEventListener('scroll', handler)
     window.addEventListener('resize', handler)
 
+    this.observer = new MutationObserver((records) => {
+      const isMutationOutsideContainer = !records.some((record) => (
+        this.$container.contains(record.target)
+      ))
+      if (!isMutationOutsideContainer) return
+      handler()
+    })
+
+    this.observer.observe(
+      document.documentElement,
+      { childList: true, subtree: true }
+    )
+
     return this
   }
 
   stop () {
-    if (!this.handler) return
+    if (!this.handler || !this.observer) return
 
     this.destroyAll()
 
     window.removeEventListener('scroll', this.handler)
     window.removeEventListener('resize', this.handler)
+    this.observer.disconnect()
 
     this.handler = null
+    this.observer = null
 
     return this
   }
