@@ -2,6 +2,20 @@ import { type CreateBlockerOptions } from './createBlocker'
 
 export const _104BlockerOptions: CreateBlockerOptions[] = [
   {
+    description: '`/jobs/main` 首頁「適合你的好工作」',
+    itemsSelector: `
+      .job-recommend .job-recommend-list .row > .col .card,
+      .job-recommend .job-recommend-list .row > .col .card-container
+    `,
+    jobTitleStrategy: '.jb-link-blue',
+    companyNameStrategy: '.company-name-link > a, .card__header',
+  },
+  {
+    description: '`/jobs/main` 首頁「適合你的好公司」',
+    itemsSelector: '.company-recommend-list .company-card',
+    companyNameStrategy: '.company-name-link > a, .card__header',
+  },
+  {
     description: '`/search` 公司列表、 `/topic/recommend` 「為你推薦」公司列表',
     itemsSelector: '.container .company-list, .company-lists__item',
     companyNameStrategy: '.company-name-link > a, .advert-type27__middle__header__title',
