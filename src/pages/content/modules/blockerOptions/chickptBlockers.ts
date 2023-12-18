@@ -1,4 +1,4 @@
-import { type CreateBlockerOptions } from './createBlocker'
+import { type CreateBlockerOptions } from '../createBlocker'
 
 export const chickptBlockerOptions: CreateBlockerOptions[] = [
   {

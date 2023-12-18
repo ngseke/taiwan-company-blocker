@@ -1,5 +1,5 @@
-import { type ActivatorPositionCallback } from '../ActionActivator'
-import { $, $$ } from '../dom'
+import { type ActivatorPositionCallback } from './ActionActivator'
+import { $, $$ } from './dom'
 import { Blocker } from './Blocker'
 
 type TextStrategy =
