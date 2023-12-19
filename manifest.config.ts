@@ -24,6 +24,7 @@ export default defineManifest(async () => ({
         'https://www.cakeresume.com/*',
         'https://www.yourator.co/*',
         'https://www.104.com.tw/*',
+        'https://pda.104.com.tw/*',
         'https://www.518.com.tw/*',
         'https://www.1111.com.tw/*',
         'https://www.yes123.com.tw/*',

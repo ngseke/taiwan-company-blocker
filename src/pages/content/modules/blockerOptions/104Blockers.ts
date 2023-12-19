@@ -68,6 +68,12 @@ export const _104BlockerOptions: CreateBlockerOptions[] = [
     },
   },
   {
+    description: '`/job/*` 職缺頁下方「適合你大展身手的工作」職缺列表',
+    itemsSelector: '.personal-recommend .job-list-container',
+    jobTitleStrategy: '.info-job__text',
+    companyNameStrategy: '.info-company__text',
+  },
+  {
     description: '`/company/*` 公司頁右側「瀏覽公司紀錄」和「你可能有興趣的公司」列表',
     itemsSelector: `
       .sidebarContainer [data-gtm-sidebar="最近瀏覽公司"],
@@ -80,5 +86,14 @@ export const _104BlockerOptions: CreateBlockerOptions[] = [
     itemsSelector: '.row.job-card__column.d-none.d-md-flex [gtm=你可能有興趣的工作]',
     jobTitleStrategy: 'h3 a',
     companyNameStrategy: '.mb-1.t4.font-weight-bold a',
+  },
+  {
+    description: '`/work/mate/list/highchance` 會員中心「專屬工作」列表（桌面和手機版）',
+    itemsSelector: `
+      .mate-list .job-summery-mobile,
+      .mate-list .job-list-container
+    `,
+    jobTitleStrategy: '.info-job__text, .job-name',
+    companyNameStrategy: '.info-company__text, .cust-name',
   },
 ]
