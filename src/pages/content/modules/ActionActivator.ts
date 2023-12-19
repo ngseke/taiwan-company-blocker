@@ -1,7 +1,7 @@
 import { debounce } from 'lodash-es'
 import { type Marker } from './Marker'
 import { type ActivatorOptions, renderActivator } from './activator'
-import { getIsInViewport, waitForElement } from './dom'
+import { $$, getIsInViewport, waitForElement } from './dom'
 import { type Nullish } from '../../../types/Nullish'
 
 export type ActivatorPositionCallback = (
@@ -24,6 +24,8 @@ export const defaultActivatorPositionCallback: ActivatorPositionCallback =
     }
   }
 
+const dataSetKey = 'taiwan_company_blocker_action_activator_container'
+
 export class ActionActivator {
   private readonly $container = document.createElement('div')
 
@@ -41,7 +43,7 @@ export class ActionActivator {
     if (options.activatorPositionCallback) {
       this.activatorPositionCallback = options.activatorPositionCallback
     }
-
+    this.$container.dataset[dataSetKey] = ''
     this.insertContainer()
   }
 
@@ -108,8 +110,9 @@ export class ActionActivator {
     window.addEventListener('resize', handler)
 
     this.observer = new MutationObserver((records) => {
+      const containers = $$(`[data-${dataSetKey}]`)
       const isMutationOutsideContainer = !records.some((record) => (
-        this.$container.contains(record.target)
+        containers.some(($container) => $container.contains(record.target))
       ))
       if (!isMutationOutsideContainer) return
       handler()
