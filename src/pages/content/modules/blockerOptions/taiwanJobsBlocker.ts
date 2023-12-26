@@ -27,7 +27,7 @@ export const taiwanJobsBlockerOptions: CreateBlockerOptions[] = [
   },
   {
     description: '`https://job.taiwanjobs.gov.tw/Internet/jobwanted/company_desc2.aspx?EMPLOYER_ID=*` 公司頁下方「工作機會」列表',
-    itemsSelector: 'ul.search-list-items li.search-list-item figure',
+    itemsSelector: '#CPH1_TuJobList ul.search-list-items li.search-list-item figure',
     jobTitleStrategy: 'a.t-card-title.text-inherit',
     companyNameStrategy: {
       selectorTarget: 'document',
