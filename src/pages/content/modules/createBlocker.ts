@@ -39,8 +39,6 @@ export function createBlocker ({
   companyNameStrategy,
   activatorPosition = 'top-right',
 }: CreateBlockerOptions) {
-  void description
-
   function getText (
     $item: HTMLElement,
     strategyOrSelector: SelectorStrategy | string
