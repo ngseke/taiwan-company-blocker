@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { Codemirror } from 'vue-codemirror'
 import { useVModel } from '@vueuse/core'
+import { EditorView } from '@codemirror/view'
 import { rulesLanguage } from '../modules/codeMirror'
 import { codeMirrorTheme } from '../modules/codeMirrorTheme'
 import { type Nullish } from '../types/Nullish'
@@ -9,7 +10,8 @@ import { type Nullish } from '../types/Nullish'
 const props = withDefaults(defineProps<{
   modelValue: Nullish<string>
   disabled?: boolean
-  height?: number
+  height?: number | 'auto'
+  lineWrapping?: boolean
 }>(), {
   height: 350,
 })
@@ -18,7 +20,11 @@ const emit = defineEmits<{
   'update:modelValue': [value: string]
 }>()
 
-const extensions = [rulesLanguage, codeMirrorTheme]
+const extensions = computed(() => [
+  rulesLanguage,
+  codeMirrorTheme,
+  ...(props.lineWrapping ? [EditorView.lineWrapping] : []),
+])
 
 const vModel = useVModel(props, 'modelValue', emit)
 
@@ -36,7 +42,7 @@ async function handleReady () {
     v-model="vModel"
     :disabled="disabled"
     :extensions="extensions"
-    :style="{ height: `${height}px` }"
+    :style="{ height: typeof height === 'string' ? height : `${height}px` }"
     @ready="handleReady"
   />
 </template>
