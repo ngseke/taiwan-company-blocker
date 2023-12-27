@@ -12,7 +12,9 @@ import Dialog from '../../components/Dialog.vue'
 import SearchLinkSection from './components/SearchLinkSection.vue'
 import { useMatchedRules } from './composables/useMatchedRules'
 import MatchedRulesSection from './components/MatchedRulesSection.vue'
-import { appendRule } from '../../modules/ruleStorageAction'
+import { appendRule, removeRule, replaceRule } from '../../modules/ruleStorageAction'
+import EditRuleDialog from './components/EditRuleDialog.vue'
+import { type RuleType } from '../../modules/rule'
 
 const isOpened = ref(false)
 function open () { isOpened.value = true }
@@ -59,6 +61,21 @@ const isSubmitDisabled = computed(() => !(
 ))
 
 const { matchedRules } = useMatchedRules({ companyName, jobTitle })
+
+const editRuleDialogRef = ref<InstanceType<typeof EditRuleDialog> | null>(null)
+
+async function handleEditRule (type: RuleType, rule: string) {
+  try {
+    const response = await editRuleDialogRef.value?.request(type, rule)
+    if (!response) return
+
+    if (response?.type === 'remove') {
+      await removeRule(type, rule)
+    } else if (response?.type === 'edit') {
+      await replaceRule(type, rule, response.newRule)
+    }
+  } catch (err) {}
+}
 </script>
 
 <template>
@@ -77,7 +94,10 @@ const { matchedRules } = useMatchedRules({ companyName, jobTitle })
           </div>
         </div>
 
-        <MatchedRulesSection :matchedRules="matchedRules" />
+        <MatchedRulesSection
+          :matchedRules="matchedRules"
+          @edit="handleEditRule"
+        />
 
         <div class="flex flex-wrap items-center justify-end gap-2">
           <button
@@ -108,5 +128,6 @@ const { matchedRules } = useMatchedRules({ companyName, jobTitle })
         </template>
       </div>
     </Dialog>
+    <EditRuleDialog ref="editRuleDialogRef" />
   </div>
 </template>

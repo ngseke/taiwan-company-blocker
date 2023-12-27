@@ -151,7 +151,7 @@ export function match (input: string, ruleOrRules: string | string[]) {
   return isMatchedStringPatterns || isMatchedRegexpPatterns
 }
 
-export type MatchedRules = Pattern & {
+export type MatchedRule = Pattern & {
   input: string
 }
 
@@ -171,5 +171,5 @@ export function getMatchedRules (input: string, rules: string[]) {
       }
       return false
     })
-    .map<MatchedRules>((pattern) => ({ ...pattern, input }))
+    .map<MatchedRule>((pattern) => ({ ...pattern, input }))
 }
