@@ -3,15 +3,20 @@ import { type RuleType } from '../../../modules/rule'
 import { type Nullish } from '../../../types/Nullish'
 import { type MatchedRulesWithMeta } from '../composables/useMatchedRules'
 import Badge from './Badge.vue'
-import EditButton from './EditButton.vue'
+import EditIcon from './EditIcon.vue'
 
 defineProps<{
   matchedRules?: Nullish<MatchedRulesWithMeta>
 }>()
 
-defineEmits<{
+const emit = defineEmits<{
   'edit': [type: RuleType, rule: string]
 }>()
+
+function handleClick (item: MatchedRulesWithMeta[number]) {
+  if (item.ruleSource !== 'custom') return
+  emit('edit', item.ruleType, item.raw)
+}
 </script>
 
 <template>
@@ -26,18 +31,28 @@ defineEmits<{
         :key="index"
         class="group flex"
       >
-        <span class="flex-1 space-x-2 truncate">
-          <Badge>{{ item.groupName }}</Badge>
-          <code class="text-red-500" :title="item.raw">
-            {{ item.raw }}
-          </code>
-        </span>
+        <span class="inline-flex flex-1 space-x-2 overflow-hidden">
+          <span class="flex-none">
+            <Badge>{{ item.groupName }}</Badge>
+          </span>
+          <button
+            class="group inline-flex space-x-1 overflow-hidden enabled:hover:underline"
+            :disabled="item.ruleSource !== 'custom'"
+            :title="item.raw"
+            type="button"
+            @click="handleClick(item)"
+          >
+            <span class="truncate font-mono text-red-500">
+              {{ item.raw }}
+            </span>
 
-        <span
-          v-if="item.ruleSource === 'custom'"
-          class="flex w-0 flex-none overflow-hidden focus-within:w-auto group-hover:w-auto"
-        >
-          <EditButton @click="$emit('edit', item.ruleType, item.raw)" />
+            <span
+              v-if="item.ruleSource === 'custom'"
+              class="w-0 flex-none overflow-hidden focus-within:w-auto group-hover:w-auto"
+            >
+              <EditIcon />
+            </span>
+          </button>
         </span>
       </li>
     </ol>
