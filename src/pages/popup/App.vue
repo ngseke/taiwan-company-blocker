@@ -32,7 +32,7 @@ const { platformName, blockedCount } = useContentMessage()
           </Statistic>
           <Statistic
             :muted="blockedCount == null"
-            name="此頁已過濾數量"
+            name="已過濾數量"
             :value="blockedCount"
           />
         </div>
