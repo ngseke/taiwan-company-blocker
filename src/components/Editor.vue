@@ -42,6 +42,7 @@ async function handleReady () {
     v-model="vModel"
     :disabled="disabled"
     :extensions="extensions"
+    :indentWithTab="false"
     :style="{ height: typeof height === 'string' ? height : `${height}px` }"
     @ready="handleReady"
   />
