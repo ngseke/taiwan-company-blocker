@@ -49,7 +49,7 @@ export function useMatchedRules ({
         ))
         .flat(1),
       ...getMatchedRulesWithMeta(input, companyNameRules.value ?? '', {
-        groupName: '公司名稱',
+        groupName: '公司',
         ruleType: 'companyName',
         ruleSource: 'custom',
       }),
@@ -60,7 +60,7 @@ export function useMatchedRules ({
     const input = unref(jobTitle)
     if (!input) return []
     return getMatchedRulesWithMeta(input, jobTitleRules.value ?? '', {
-      groupName: '職缺名稱',
+      groupName: '職缺',
       ruleType: 'jobTitle',
       ruleSource: 'custom',
     })
