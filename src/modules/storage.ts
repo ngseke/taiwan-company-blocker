@@ -90,12 +90,6 @@ export async function saveRules (type: RuleType, rules: string) {
   )
 }
 
-export async function appendRule (type: RuleType, rule: string) {
-  const rules = await loadRules(type)
-
-  await saveRules(type, `${rules}\n${rule}`)
-}
-
 export async function loadSubscriptions () {
   return await getSyncStorage(SUBSCRIPTIONS_KEY)
 }

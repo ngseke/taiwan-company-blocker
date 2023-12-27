@@ -7,12 +7,12 @@ import { useEmitter } from './composables/useEmitter'
 import Header from './components/Header.vue'
 import { OPEN_OPTIONS_PAGE_MESSAGE_NAME } from '../../modules/constants'
 import Checkbox from '../../components/Checkbox.vue'
-import { appendRule } from '../../modules/storage'
 import { type Nullish } from '../../types/Nullish'
 import Dialog from '../../components/Dialog.vue'
 import SearchLinkSection from './components/SearchLinkSection.vue'
 import { useMatchedRules } from './composables/useMatchedRules'
 import MatchedRulesSection from './components/MatchedRulesSection.vue'
+import { appendRule } from '../../modules/ruleStorageAction'
 
 const isOpened = ref(false)
 function open () { isOpened.value = true }
