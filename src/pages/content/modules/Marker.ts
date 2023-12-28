@@ -29,7 +29,6 @@ export class Marker {
   }
 
   getIsMarked ($item: HTMLElement) {
-    const isHandled = this.key in $item.dataset
-    return isHandled
+    return this.key in $item.dataset
   }
 }
