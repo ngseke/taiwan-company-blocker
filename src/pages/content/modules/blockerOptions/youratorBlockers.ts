@@ -2,6 +2,18 @@ import { type CreateBlockerOptions } from '../createBlocker'
 
 export const youratorBlockerOptions: CreateBlockerOptions[] = [
   {
+    description: '`/search?s=*` 綜合搜尋 職缺列表',
+    itemsSelector: '.search-result__section .y-job-card',
+    jobTitleStrategy: '.y-new-card__title',
+    companyNameStrategy: '.y-new-card__subtitle',
+    activatorPosition: 'bottom-right',
+  },
+  {
+    description: '`/search?s=*` 綜合搜尋 公司列表',
+    itemsSelector: '.search-result__cards .y-company-card ',
+    companyNameStrategy: '.y-new-card__title',
+  },
+  {
     description: '`/companies` 公司列表',
     itemsSelector: '#y-company-list-cards .container .y-company-card',
     companyNameStrategy: '.y-new-card__title.flex-initial.truncate',
