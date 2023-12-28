@@ -32,6 +32,12 @@ describe('platform.ts', () => {
 
     mockHost('https://chickpt.com.tw/job-00000000000')
     expect(detectPagePlatform()).toBe('chickpt')
+
+    mockHost('https://meet.jobs/zh-TW/jobs?page=1&order=match&q=Software')
+    expect(detectPagePlatform()).toBe('meetJobs')
+
+    mockHost('https://job.taiwanjobs.gov.tw/internet/index/job_search_list.aspx')
+    expect(detectPagePlatform()).toBe('taiwanJobs')
   })
 
   test('formatPlatformName', () => {
