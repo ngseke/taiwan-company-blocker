@@ -14,6 +14,9 @@ export function mockChrome () {
       query: vi.fn().mockResolvedValue([{ id: 1 }]),
       sendMessage: vi.fn(),
     },
+    runtime: {
+      getURL: vi.fn().mockReturnValue(''),
+    },
   }
   vi.stubGlobal('chrome', mockedChrome)
   return mockedChrome
