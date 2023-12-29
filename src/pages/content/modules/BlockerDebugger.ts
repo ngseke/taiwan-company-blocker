@@ -1,6 +1,6 @@
 import { debounce } from 'lodash-es'
 import { type Marker } from './Marker'
-import { getIsInViewport, htmlToElement, waitForElement } from './dom'
+import { getIsInViewport, htmlToElement } from './dom'
 import style from './block-debugger.module.sass'
 
 export function renderDebugger (text: string) {
@@ -30,8 +30,7 @@ export class BlockerDebugger {
   }
 
   private async insertContainer () {
-    const $body = await waitForElement('body')
-    $body.append(this.$container)
+    document.body.append(this.$container)
   }
 
   private async render ($item: HTMLElement, text: string) {

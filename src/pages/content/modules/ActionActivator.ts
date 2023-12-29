@@ -1,7 +1,7 @@
 import { debounce } from 'lodash-es'
 import { type Marker } from './Marker'
 import { renderActivator } from './activator'
-import { $$, getIsInViewport, waitForElement } from './dom'
+import { $$, getIsInViewport } from './dom'
 import { emitter, CLICK_ITEM_ACTION } from './emitter'
 
 export type ActivatorPositionCallback = (
@@ -39,8 +39,7 @@ export class ActionActivator {
   }
 
   private async insertContainer () {
-    const $body = await waitForElement('body')
-    $body.append(this.$container)
+    document.body.append(this.$container)
   }
 
   private async render ($item: HTMLElement) {
@@ -111,6 +110,8 @@ export class ActionActivator {
       document.documentElement,
       { childList: true, subtree: true }
     )
+
+    handler()
 
     return this
   }

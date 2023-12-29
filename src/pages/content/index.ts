@@ -2,8 +2,11 @@ import { QUERY_BLOCKED_COUNT_MESSAGE_NAME, QUERY_PLATFORM_NAME_MESSAGE_NAME } fr
 import { loadBlockMethod, loadIsDebuggerEnabled, loadIsEnabled } from '../../modules/storage'
 import { mountVueApp } from './main'
 import { BlockerManager } from './modules/BlockerManager'
+import { waitForElement } from './modules/dom'
 import { injectGlobalCssVariables } from './modules/injectGlobalCssVariables'
 import { detectPagePlatform } from './modules/platform'
+
+await waitForElement('body')
 
 const blockerManager = new BlockerManager()
 
@@ -47,5 +50,4 @@ async function startOrStop () {
 
 chrome.storage.onChanged.addListener(startOrStop)
 startOrStop()
-
 mountVueApp()
