@@ -28,7 +28,7 @@ export class ActionActivator {
     this.insertContainer()
   }
 
-  handleClick ($item: HTMLElement) {
+  private handleClick ($item: HTMLElement) {
     const markerValue = this.marker.getMarkerValue($item)
     if (!markerValue) return
 
