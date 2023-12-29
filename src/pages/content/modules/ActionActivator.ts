@@ -2,7 +2,6 @@ import { debounce } from 'lodash-es'
 import { type Marker } from './Marker'
 import { renderActivator } from './activator'
 import { $$, getIsInViewport, waitForElement } from './dom'
-import { type Nullish } from '../../../types/Nullish'
 import { emitter, CLICK_ITEM_ACTION } from './emitter'
 
 export type ActivatorPositionCallback = (
@@ -10,37 +9,21 @@ export type ActivatorPositionCallback = (
   $activator: HTMLElement
 ) =>({ x: number, y: number })
 
-/** Returns the bottom right corner of `$item`. */
-export const defaultActivatorPositionCallback: ActivatorPositionCallback =
-  ($item, $activator) => {
-    const { left, top, width, height } = $item.getBoundingClientRect()
-    const {
-      width: activatorWidth,
-      height: activatorHeight,
-    } = $activator.getBoundingClientRect()
-
-    return {
-      x: left + width - activatorWidth,
-      y: top + height - activatorHeight,
-    }
-  }
-
 const dataSetKey = 'taiwan_company_blocker_action_activator_container'
 
 export class ActionActivator {
   private readonly $container = document.createElement('div')
 
   private readonly marker: Marker
-  private readonly activatorPositionCallback = defaultActivatorPositionCallback
+  private readonly activatorPositionCallback
 
   constructor (options: {
     marker: Marker
-    activatorPositionCallback?: Nullish<ActivatorPositionCallback>
+    activatorPositionCallback: ActivatorPositionCallback
   }) {
     this.marker = options.marker
-    if (options.activatorPositionCallback) {
-      this.activatorPositionCallback = options.activatorPositionCallback
-    }
+    this.activatorPositionCallback = options.activatorPositionCallback
+
     this.$container.dataset[dataSetKey] = ''
     this.insertContainer()
   }
