@@ -8,17 +8,21 @@ describe('Marker', () => {
     const marker = new Marker()
     expect(marker.selectMarkedItems()).toHaveLength(0)
 
-    const markValue = 'matched'
-    marker.mark($item, markValue)
+    const markerValue = {
+      isMatched: true,
+      companyName: 'companyName',
+      jobTitle: 'jobTitle',
+    }
+    marker.mark($item, markerValue)
 
     expect(marker.selectMarkedItems()).toMatchObject([$item])
     expect(marker.getIsMarked($item)).toBe(true)
-    expect(marker.getMarkValue($item)).toBe(markValue)
+    expect(marker.getMarkerValue($item)).toMatchObject(markerValue)
 
     marker.unmark($item)
 
     expect(marker.selectMarkedItems()).toHaveLength(0)
     expect(marker.getIsMarked($item)).toBe(false)
-    expect(marker.getMarkValue($item)).toBeUndefined()
+    expect(marker.getMarkerValue($item)).toBeNull()
   })
 })

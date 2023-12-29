@@ -1,6 +1,7 @@
-import { type ActivatorPositionCallback } from './ActionActivator'
+import { ActionActivator } from './ActionActivator'
 import { $, $$ } from './dom'
 import { Blocker } from './Blocker'
+import { Marker } from './Marker'
 
 type TextStrategy =
   | { textType: 'textContent' }
@@ -84,14 +85,17 @@ export function createBlocker ({
       if (!companyNameStrategy) return null
       return getText($item, companyNameStrategy)
     }
+  }
 
-    protected activatorPositionCallback: ActivatorPositionCallback = ($item, $activator) => {
+  const marker = new Marker()
+  const actionActivator = new ActionActivator({
+    marker,
+    activatorPositionCallback ($item: HTMLElement, $activator: HTMLElement) {
       const { left, top, width, height } = $item.getBoundingClientRect()
       const { width: activatorWidth, height: activatorHeight } = $activator.getBoundingClientRect()
 
       let position: Position
-      let offsetX = 0
-      let offsetY = 0
+      let [offsetX, offsetY] = [0, 0]
 
       if (typeof activatorPosition === 'string') {
         position = activatorPosition
@@ -101,28 +105,24 @@ export function createBlocker ({
         offsetY = activatorPosition.offset?.[1] ?? 0
       }
 
+      const offsetLeft = left + offsetX
+      const offsetRight = left + width - activatorWidth - offsetX
+      const offsetTop = top + offsetY
+      const offsetBottom = top + height - activatorHeight - offsetY
+
       const positionMap: Record<Position, { x: number, y: number }> = {
-        'top-left': {
-          x: left + offsetX,
-          y: top + offsetY,
-        },
-        'top-right': {
-          x: left + width - activatorWidth - offsetX,
-          y: top + offsetY,
-        },
-        'bottom-left': {
-          x: left + offsetX,
-          y: top + height - activatorHeight - offsetY,
-        },
-        'bottom-right': {
-          x: left + width - activatorWidth - offsetX,
-          y: top + height - activatorHeight - offsetY,
-        },
+        'top-left': { x: offsetLeft, y: offsetTop },
+        'top-right': { x: offsetRight, y: offsetTop },
+        'bottom-left': { x: offsetLeft, y: offsetBottom },
+        'bottom-right': { x: offsetRight, y: offsetBottom },
       }
 
       return positionMap[position]
-    }
-  }
+    },
+  })
 
-  return new ExtendedBlocker()
+  return {
+    blocker: new ExtendedBlocker(marker),
+    actionActivator,
+  }
 }

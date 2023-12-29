@@ -11,9 +11,11 @@ import { _1111BlockerOptions } from './blockerOptions/1111Blockers'
 import { chickptBlockerOptions } from './blockerOptions/chickptBlockers'
 import { meetJobsBlockerOptions } from './blockerOptions/meetJobsBlockers'
 import { taiwanJobsBlockerOptions } from './blockerOptions/taiwanJobsBlocker'
+import { type ActionActivator } from './ActionActivator'
 
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
+  private readonly actionActivators: ActionActivator[] = []
 
   constructor () {
     const platformName = detectPagePlatform()
@@ -32,14 +34,12 @@ export class BlockerManager {
 
     const blockerOptions = blockerOptionsGroup[platformName]
 
-    blockerOptions.forEach((option) => {
-      const blocker = createBlocker(option)
-      this.addBlocker(blocker)
-    })
-  }
-
-  private addBlocker (...blocker: Blocker[]) {
-    this.blockers.push(...blocker)
+    blockerOptions
+      .map(createBlocker)
+      .forEach(({ blocker, actionActivator }) => {
+        this.blockers.push(blocker)
+        this.actionActivators.push(actionActivator)
+      })
   }
 
   async start () {
@@ -52,6 +52,10 @@ export class BlockerManager {
         .setJobTitlePatterns(jobTitleRules)
         .start()
     })
+
+    this.actionActivators.forEach((actionActivator) => {
+      actionActivator.start()
+    })
   }
 
   get blockedCount () {
@@ -63,6 +67,9 @@ export class BlockerManager {
 
   stop () {
     this.blockers.forEach((blocker) => { blocker.stop() })
+    this.actionActivators.forEach((actionActivator) => {
+      actionActivator.stop()
+    })
   }
 
   async reload () {

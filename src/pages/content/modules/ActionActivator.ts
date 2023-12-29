@@ -1,8 +1,9 @@
 import { debounce } from 'lodash-es'
 import { type Marker } from './Marker'
-import { type ActivatorOptions, renderActivator } from './activator'
+import { renderActivator } from './activator'
 import { $$, getIsInViewport, waitForElement } from './dom'
 import { type Nullish } from '../../../types/Nullish'
+import { emitter, CLICK_ITEM_ACTION } from './emitter'
 
 export type ActivatorPositionCallback = (
   $item: HTMLElement,
@@ -30,16 +31,13 @@ export class ActionActivator {
   private readonly $container = document.createElement('div')
 
   private readonly marker: Marker
-  private readonly onClick: ($item: HTMLElement) => void
   private readonly activatorPositionCallback = defaultActivatorPositionCallback
 
   constructor (options: {
     marker: Marker
-    onClick: ($item: HTMLElement) => void
     activatorPositionCallback?: Nullish<ActivatorPositionCallback>
   }) {
     this.marker = options.marker
-    this.onClick = options.onClick
     if (options.activatorPositionCallback) {
       this.activatorPositionCallback = options.activatorPositionCallback
     }
@@ -47,17 +45,29 @@ export class ActionActivator {
     this.insertContainer()
   }
 
+  handleClick ($item: HTMLElement) {
+    const markerValue = this.marker.getMarkerValue($item)
+    if (!markerValue) return
+
+    emitter.emit(CLICK_ITEM_ACTION, {
+      companyName: markerValue.companyName,
+      jobTitle: markerValue.jobTitle,
+    })
+  }
+
   private async insertContainer () {
     const $body = await waitForElement('body')
     $body.append(this.$container)
   }
 
-  private async render ($item: HTMLElement, options: ActivatorOptions) {
+  private async render ($item: HTMLElement) {
     const isInViewport = getIsInViewport($item)
 
     if (!isInViewport) return this
 
-    const $activator = renderActivator(options)
+    const $activator = renderActivator({
+      onClick: () => { this.handleClick($item) },
+    })
     this.$container?.append($activator)
 
     const { x, y } = this.activatorPositionCallback($item, $activator)
@@ -93,11 +103,7 @@ export class ActionActivator {
 
     const debouncedRenderAll = debounce(() => {
       const $items = this.marker.selectMarkedItems()
-      $items.forEach(($item) => {
-        this.render($item, {
-          onClick: () => { this.onClick($item) },
-        })
-      })
+      $items.forEach(($item) => { this.render($item) })
     }, 250)
 
     const handler = () => {

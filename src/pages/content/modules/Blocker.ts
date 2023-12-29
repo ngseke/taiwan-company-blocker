@@ -1,25 +1,21 @@
 import style from './blocker.module.sass'
 import { match } from '../../../modules/pattern'
 import { type Nullish } from '../../../types/Nullish'
-import { Marker } from './Marker'
-import { ActionActivator, type ActivatorPositionCallback } from './ActionActivator'
+import { type Marker } from './Marker'
 import { without } from 'lodash-es'
-import { CLICK_ITEM_ACTION, emitter } from './emitter'
 import { BlockerDebugger } from './BlockerDebugger'
 import { type BlockMethod } from '../../../modules/BlockMethod'
-
-export type MarkValue = 'matched' | 'notMatched'
 
 export abstract class Blocker {
   private observer: MutationObserver | null = null
   private method: BlockMethod = 'opacity'
-  private readonly marker = new Marker()
-  private actionActivator: ActionActivator | null = null
   private blockerDebugger: BlockerDebugger | null = null
   private jobTitlePatterns: string[] | null = null
   private companyNamePatterns: string[] | null = null
 
   protected readonly description: string | null = null
+
+  constructor (private readonly marker: Marker) {}
 
   private get isStarted () {
     return Boolean(this.observer)
@@ -37,12 +33,6 @@ export abstract class Blocker {
   protected getItemCompanyName (_$item: HTMLElement): Nullish<string> {
     return null
   }
-
-  /**
-   * Return the position where the action activator renders based on `$item`
-   * and `$activator` HTML element
-   */
-  protected activatorPositionCallback: Nullish<ActivatorPositionCallback> = null
 
   private getIsMatched ($item: HTMLElement) {
     const companyName = this.getItemCompanyName($item)?.trim()
@@ -64,7 +54,7 @@ export abstract class Blocker {
 
   get blockedCount () {
     return this.marker.selectMarkedItems()
-      .filter(($item) => this.marker.getMarkValue($item) === 'matched')
+      .filter(($item) => this.marker.getMarkerValue($item)?.isMatched)
       .length
   }
 
@@ -94,11 +84,17 @@ export abstract class Blocker {
     $item.classList.add(className)
   }
 
-  private modifyItem ($item: HTMLElement, markValue: MarkValue) {
-    this.marker.mark($item, markValue)
+  private modifyItem ($item: HTMLElement) {
+    const isMatched = this.getIsMatched($item)
+
+    this.marker.mark($item, {
+      isMatched,
+      companyName: this.getItemCompanyName($item),
+      jobTitle: this.getItemJobTitle($item),
+    })
+
     this.addBaseClassName($item)
 
-    const isMatched = markValue === 'matched'
     if (isMatched) {
       this.blockItemByCurrentMethod($item)
     }
@@ -118,10 +114,7 @@ export abstract class Blocker {
     const $items = this.selectItems()
     $items
       .filter(($item) => !this.marker.getIsMarked($item))
-      .forEach(($item) => {
-        const isMatched = this.getIsMatched($item)
-        this.modifyItem($item, isMatched ? 'matched' : 'notMatched')
-      })
+      .forEach(($item) => { this.modifyItem($item) })
   }
 
   setBlockMethod (method: BlockMethod) {
@@ -139,13 +132,6 @@ export abstract class Blocker {
     return this
   }
 
-  handleClickItemAction ($item: HTMLElement) {
-    emitter.emit(CLICK_ITEM_ACTION, {
-      companyName: this.getItemCompanyName($item),
-      jobTitle: this.getItemJobTitle($item),
-    })
-  }
-
   start () {
     if (this.isStarted) return this
 
@@ -157,13 +143,6 @@ export abstract class Blocker {
       { childList: true, subtree: true }
     )
     this.tryModify()
-
-    this.actionActivator = new ActionActivator({
-      marker: this.marker,
-      onClick: ($item) => { this.handleClickItemAction($item) },
-      activatorPositionCallback: this.activatorPositionCallback,
-    })
-      .start()
 
     if (this.isDebuggerEnabled) {
       this.blockerDebugger = new BlockerDebugger({
@@ -187,7 +166,6 @@ export abstract class Blocker {
     this.marker.selectMarkedItems()
       .forEach(($item) => { this.unmodifyItem($item) })
 
-    this.actionActivator?.stop()
     this.blockerDebugger?.stop()
 
     return this
