@@ -5,6 +5,10 @@ export function mockChrome () {
         get: vi.fn().mockResolvedValue({}),
         set: vi.fn(),
       },
+      local: {
+        get: vi.fn().mockResolvedValue({}),
+        set: vi.fn(),
+      },
       onChanged: {
         addListener: vi.fn(),
         removeListener: vi.fn(),
