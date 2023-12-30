@@ -1,12 +1,12 @@
 import { type Ref, onMounted, ref, toRaw, computed } from 'vue'
-import { type SyncStorageKey, type SyncStorageSchema, getSyncStorage, setSyncStorage } from '../modules/storage'
+import { type StorageKey, type StorageSchema, getStorage, setStorage } from '../modules/storage'
 import { useChromeStorageListener } from './useChromeStorageListener'
 import { isEqual } from 'lodash-es'
 
 export function useChromeStorage <
-  Key extends SyncStorageKey
+  Key extends StorageKey
 > (key: Key) {
-  const value: Ref<SyncStorageSchema[Key] | null> = ref(null)
+  const value: Ref<StorageSchema[Key] | null> = ref(null)
 
   const computedValue = computed({
     get () {
@@ -22,13 +22,13 @@ export function useChromeStorage <
 
       if (isEqual(rawNewValue, rawOldValue)) return
 
-      await setSyncStorage(key, rawNewValue)
+      await setStorage(key, rawNewValue)
       value.value = newValue
     },
   })
 
   onMounted(async () => {
-    value.value = await getSyncStorage(key)
+    value.value = await getStorage(key)
   })
 
   useChromeStorageListener((changes) => {

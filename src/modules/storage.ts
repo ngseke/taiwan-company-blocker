@@ -11,7 +11,7 @@ export const BLOCK_METHOD_KEY = 'blockMethod'
 export const SUBSCRIPTIONS_KEY = 'subscriptions'
 export const SUBSCRIPTION_RESULTS_KEY = 'subscriptionResults'
 
-export interface SyncStorageSchema {
+export interface StorageSchema {
   [ENABLED_STORAGE_KEY]: boolean
   [DEBUGGER_ENABLED_STORAGE_KEY]: boolean
   [BLOCK_METHOD_KEY]: BlockMethod
@@ -21,7 +21,7 @@ export interface SyncStorageSchema {
   [SUBSCRIPTION_RESULTS_KEY]: SubscriptionResults
 }
 
-export const syncStorageDefaultValues: SyncStorageSchema = {
+export const storageDefaultValues: StorageSchema = {
   [ENABLED_STORAGE_KEY]: true,
   [DEBUGGER_ENABLED_STORAGE_KEY]: false,
   [BLOCK_METHOD_KEY]: 'opacity',
@@ -31,43 +31,55 @@ export const syncStorageDefaultValues: SyncStorageSchema = {
   [SUBSCRIPTION_RESULTS_KEY]: {},
 }
 
-export type SyncStorageKey = keyof SyncStorageSchema
+export type StorageKey = keyof StorageSchema
 
-export async function getSyncStorage <
-  Key extends SyncStorageKey
-> (key: Key): Promise<SyncStorageSchema[Key]> {
-  return (await chrome.storage.sync.get(key))[key] ??
-    cloneDeep(syncStorageDefaultValues[key])
+/** Specify storage keys of data that might be too large */
+const localStorageKeys = new Set<StorageKey>([
+  SUBSCRIPTION_RESULTS_KEY,
+])
+
+export async function getStorage <
+  Key extends StorageKey
+> (key: Key): Promise<StorageSchema[Key]> {
+  const value = localStorageKeys.has(key)
+    ? (await chrome.storage.local.get(key))[key]
+    : (await chrome.storage.sync.get(key))[key]
+
+  return value ?? cloneDeep(storageDefaultValues[key])
 }
 
-export async function setSyncStorage<
-  Key extends SyncStorageKey
-> (key: Key, value: SyncStorageSchema[Key]) {
-  await chrome.storage.sync.set({ [key]: value })
+export async function setStorage<
+  Key extends StorageKey
+> (key: Key, value: StorageSchema[Key]) {
+  if (localStorageKeys.has(key)) {
+    await chrome.storage.local.set({ [key]: value })
+  } else {
+    await chrome.storage.sync.set({ [key]: value })
+  }
 }
 
 export async function loadIsEnabled () {
-  return await getSyncStorage(ENABLED_STORAGE_KEY)
+  return await getStorage(ENABLED_STORAGE_KEY)
 }
 
 export async function saveIsEnabled (isEnabled: boolean) {
-  await setSyncStorage(ENABLED_STORAGE_KEY, isEnabled)
+  await setStorage(ENABLED_STORAGE_KEY, isEnabled)
 }
 
 export async function loadIsDebuggerEnabled () {
-  return await getSyncStorage(DEBUGGER_ENABLED_STORAGE_KEY)
+  return await getStorage(DEBUGGER_ENABLED_STORAGE_KEY)
 }
 
 export async function saveIsDebuggerEnabled (isEnabled: boolean) {
-  await setSyncStorage(DEBUGGER_ENABLED_STORAGE_KEY, isEnabled)
+  await setStorage(DEBUGGER_ENABLED_STORAGE_KEY, isEnabled)
 }
 
 export async function loadBlockMethod () {
-  return await getSyncStorage(BLOCK_METHOD_KEY)
+  return await getStorage(BLOCK_METHOD_KEY)
 }
 
 export async function saveBlockMethod (blockMethod: BlockMethod) {
-  await setSyncStorage(BLOCK_METHOD_KEY, blockMethod)
+  await setStorage(BLOCK_METHOD_KEY, blockMethod)
 }
 
 function getStorageKeyByRuleType (type: RuleType) {
@@ -79,29 +91,29 @@ function getStorageKeyByRuleType (type: RuleType) {
 
 export async function loadRules (type: RuleType) {
   const key = getStorageKeyByRuleType(type)
-  return await getSyncStorage(key)
+  return await getStorage(key)
 }
 
 export async function saveRules (type: RuleType, rules: string) {
   const key = getStorageKeyByRuleType(type)
-  await setSyncStorage(
+  await setStorage(
     key,
     normalizeRulesString(rules)
   )
 }
 
 export async function loadSubscriptions () {
-  return await getSyncStorage(SUBSCRIPTIONS_KEY)
+  return await getStorage(SUBSCRIPTIONS_KEY)
 }
 
 export async function saveSubscriptions (subscriptions: Subscription[]) {
-  await setSyncStorage(SUBSCRIPTIONS_KEY, subscriptions)
+  await setStorage(SUBSCRIPTIONS_KEY, subscriptions)
 }
 
 export async function loadSubscriptionResults () {
-  return await getSyncStorage(SUBSCRIPTION_RESULTS_KEY)
+  return await getStorage(SUBSCRIPTION_RESULTS_KEY)
 }
 
 export async function saveSubscriptionResults (results: SubscriptionResults) {
-  await setSyncStorage(SUBSCRIPTION_RESULTS_KEY, results)
+  await setStorage(SUBSCRIPTION_RESULTS_KEY, results)
 }
