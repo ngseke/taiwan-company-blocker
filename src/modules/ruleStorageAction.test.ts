@@ -3,27 +3,27 @@ import * as storage from './storage'
 
 describe('ruleStorageAction', () => {
   vi.spyOn(storage, 'loadRules')
-    .mockResolvedValue('abc\n123\nefg')
+    .mockResolvedValue('abc\n123\nxyz')
   const spySaveRules = vi.spyOn(storage, 'saveRules').mockResolvedValue()
 
   const type = 'companyName'
 
   test('removeRule', async () => {
-    await removeRule(type, 'xyz')
-    expect(spySaveRules).toHaveBeenLastCalledWith(type, 'abc\n123\nefg')
+    await removeRule(type, 'efg')
+    expect(spySaveRules).toHaveBeenLastCalledWith(type, 'abc\n123\nxyz')
     await removeRule(type, '123')
-    expect(spySaveRules).toHaveBeenLastCalledWith(type, 'abc\nefg')
+    expect(spySaveRules).toHaveBeenLastCalledWith(type, 'abc\nxyz')
   })
 
   test('replaceRule', async () => {
-    await replaceRule(type, 'xyz', 'new value')
-    expect(spySaveRules).toHaveBeenLastCalledWith(type, 'abc\n123\nefg')
+    await replaceRule(type, 'efg', 'new value')
+    expect(spySaveRules).toHaveBeenLastCalledWith(type, 'abc\n123\nxyz')
     await replaceRule(type, '123', 'new value')
-    expect(spySaveRules).toHaveBeenLastCalledWith(type, 'abc\nnew value\nefg')
+    expect(spySaveRules).toHaveBeenLastCalledWith(type, 'abc\nnew value\nxyz')
   })
 
   test('appendRule', async () => {
     await appendRule(type, '456')
-    expect(spySaveRules).toHaveBeenLastCalledWith(type, 'abc\n123\nefg\n456')
+    expect(spySaveRules).toHaveBeenLastCalledWith(type, 'abc\n123\nxyz\n456')
   })
 })
