@@ -9,6 +9,7 @@ module.exports = {
     'standard-with-typescript',
     'plugin:vue/vue3-recommended',
     'plugin:tailwindcss/recommended',
+    'plugin:@cspell/recommended',
   ],
   overrides: [
     {
@@ -32,6 +33,9 @@ module.exports = {
   },
   ignorePatterns: ['dist', 'coverage'],
   rules: {
+    '@cspell/spellchecker': ['warn', {
+      customWordListFile: 'cspell-words.txt',
+    }],
     'arrow-parens': ['error', 'always'],
     'no-console': 'error',
     '@typescript-eslint/comma-dangle': ['error', {
