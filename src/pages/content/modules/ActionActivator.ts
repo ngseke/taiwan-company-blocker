@@ -1,6 +1,6 @@
 import { debounce } from 'lodash-es'
 import { type Marker } from './Marker'
-import { renderActivator } from './activator'
+import { actionActivatorDataKey, renderActivator } from './activator'
 import { $$, getIsInViewport } from './dom'
 import { emitter, CLICK_ITEM_ACTION } from './emitter'
 
@@ -16,6 +16,8 @@ export class ActionActivator {
 
   private readonly marker: Marker
   private readonly activatorPositionCallback
+
+  private readonly events = new WeakMap<Element, () => void>()
 
   constructor (options: {
     marker: Marker
@@ -39,7 +41,15 @@ export class ActionActivator {
   }
 
   private async insertContainer () {
-    document.body.append(this.$container)
+    const { $container } = this
+    document.body.append($container)
+
+    $container.addEventListener('click', ({ target }) => {
+      if (!(target instanceof Element)) return
+      const $activator = target.closest(`[data-${actionActivatorDataKey}]`)
+      if (!($activator instanceof HTMLElement)) return
+      this.events.get($activator)?.()
+    })
   }
 
   private async render ($item: HTMLElement) {
@@ -47,21 +57,21 @@ export class ActionActivator {
 
     if (!isInViewport) return this
 
-    const $activator = renderActivator({
-      onClick: () => { this.handleClick($item) },
-    })
-    this.$container?.append($activator)
+    const { $wrapper, $activator } = renderActivator()
+    this.$container?.append($wrapper)
 
-    const { x, y } = this.activatorPositionCallback($item, $activator)
+    this.events.set($activator, () => { this.handleClick($item) })
 
-    Object.assign($activator.style, {
+    const { x, y } = this.activatorPositionCallback($item, $wrapper)
+
+    Object.assign($wrapper.style, {
       transform: `translate(${x}px, ${y}px)`,
       opacity: 0,
     })
 
     await new Promise((resolve) => setTimeout(resolve, 0))
 
-    Object.assign($activator.style, {
+    Object.assign($wrapper.style, {
       opacity: 1,
       transition: 'opacity .25s',
     })
@@ -70,11 +80,7 @@ export class ActionActivator {
   }
 
   private destroyAll () {
-    const $activators = [...this.$container.children]
-
-    $activators.forEach(($activator) => {
-      $activator.remove()
-    })
+    this.$container.innerHTML = ''
   }
 
   private handler: (() => void) | null = null
