@@ -111,7 +111,7 @@ async function handleEditRule (type: RuleType, rule: string) {
 
           <div class="flex-1" />
 
-          <Button type="button" @click="close">取消</Button>
+          <Button type="button" @click="close">關閉</Button>
           <Button
             color="primary"
             :disabled="isSubmitDisabled"
