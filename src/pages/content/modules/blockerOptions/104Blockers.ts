@@ -26,9 +26,8 @@ export const _104BlockerOptions: CreateBlockerOptions[] = [
     jobTitleStrategy: '.info-job__text',
     companyNameStrategy: {
       selectorTarget: 'document',
-      selector: '[custname]',
-      textType: 'attribute',
-      textKey: 'custname',
+      selector: 'h1',
+      textType: 'textContent',
     },
   },
   {
