@@ -22,7 +22,7 @@ function handleClick (item: MatchedRulesWithMeta[number]) {
 <template>
   <div
     v-if="matchedRules?.length"
-    class="rounded-lg bg-red-500/10 px-3 py-2"
+    class="rounded-lg bg-red-500/5 px-3 py-2"
   >
     <h2 class="mb-2 font-bold">已匹配以下規則</h2>
     <ol class="space-y-1 pb-1 text-xs marker:text-neutral-500">
@@ -33,22 +33,22 @@ function handleClick (item: MatchedRulesWithMeta[number]) {
       >
         <span class="inline-flex flex-1 space-x-2 overflow-hidden">
           <span class="flex-none">
-            <Badge>{{ item.groupName }}</Badge>
+            <Badge color="primary">{{ item.groupName }}</Badge>
           </span>
           <button
-            class="group inline-flex space-x-1 overflow-hidden enabled:hover:underline"
+            class="group relative inline-flex overflow-hidden text-start enabled:hover:underline"
             :disabled="item.ruleSource !== 'custom'"
             :title="item.raw"
             type="button"
             @click="handleClick(item)"
           >
-            <span class="truncate font-mono text-red-500">
+            <span class="font-mono text-red-500">
               {{ item.raw }}
             </span>
 
             <span
               v-if="item.ruleSource === 'custom'"
-              class="w-0 flex-none overflow-hidden focus-within:w-auto group-hover:w-auto"
+              class="absolute right-0 top-0 flex-none overflow-hidden opacity-0 focus-within:w-auto group-hover:opacity-100"
             >
               <EditIcon />
             </span>
