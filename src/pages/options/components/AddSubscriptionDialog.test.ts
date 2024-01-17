@@ -69,7 +69,7 @@ describe('AddSubscriptionDialog', () => {
 
     const cancelButton = buttons.find((button) => button.text().match('取消'))
 
-    wrapper.vm.requestAdd()
+    const response = wrapper.vm.requestAdd()
 
     await nameInput?.setValue(name)
     await urlInput?.setValue(url)
@@ -77,6 +77,7 @@ describe('AddSubscriptionDialog', () => {
     expect(urlInput?.element.value).toBe(url)
 
     await cancelButton?.find('button').trigger('click')
+    expect(response).rejects.toBeUndefined()
 
     wrapper.vm.requestAdd()
     await nextTick()
