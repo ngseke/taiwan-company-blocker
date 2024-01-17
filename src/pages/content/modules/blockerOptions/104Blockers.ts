@@ -88,12 +88,24 @@ export const _104BlockerOptions: CreateBlockerOptions[] = [
     companyNameStrategy: '.mb-1.t4.font-weight-bold a',
   },
   {
-    description: '`/work/mate/list/highchance` 會員中心「專屬工作」列表（桌面和手機版）',
+    description: '`https://pda.104.com.tw/work/mate/list/highchance` 會員中心「專屬工作」列表（桌面和手機版）',
     itemsSelector: `
       .mate-list .job-summery-mobile,
       .mate-list .job-list-container
     `,
     jobTitleStrategy: '.info-job__text, .job-name',
+    companyNameStrategy: '.info-company__text, .cust-name',
+  },
+  {
+    description: '`https://pda.104.com.tw/` 會員中心「推薦適合你大展身手的好工作」列表',
+    itemsSelector: '.recommend-job__stage .job-list-container',
+    jobTitleStrategy: '.jb-link',
+    companyNameStrategy: '.info-company__text, .cust-name',
+  },
+  {
+    description: '`https://pda.104.com.tw/applyRecord` 應徵紀錄「值得一試的好工作」列表',
+    itemsSelector: '.recommend-jobs .job-list-container',
+    jobTitleStrategy: '.jb-link',
     companyNameStrategy: '.info-company__text, .cust-name',
   },
 ]
