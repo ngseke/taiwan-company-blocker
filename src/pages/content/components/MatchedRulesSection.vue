@@ -42,7 +42,7 @@ function handleClick (item: MatchedRulesWithMeta[number]) {
             type="button"
             @click="handleClick(item)"
           >
-            <span class="font-mono text-red-500">
+            <span class="overflow-auto break-words font-mono text-red-500">
               {{ item.raw }}
             </span>
 
