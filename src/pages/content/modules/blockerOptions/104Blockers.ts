@@ -107,4 +107,10 @@ export const _104BlockerOptions: CreateBlockerOptions[] = [
     jobTitleStrategy: '.jb-link',
     companyNameStrategy: '.info-company__text, .cust-name',
   },
+  {
+    description: '`/job/similar/*` 「...的相似工作」列表',
+    itemsSelector: '.jb-container .list-container [jobtype]',
+    jobTitleStrategy: '.jb-link',
+    companyNameStrategy: '.info-company__text, .cust-name',
+  },
 ]
