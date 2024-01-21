@@ -53,10 +53,10 @@ const hasIllogicalRules = computed(() => (
 
 <template>
   <div class="flex flex-col gap-4">
-    <Title>職缺名稱</Title>
-    <Editor v-model="jobTitleRulesDraft" />
     <Title>公司名稱</Title>
     <Editor v-model="companyNameRulesDraft" />
+    <Title>職缺名稱</Title>
+    <Editor v-model="jobTitleRulesDraft" />
 
     <div
       class="sticky bottom-0 -mx-6 -my-2 flex flex-col gap-4 bg-neutral-900 px-6 py-4 before:absolute

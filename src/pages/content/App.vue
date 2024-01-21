@@ -85,12 +85,12 @@ async function handleEditRule (type: RuleType, rule: string) {
         <Header />
         <div class="flex flex-col gap-4">
           <div class="flex items-center gap-2">
-            <Checkbox v-model="isJobTitleChecked" />
-            <Input v-model="jobTitleDraft" label="職缺名稱" />
-          </div>
-          <div class="flex items-center gap-2">
             <Checkbox v-model="isCompanyNameChecked" />
             <Input v-model="companyNameDraft" label="公司名稱" />
+          </div>
+          <div class="flex items-center gap-2">
+            <Checkbox v-model="isJobTitleChecked" />
+            <Input v-model="jobTitleDraft" label="職缺名稱" />
           </div>
         </div>
 
