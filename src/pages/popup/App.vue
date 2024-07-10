@@ -11,15 +11,21 @@ function openOptions () {
 }
 
 const { platformName, blockedCount } = useContentMessage()
+const version = `v${APP_VERSION}`
 </script>
 
 <template>
   <PopupLayout>
     <div class="flex h-full flex-col justify-between">
       <div class="flex flex-col gap-4">
-        <h1 class="text-lg font-bold leading-6">
-          Taiwan Company Blocker
-        </h1>
+        <div class="flex items-end gap-2">
+          <h1 class="text-lg font-bold leading-6">
+            Taiwan Company Blocker
+          </h1>
+          <span class="font-mono text-neutral-600">
+            {{ version }}
+          </span>
+        </div>
 
         <div class="flex gap-7">
           <Statistic
