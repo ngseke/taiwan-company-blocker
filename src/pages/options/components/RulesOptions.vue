@@ -9,9 +9,15 @@ import { syncRef } from '@vueuse/core'
 import IllogicalRulesAlert from './IllogicalRulesAlert.vue'
 import { checkHasIllogicalRule } from '../../../modules/rule'
 import Editor from '../../../components/Editor.vue'
+import { type SubmitResult } from '../../../types/SubmitResult'
+import SubmitResultMessage from './SubmitResultMessage.vue'
 
 const jobTitleRulesDraft = ref<string | null>(null)
 const companyNameRulesDraft = ref<string | null>(null)
+
+const submitResult = ref<SubmitResult | null>(
+  null
+)
 
 async function initializeDrafts () {
   jobTitleRulesDraft.value = await loadRules('jobTitle')
@@ -19,6 +25,7 @@ async function initializeDrafts () {
 
   watch([jobTitleRulesDraft, companyNameRulesDraft], () => {
     isDirty.value = true
+    submitResult.value = null
   })
 }
 
@@ -27,14 +34,28 @@ initializeDrafts()
 const isDirty = ref(false)
 
 async function submit () {
-  if (jobTitleRulesDraft.value != null) {
-    await saveRules('jobTitle', jobTitleRulesDraft.value)
+  submitResult.value = null
+
+  try {
+    if (jobTitleRulesDraft.value != null) {
+      await saveRules('jobTitle', jobTitleRulesDraft.value)
+    }
+    if (companyNameRulesDraft.value != null) {
+      await saveRules('companyName', companyNameRulesDraft.value)
+    }
+    await initializeDrafts()
+    isDirty.value = false
+
+    submitResult.value = {
+      type: 'success',
+      message: '儲存成功',
+    }
+  } catch (err) {
+    submitResult.value = {
+      type: 'error',
+      message: `儲存失敗! (${String(err)})`,
+    }
   }
-  if (companyNameRulesDraft.value != null) {
-    await saveRules('companyName', companyNameRulesDraft.value)
-  }
-  await initializeDrafts()
-  isDirty.value = false
 }
 
 const { isRegisteredBeforeUnload } = useBeforeUnload()
@@ -63,7 +84,9 @@ const hasIllogicalRules = computed(() => (
       before:-top-2 before:left-0 before:h-2 before:w-full before:bg-gradient-to-t before:from-neutral-900 before:to-transparent before:content-['']"
     >
       <IllogicalRulesAlert :show="hasIllogicalRules" />
-      <div class="flex justify-end">
+
+      <div class="flex items-center justify-end gap-3">
+        <SubmitResultMessage :value="submitResult" />
         <Button color="primary" :disabled="!isDirty" @click="submit">
           儲存
         </Button>
