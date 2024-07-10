@@ -36,6 +36,8 @@ export type StorageKey = keyof StorageSchema
 /** Specify storage keys of data that might be too large */
 const localStorageKeys = new Set<StorageKey>([
   SUBSCRIPTION_RESULTS_KEY,
+  JOB_TITLE_RULES_STORAGE_KEY,
+  COMPANY_NAME_RULES_STORAGE_KEY,
 ])
 
 export async function getStorage <
@@ -90,12 +92,30 @@ function getStorageKeyByRuleType (type: RuleType) {
 }
 
 export async function loadRules (type: RuleType) {
+  /**
+   * Gets value from Sync Storage **without** default value.
+   * This is for backward compatibility.
+   */
+  async function getStorageSync <
+    Key extends StorageKey
+  > (key: Key): Promise<StorageSchema[Key] | undefined> {
+    return (await chrome.storage.sync.get(key))[key]
+  }
+
   const key = getStorageKeyByRuleType(type)
-  return await getStorage(key)
+
+  /** Legacy rules that are used to be saved in Sync Storage. */
+  const legacyRules = await getStorageSync(key)
+  const rules = await getStorage(key)
+
+  return legacyRules ?? rules
 }
 
 export async function saveRules (type: RuleType, rules: string) {
   const key = getStorageKeyByRuleType(type)
+
+  // Removes legacy rules in Sync Storage
+  await chrome.storage.sync.remove(key)
   await setStorage(
     key,
     normalizeRulesString(rules)
