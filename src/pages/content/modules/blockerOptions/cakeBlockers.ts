@@ -1,6 +1,6 @@
 import { type CreateBlockerOptions } from '../createBlocker'
 
-export const cakeresumeBlockerOptions: CreateBlockerOptions[] = [
+export const cakeBlockerOptions: CreateBlockerOptions[] = [
   {
     description: '`/companies` 公司列表',
     itemsSelector: '[class^=CompanySearchItem_wrapper]',

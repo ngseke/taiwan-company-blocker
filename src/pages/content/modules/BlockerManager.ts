@@ -3,7 +3,7 @@ import { type PlatformName, detectPagePlatform } from './platform'
 import { type BlockMethod } from '../../../modules/BlockMethod'
 import { createBlocker, type CreateBlockerOptions } from './createBlocker'
 import { loadParsedRules } from '../../../modules/ruleStorage'
-import { cakeresumeBlockerOptions } from './blockerOptions/cakeresumeBlockers'
+import { cakeBlockerOptions } from './blockerOptions/cakeBlockers'
 import { youratorBlockerOptions } from './blockerOptions/youratorBlockers'
 import { _104BlockerOptions } from './blockerOptions/104Blockers'
 import { _518BlockerOptions } from './blockerOptions/518Blockers'
@@ -22,7 +22,7 @@ export class BlockerManager {
     if (!platformName) throw new Error('Cannot detect platform!')
 
     const blockerOptionsGroup: Record<PlatformName, CreateBlockerOptions[]> = {
-      cakeresume: cakeresumeBlockerOptions,
+      cakeresume: cakeBlockerOptions,
       yourator: youratorBlockerOptions,
       104: _104BlockerOptions,
       518: _518BlockerOptions,

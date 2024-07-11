@@ -42,7 +42,7 @@ export function detectPagePlatform () {
 export function formatPlatformName (platformName: Nullish<PlatformName>) {
   if (!platformName) return null
   return {
-    cakeresume: 'CakeResume',
+    cakeresume: 'Cake',
     yourator: 'Yourator',
     104: '104 人力銀行',
     518: '518 熊班',
