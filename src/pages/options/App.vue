@@ -10,9 +10,12 @@ import VersionUpdatedAlert from './components/VersionUpdatedAlert.vue'
 </script>
 
 <template>
-  <div class="container max-w-2xl p-4">
-    <div class="grid gap-4">
+  <div class="container flex max-w-5xl flex-wrap gap-x-8 gap-y-4 px-4">
+    <div class="sticky top-0 h-full flex-1 py-8">
       <Header />
+    </div>
+
+    <div class="grid w-full gap-4 lg:w-9/12 lg:py-8">
       <VersionUpdatedAlert />
 
       <Card>
