@@ -68,6 +68,9 @@ dependencies:
   semver:
     specifier: ^7.6.2
     version: 7.6.2
+  tailwind-merge:
+    specifier: ^2.4.0
+    version: 2.4.0
   tailwindcss:
     specifier: ^3.3.5
     version: 3.3.5
@@ -5859,6 +5862,10 @@ packages:
       '@pkgr/core': 0.1.0
       tslib: 2.6.2
     dev: true
+
+  /tailwind-merge@2.4.0:
+    resolution: {integrity: sha512-49AwoOQNKdqKPd9CViyH5wJoSKsCDjUlzL8DxuGp3P1FsGY36NJDAa18jLZcaHAUUuTj+JB8IAo8zWgBNvBF7A==}
+    dev: false
 
   /tailwindcss@3.3.5:
     resolution: {integrity: sha512-5SEZU4J7pxZgSkv7FP1zY8i2TIAOooNZ1e/OGtxIEv6GltpoiXUqWvLy89+a10qYTB1N5Ifkuw9lqQkN9sscvA==}
