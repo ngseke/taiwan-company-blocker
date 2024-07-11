@@ -10,10 +10,13 @@ export const COMPANY_NAME_RULES_STORAGE_KEY = 'companyNameRules'
 export const BLOCK_METHOD_KEY = 'blockMethod'
 export const SUBSCRIPTIONS_KEY = 'subscriptions'
 export const SUBSCRIPTION_RESULTS_KEY = 'subscriptionResults'
+export const PREVIOUS_VERSION_KEY = 'previousVersion'
 
 export interface StorageSchema {
   [ENABLED_STORAGE_KEY]: boolean
   [DEBUGGER_ENABLED_STORAGE_KEY]: boolean
+  [PREVIOUS_VERSION_KEY]: string
+
   [BLOCK_METHOD_KEY]: BlockMethod
   [JOB_TITLE_RULES_STORAGE_KEY]: string
   [COMPANY_NAME_RULES_STORAGE_KEY]: string
@@ -24,6 +27,8 @@ export interface StorageSchema {
 export const storageDefaultValues: StorageSchema = {
   [ENABLED_STORAGE_KEY]: true,
   [DEBUGGER_ENABLED_STORAGE_KEY]: false,
+  [PREVIOUS_VERSION_KEY]: '0.0.0',
+
   [BLOCK_METHOD_KEY]: 'opacity',
   [JOB_TITLE_RULES_STORAGE_KEY]: '',
   [COMPANY_NAME_RULES_STORAGE_KEY]: '',
@@ -35,6 +40,7 @@ export type StorageKey = keyof StorageSchema
 
 /** Specify storage keys of data that might be too large */
 const localStorageKeys = new Set<StorageKey>([
+  PREVIOUS_VERSION_KEY,
   SUBSCRIPTION_RESULTS_KEY,
   JOB_TITLE_RULES_STORAGE_KEY,
   COMPANY_NAME_RULES_STORAGE_KEY,
