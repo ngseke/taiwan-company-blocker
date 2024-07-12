@@ -19,13 +19,13 @@ const current = ref(list[0].value)
 
 <template>
   <div class="container flex max-w-5xl flex-wrap gap-x-8 gap-y-4 px-4">
-    <div class="top-0 grid h-full flex-1 gap-4 pt-2 lg:sticky lg:py-8">
+    <div class="top-0 flex h-full flex-1 flex-col gap-4 pt-2 lg:sticky lg:py-8">
       <Header />
       <Sidebar v-model="current" :list="list" />
     </div>
 
     <div class="w-full pb-8 lg:w-9/12 lg:py-12">
-      <div v-show="current === 'setting'" class="grid w-full gap-4">
+      <div v-show="current === 'setting'" class="flex w-full flex-col gap-4">
         <VersionUpdatedAlert />
 
         <Card>
@@ -45,7 +45,7 @@ const current = ref(list[0].value)
         </Card>
       </div>
 
-      <div v-show="current === 'about'" class="grid w-full gap-4">
+      <div v-show="current === 'about'" class="flex w-full flex-col gap-4">
         <Card>
           <About />
         </Card>

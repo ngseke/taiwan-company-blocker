@@ -22,8 +22,8 @@ const links = [
 </script>
 
 <template>
-  <section class="grid gap-4">
-    <div class="grid gap-0.5">
+  <section class="flex flex-col gap-4">
+    <div class="flex flex-col gap-0.5">
       <h1 class="text-2xl font-bold">
         台灣求職網封鎖神器
       </h1>
