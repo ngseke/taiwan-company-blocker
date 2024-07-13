@@ -11,6 +11,7 @@ import { checkHasIllogicalRule } from '../../../modules/rule'
 import Editor from '../../../components/Editor.vue'
 import { type SubmitResult } from '../../../types/SubmitResult'
 import SubmitResultMessage from './SubmitResultMessage.vue'
+import { OPTIONS_TEST_IDS } from '../../../modules/constants'
 
 const jobTitleRulesDraft = ref<string | null>(null)
 const companyNameRulesDraft = ref<string | null>(null)
@@ -75,9 +76,15 @@ const hasIllogicalRules = computed(() => (
 <template>
   <div class="flex flex-col gap-4">
     <Title>公司名稱</Title>
-    <Editor v-model="companyNameRulesDraft" />
+    <Editor
+      v-model="companyNameRulesDraft"
+      :data-testid="OPTIONS_TEST_IDS.companyNameRulesEditor"
+    />
     <Title>職缺名稱</Title>
-    <Editor v-model="jobTitleRulesDraft" />
+    <Editor
+      v-model="jobTitleRulesDraft"
+      :data-testid="OPTIONS_TEST_IDS.jobTitleRulesEditor"
+    />
 
     <div
       class="sticky bottom-0 -mx-6 -my-2 flex flex-col gap-4 bg-neutral-900 px-6 py-4 before:absolute
@@ -87,7 +94,12 @@ const hasIllogicalRules = computed(() => (
 
       <div class="flex items-center justify-end gap-3">
         <SubmitResultMessage :value="submitResult" />
-        <Button color="primary" :disabled="!isDirty" @click="submit">
+        <Button
+          color="primary"
+          :data-testid="OPTIONS_TEST_IDS.rulesSaveButton"
+          :disabled="!isDirty"
+          @click="submit"
+        >
           儲存
         </Button>
       </div>

@@ -9,6 +9,7 @@ import VersionUpdatedAlert from './components/VersionUpdatedAlert.vue'
 import Sidebar from './components/Sidebar.vue'
 import { ref } from 'vue'
 import About from './components/About.vue'
+import { OPTIONS_TEST_IDS } from '../../modules/constants'
 
 const list = [
   { label: '設定', value: 'setting' },
@@ -19,13 +20,17 @@ const current = ref(list[0].value)
 
 <template>
   <div class="container flex max-w-5xl flex-wrap gap-x-8 gap-y-4 px-4">
-    <div class="top-0 flex h-full flex-1 flex-col gap-4 pt-2 lg:sticky lg:py-8">
+    <div class="top-0 flex h-full flex-1 flex-col gap-4 pt-2 lg:sticky lg:w-64 lg:flex-none lg:py-8">
       <Header />
       <Sidebar v-model="current" :list="list" />
     </div>
 
-    <div class="w-full pb-8 lg:w-9/12 lg:py-12">
-      <div v-show="current === 'setting'" class="flex w-full flex-col gap-4">
+    <div class="w-full min-w-0 pb-8 lg:flex-1 lg:py-12">
+      <section
+        v-show="current === 'setting'"
+        class="flex w-full flex-col gap-4"
+        :data-testid="OPTIONS_TEST_IDS.sectionSetting"
+      >
         <VersionUpdatedAlert />
 
         <Card>
@@ -43,13 +48,17 @@ const current = ref(list[0].value)
         <Card>
           <BlockMethodOptions />
         </Card>
-      </div>
+      </section>
 
-      <div v-show="current === 'about'" class="flex w-full flex-col gap-4">
+      <section
+        v-show="current === 'about'"
+        class="flex w-full flex-col gap-4"
+        :data-testid="OPTIONS_TEST_IDS.sectionAbout"
+      >
         <Card>
           <About />
         </Card>
-      </div>
+      </section>
     </div>
   </div>
 </template>

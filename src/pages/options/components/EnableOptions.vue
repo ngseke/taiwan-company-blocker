@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Switch from '../../../components/Switch.vue'
 import { useChromeStorage } from '../../../composables/useChromeStorage'
+import { OPTIONS_TEST_IDS } from '../../../modules/constants'
 import { ENABLED_STORAGE_KEY } from '../../../modules/storage'
 import SupportPlatformArticle from './SupportPlatformArticle.vue'
 
@@ -10,7 +11,11 @@ const isEnabled = useChromeStorage(ENABLED_STORAGE_KEY)
 <template>
   <div class="flex flex-col gap-4">
     <div>
-      <Switch v-if="isEnabled != null" v-model="isEnabled">
+      <Switch
+        v-if="isEnabled != null"
+        v-model="isEnabled"
+        :data-testid="OPTIONS_TEST_IDS.enableSwitch"
+      >
         啟用
       </Switch>
     </div>

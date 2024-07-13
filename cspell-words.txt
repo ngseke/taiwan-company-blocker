@@ -24,3 +24,6 @@ custname
 joblist
 taiwanjobs
 jobtype
+testid
+networkidle
+contenteditable

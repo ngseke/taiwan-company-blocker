@@ -4,6 +4,7 @@ import EnableSwitch from './EnableSwitch.vue'
 import { useChromeStorage } from '../../../composables/useChromeStorage'
 import { ENABLED_STORAGE_KEY } from '../../../modules/storage'
 import OptionsButton from './OptionsButton.vue'
+import { POPUP_TEST_IDS } from '../../../modules/constants'
 
 const isEnabled = useChromeStorage(ENABLED_STORAGE_KEY)
 
@@ -22,7 +23,11 @@ function openOptions () {
         :style="{ backgroundImage: `url(${icon})` }"
       />
       <div>
-        <EnableSwitch v-if="isEnabled != null" v-model="isEnabled" />
+        <EnableSwitch
+          v-if="isEnabled != null"
+          v-model="isEnabled"
+          :data-testid="POPUP_TEST_IDS.enableSwitch"
+        />
       </div>
       <div class="flex flex-1 flex-col justify-end">
         <OptionsButton @click="openOptions" />
