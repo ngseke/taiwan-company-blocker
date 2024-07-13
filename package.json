@@ -78,6 +78,7 @@
     "jsdom": "^22.1.0",
     "lodash-es": "^4.17.21",
     "open": "^9.1.0",
+    "puppeteer": "^22.13.0",
     "resize-observer-polyfill": "^1.5.1",
     "sass": "^1.69.5",
     "typescript": "^5.2.2",
