@@ -13,12 +13,14 @@ describe('Sidebar', () => {
     await clickSidebarItem('about')
     expect(
       await (
-        await page.$(`[data-testid=${OPTIONS_TEST_IDS.sectionSetting}]`)
+        await page.$(`[data-testid=${OPTIONS_TEST_IDS.sectionAbout}]`)
       )?.isVisible()
-    ).toBe(false)
+    ).toBe(true)
+
+    await clickSidebarItem('subscription')
     expect(
       await (
-        await page.$(`[data-testid=${OPTIONS_TEST_IDS.sectionAbout}]`)
+        await page.$(`[data-testid=${OPTIONS_TEST_IDS.sectionSubscription}]`)
       )?.isVisible()
     ).toBe(true)
 
@@ -28,10 +30,5 @@ describe('Sidebar', () => {
         await page.$(`[data-testid=${OPTIONS_TEST_IDS.sectionSetting}]`)
       )?.isVisible()
     ).toBe(true)
-    expect(
-      await (
-        await page.$(`[data-testid=${OPTIONS_TEST_IDS.sectionAbout}]`)
-      )?.isVisible()
-    ).toBe(false)
   })
 })

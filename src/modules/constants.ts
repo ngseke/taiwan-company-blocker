@@ -8,6 +8,7 @@ export const QUERY_BLOCKED_COUNT_MESSAGE_NAME = 'queryBlockedCountMessageName'
 export const OPTIONS_TEST_IDS = {
   sidebar: 'sidebar',
   sectionSetting: 'sectionSetting',
+  sectionSubscription: 'sectionSubscription',
   sectionAbout: 'sectionAbout',
 
   enableSwitch: 'enableSwitch',

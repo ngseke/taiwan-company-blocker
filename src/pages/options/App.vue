@@ -13,8 +13,10 @@ import { OPTIONS_TEST_IDS } from '../../modules/constants'
 
 const list = [
   { label: '設定', value: 'setting' },
+  { label: '訂閱規則', value: 'subscription' },
   { label: '關於', value: 'about' },
 ]
+
 const current = ref(list[0].value)
 </script>
 
@@ -38,15 +40,21 @@ const current = ref(list[0].value)
         </Card>
 
         <Card>
+          <BlockMethodOptions />
+        </Card>
+
+        <Card>
           <RulesOptions />
         </Card>
+      </section>
 
+      <section
+        v-show="current === 'subscription'"
+        class="flex w-full flex-col gap-4"
+        :data-testid="OPTIONS_TEST_IDS.sectionSubscription"
+      >
         <Card>
           <SubscriptionOptions />
-        </Card>
-
-        <Card>
-          <BlockMethodOptions />
         </Card>
       </section>
 
