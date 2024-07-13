@@ -26,11 +26,11 @@ jobs:
       - name: Run Lints
         run: pnpm run lint
 
-      - name: Run Tests
-        run: pnpm run test
-
       - name: Build
         run: pnpm run build
+
+      - name: Run Tests
+        run: pnpm run test
 
       - name: Compress Dist Folder
         run: zip -r build.zip dist
