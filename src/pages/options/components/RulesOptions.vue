@@ -4,7 +4,6 @@ import { loadRules, saveRules } from '../../../modules/storage'
 import InstructionArticle from './InstructionArticle.vue'
 import Title from './Title.vue'
 import Button from '../../../components/Button.vue'
-import { useBeforeUnload } from '../../popup/composables/useBeforeUnload'
 import { syncRef } from '@vueuse/core'
 import IllogicalRulesAlert from './IllogicalRulesAlert.vue'
 import { checkHasIllogicalRule } from '../../../modules/rule'
@@ -12,6 +11,9 @@ import Editor from '../../../components/Editor.vue'
 import { type SubmitResult } from '../../../types/SubmitResult'
 import SubmitResultMessage from './SubmitResultMessage.vue'
 import { OPTIONS_TEST_IDS } from '../../../modules/constants'
+import ExportButton from './ExportButton.vue'
+import { useBeforeUnload } from '../composables/useBeforeUnload'
+import { exportData } from './modules/exportData'
 
 const jobTitleRulesDraft = ref<string | null>(null)
 const companyNameRulesDraft = ref<string | null>(null)
@@ -75,12 +77,29 @@ const hasIllogicalRules = computed(() => (
 
 <template>
   <div class="flex flex-col gap-4">
-    <Title>公司名稱</Title>
+    <div class="flex items-center justify-between">
+      <Title>公司名稱</Title>
+      <ExportButton
+        @click="() => {
+          if (!companyNameRulesDraft) return
+          exportData(companyNameRulesDraft, 'company-name-rules.txt')
+        }"
+      />
+    </div>
     <Editor
       v-model="companyNameRulesDraft"
       :data-testid="OPTIONS_TEST_IDS.companyNameRulesEditor"
     />
-    <Title>職缺名稱</Title>
+
+    <div class="flex items-center justify-between">
+      <Title>職缺名稱</Title>
+      <ExportButton
+        @click="() => {
+          if (!jobTitleRulesDraft) return
+          exportData(jobTitleRulesDraft, 'job-title-rules.txt')
+        }"
+      />
+    </div>
     <Editor
       v-model="jobTitleRulesDraft"
       :data-testid="OPTIONS_TEST_IDS.jobTitleRulesEditor"
