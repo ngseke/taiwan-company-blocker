@@ -8,6 +8,9 @@ export const QUERY_BLOCKED_COUNT_MESSAGE_NAME = 'queryBlockedCountMessageName'
 export const OPTIONS_TEST_IDS = {
   sidebar: 'sidebar',
   enableSwitch: 'enableSwitch',
+  companyNameRulesEditor: 'companyNameRulesEditor',
+  jobTitleRulesEditor: 'jobTitleRulesEditor',
+  rulesSaveButton: 'rulesSaveButton',
 } as const
 
 export const POPUP_TEST_IDS = {

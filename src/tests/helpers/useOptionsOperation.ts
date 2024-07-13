@@ -31,8 +31,29 @@ export function useOptionsOperation ({ getOptionsPage }: {
     await sleep(300)
   }
 
+  async function typeInEditor (testId: string, rules: string) {
+    const page = await getOptionsPage()
+    const editor = await page.$(`[data-testid=${testId}] [contenteditable]`)
+    await editor?.focus()
+    await editor?.evaluate(($, value) => {
+      $.innerHTML = value
+      const event = new Event('input', { bubbles: true })
+      $.dispatchEvent(event)
+    }, rules)
+  }
+
+  async function clickRulesSaveButton () {
+    const page = await getOptionsPage()
+    const button = await page.$(
+      `[data-testid=${OPTIONS_TEST_IDS.rulesSaveButton}]`
+    )
+    await button?.click()
+  }
+
   return {
     clickSidebarItem,
     toggleEnabled,
+    typeInEditor,
+    clickRulesSaveButton,
   }
 }

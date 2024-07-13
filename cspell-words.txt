@@ -26,3 +26,4 @@ taiwanjobs
 jobtype
 testid
 networkidle
+contenteditable
