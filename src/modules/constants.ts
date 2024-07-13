@@ -9,3 +9,7 @@ export const OPTIONS_TEST_IDS = {
   sidebar: 'sidebar',
   enableSwitch: 'enableSwitch',
 } as const
+
+export const POPUP_TEST_IDS = {
+  enableSwitch: 'enableSwitch',
+} as const
