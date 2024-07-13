@@ -17,11 +17,18 @@
     transform: translate(-50%, -50%)
     height: $size
     width: $size
-    max-height: 70%
-    max-width: 70%
+    max-height: 50%
+    max-width: 50%
     background: var(--taiwan-company-blocker-icon) center / contain no-repeat
     opacity: .7
     z-index: 1
+
+.blur
+  cursor: not-allowed !important
+  user-select: none !important
+  pointer-events: none !important
+  > *
+    filter: blur(4px) !important
 
 .hide
   display: none !important

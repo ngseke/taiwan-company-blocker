@@ -78,8 +78,9 @@ export abstract class Blocker {
     this.removeAllClassNames($item)
 
     const className = {
-      hide: style.hide,
+      blur: style.blur,
       opacity: style.opacity,
+      hide: style.hide,
     }[this.method]
     $item.classList.add(className)
   }
