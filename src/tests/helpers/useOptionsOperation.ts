@@ -31,15 +31,33 @@ export function useOptionsOperation ({ getOptionsPage }: {
     await sleep(300)
   }
 
-  async function typeInEditor (testId: string, rules: string) {
+  async function typeInEditor (
+    testId: string,
+    value: string,
+    isProgrammatically = false
+  ) {
     const page = await getOptionsPage()
     const editor = await page.$(`[data-testid=${testId}] [contenteditable]`)
     await editor?.focus()
-    await editor?.evaluate(($, value) => {
-      $.innerHTML = value
-      const event = new Event('input', { bubbles: true })
-      $.dispatchEvent(event)
-    }, rules)
+    if (isProgrammatically) {
+      await editor?.evaluate(($, value) => {
+        $.innerHTML = value
+        const event = new Event('input', { bubbles: true })
+        $.dispatchEvent(event)
+      }, value)
+    } else {
+      await editor?.type(value)
+    }
+  }
+
+  async function getEditorLines (testId: string) {
+    const page = await getOptionsPage()
+    const editor = await page.$(`[data-testid=${testId}] [contenteditable]`)
+
+    return await editor?.evaluate((el) =>
+      [...el.querySelectorAll('& > *')]
+        .map((line) => line?.textContent)
+    )
   }
 
   async function clickRulesSaveButton () {
@@ -54,6 +72,7 @@ export function useOptionsOperation ({ getOptionsPage }: {
     clickSidebarItem,
     toggleEnabled,
     typeInEditor,
+    getEditorLines,
     clickRulesSaveButton,
   }
 }
