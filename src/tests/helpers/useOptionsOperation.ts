@@ -12,8 +12,8 @@ export function useOptionsOperation ({ getOptionsPage }: {
       button[data-testid=${value}]
     `)
 
-    sidebarItem?.click()
-    await sleep(300)
+    await sidebarItem?.click()
+    await sleep(100)
   }
 
   async function toggleEnabled (value: boolean) {

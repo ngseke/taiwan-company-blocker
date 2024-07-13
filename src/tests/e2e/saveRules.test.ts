@@ -20,7 +20,7 @@ describe('Save rules in popup page', () => {
     await typeInEditor(OPTIONS_TEST_IDS.companyNameRulesEditor, companyNameRules)
     await typeInEditor(OPTIONS_TEST_IDS.jobTitleRulesEditor, jobTitleRules)
     await clickRulesSaveButton()
-    await sleep(100)
+    await sleep(500)
 
     expect((await getOptionsLocalStorage()).companyNameRules)
       .toBe(companyNameRules)

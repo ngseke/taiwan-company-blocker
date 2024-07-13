@@ -9,6 +9,7 @@ import VersionUpdatedAlert from './components/VersionUpdatedAlert.vue'
 import Sidebar from './components/Sidebar.vue'
 import { ref } from 'vue'
 import About from './components/About.vue'
+import { OPTIONS_TEST_IDS } from '../../modules/constants'
 
 const list = [
   { label: '設定', value: 'setting' },
@@ -25,7 +26,11 @@ const current = ref(list[0].value)
     </div>
 
     <div class="w-full min-w-0 pb-8 lg:flex-1 lg:py-12">
-      <div v-show="current === 'setting'" class="flex w-full flex-col gap-4">
+      <section
+        v-show="current === 'setting'"
+        class="flex w-full flex-col gap-4"
+        :data-testid="OPTIONS_TEST_IDS.sectionSetting"
+      >
         <VersionUpdatedAlert />
 
         <Card>
@@ -43,13 +48,17 @@ const current = ref(list[0].value)
         <Card>
           <BlockMethodOptions />
         </Card>
-      </div>
+      </section>
 
-      <div v-show="current === 'about'" class="flex w-full flex-col gap-4">
+      <section
+        v-show="current === 'about'"
+        class="flex w-full flex-col gap-4"
+        :data-testid="OPTIONS_TEST_IDS.sectionAbout"
+      >
         <Card>
           <About />
         </Card>
-      </div>
+      </section>
     </div>
   </div>
 </template>
