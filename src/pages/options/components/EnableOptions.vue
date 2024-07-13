@@ -12,7 +12,6 @@ const isEnabled = useChromeStorage(ENABLED_STORAGE_KEY)
   <div class="flex flex-col gap-4">
     <div>
       <Switch
-        v-if="isEnabled != null"
         v-model="isEnabled"
         :data-testid="OPTIONS_TEST_IDS.enableSwitch"
       >

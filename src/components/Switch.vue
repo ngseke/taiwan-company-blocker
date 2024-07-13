@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { nanoid } from 'nanoid'
+import { type Nullish } from '../types/Nullish'
 
 defineProps<{
   label?: string
-  modelValue?: boolean
-
+  modelValue?: Nullish<boolean>
 }>()
 
 defineEmits<{
@@ -21,7 +21,7 @@ const id = nanoid()
     <div class="relative inline-block h-4 w-8 cursor-pointer rounded-full">
       <input
         :id="id"
-        :checked="modelValue"
+        :checked="modelValue ?? false"
         class="peer absolute h-4 w-8 cursor-pointer appearance-none rounded-full bg-neutral-700 transition-colors duration-300 checked:bg-red-500 peer-checked:border-red-500 peer-checked:before:bg-red-500"
         type="checkbox"
         @click.prevent="$emit('update:modelValue', !modelValue)"
