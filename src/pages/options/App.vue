@@ -19,12 +19,12 @@ const current = ref(list[0].value)
 
 <template>
   <div class="container flex max-w-5xl flex-wrap gap-x-8 gap-y-4 px-4">
-    <div class="top-0 flex h-full flex-1 flex-col gap-4 pt-2 lg:sticky lg:py-8">
+    <div class="top-0 flex h-full flex-1 flex-col gap-4 pt-2 lg:sticky lg:w-64 lg:flex-none lg:py-8">
       <Header />
       <Sidebar v-model="current" :list="list" />
     </div>
 
-    <div class="w-full pb-8 lg:w-9/12 lg:py-12">
+    <div class="w-full min-w-0 pb-8 lg:flex-1 lg:py-12">
       <div v-show="current === 'setting'" class="flex w-full flex-col gap-4">
         <VersionUpdatedAlert />
 
