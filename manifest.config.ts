@@ -3,9 +3,12 @@ import packageJson from './package.json'
 
 const { version } = packageJson
 
+const key = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwjoxvq/KornQdb8x/oG3gcMKkpX1ADNoymkeqf12SWXhNqhMgEXjXT4SHAFhg4CBR2DuuPPx4jkITiBU/YhbPHltAuRooGObc+X5keEYxAce1KwL56dvxSNT2D+3sW6OmRKvqqDH0m5qy2zoo+RQ+vLTZk2eZmnxLYX3fdlGxUVABd0G8zcox4yklpHYuuqEdTBoWBiF+mOJG18LzwvskwOugiYu5BtOpMTbyyFqNsC3aJu6dc6jEvnmaHrfLB1iwbAsDhRNEQqvM6wF1uPAvjVJQSCTLcXlhqi0VVhdUeY26cln8c11gWbi1gedrBJPuK/+mOUSk+KboDaHMVWeOQIDAQAB'
+
 export default defineManifest(async () => ({
   manifest_version: 3,
   version,
+  key,
 
   default_locale: 'zh_TW',
   name: '__MSG_appName__',
