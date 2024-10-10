@@ -22,7 +22,7 @@ export class BlockerManager {
     if (!platformName) throw new Error('Cannot detect platform!')
 
     const blockerOptionsGroup: Record<PlatformName, CreateBlockerOptions[]> = {
-      cakeresume: cakeBlockerOptions,
+      cake: cakeBlockerOptions,
       yourator: youratorBlockerOptions,
       104: _104BlockerOptions,
       518: _518BlockerOptions,

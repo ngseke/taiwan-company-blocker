@@ -25,6 +25,7 @@ export default defineManifest(async () => ({
     {
       matches: [
         'https://www.cakeresume.com/*',
+        'https://www.cake.me/*',
         'https://www.yourator.co/*',
         'https://www.104.com.tw/*',
         'https://pda.104.com.tw/*',

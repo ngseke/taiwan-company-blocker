@@ -15,8 +15,8 @@ describe('platform.ts', () => {
     mockHost('https://google.com')
     expect(detectPagePlatform()).toBeNull()
 
-    mockHost('https://www.cakeresume.com/companies/ABC/jobs/ABC')
-    expect(detectPagePlatform()).toBe('cakeresume')
+    mockHost('https://www.cake.me/companies/ABC/jobs/ABC')
+    expect(detectPagePlatform()).toBe('cake')
 
     mockHost('https://www.yourator.co/companies/ABC/jobs/00000')
     expect(detectPagePlatform()).toBe('yourator')

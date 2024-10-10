@@ -2,7 +2,7 @@ import { type Entries } from '../../../types/Entries'
 import { type Nullish } from '../../../types/Nullish'
 
 export type PlatformName =
-  | 'cakeresume'
+  | 'cake'
   | 'yourator'
   | '104'
   | '518'
@@ -12,7 +12,7 @@ export type PlatformName =
   | 'taiwanJobs'
 
 export const platformNames: readonly PlatformName[] = [
-  'cakeresume',
+  'cake',
   'yourator',
   '104',
   '518',
@@ -23,7 +23,7 @@ export const platformNames: readonly PlatformName[] = [
 ]
 
 export const platformHosts: Record<PlatformName, string> = {
-  cakeresume: 'cakeresume.com',
+  cake: 'cake.me',
   yourator: 'yourator.co',
   104: '104.com.tw',
   518: '518.com.tw',
@@ -42,7 +42,7 @@ export function detectPagePlatform () {
 export function formatPlatformName (platformName: Nullish<PlatformName>) {
   if (!platformName) return null
   return {
-    cakeresume: 'Cake',
+    cake: 'Cake',
     yourator: 'Yourator',
     104: '104 人力銀行',
     518: '518 熊班',

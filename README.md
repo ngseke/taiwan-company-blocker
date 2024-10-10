@@ -33,7 +33,7 @@
 
 ## Support Employment Websites
 
-1. [Cake (Formally CakeResume)](https://www.cakeresume.com/)
+1. [Cake (Formally CakeResume)](https://www.cake.me/)
 1. [Yourator](https://www.yourator.co/)
 1. [104 人力銀行](https://www.104.com.tw/)
 1. [518 熊班](https://www.518.com.tw/)
