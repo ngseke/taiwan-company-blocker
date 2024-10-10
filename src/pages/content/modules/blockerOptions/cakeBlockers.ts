@@ -76,4 +76,10 @@ export const cakeBlockerOptions: CreateBlockerOptions[] = [
     jobTitleStrategy: '[class^=JobSearchItem_jobTitle]',
     companyNameStrategy: '[class^=JobSearchItem_companyName]',
   },
+  {
+    description: '`/campaigns` Campaigns 職缺列表',
+    itemsSelector: '[class^=CampaignJobSearchItem_wrapper_]',
+    jobTitleStrategy: '[class^=CampaignJobSearchItem_headerTitle]',
+    companyNameStrategy: '[class^=CampaignJobSearchItem_companyName]',
+  },
 ]
