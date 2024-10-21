@@ -28,6 +28,9 @@ jobs:
       - name: Install Dependencies
         run: pnpm i
 
+      - name: Install Puppeteer
+        run: pnpm node node_modules/puppeteer/install.mjs
+
       - name: Run Lints
         run: pnpm run lint
 
