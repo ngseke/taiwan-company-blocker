@@ -31,7 +31,7 @@ export const _104BlockerOptions: CreateBlockerOptions[] = [
     },
   },
   {
-    description: '`/jobs/search` 職缺列表',
+    description: '`/jobs/search` 職缺列表 (legacy)',
     itemsSelector: '#js-job-content > article',
     jobTitleStrategy: {
       selectorTarget: 'item',
@@ -45,6 +45,13 @@ export const _104BlockerOptions: CreateBlockerOptions[] = [
       textType: 'dataset',
       textKey: 'custName',
     },
+    activatorPosition: 'bottom-right',
+  },
+  {
+    description: '`/jobs/search` 職缺列表',
+    itemsSelector: '.job > .job-summary',
+    jobTitleStrategy: '.info-job__text',
+    companyNameStrategy: '.info-company__text',
     activatorPosition: 'bottom-right',
   },
   {
