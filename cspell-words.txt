@@ -27,3 +27,4 @@ jobtype
 testid
 networkidle
 contenteditable
+newestjob

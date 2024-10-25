@@ -16,6 +16,15 @@ export const _104BlockerOptions: CreateBlockerOptions[] = [
     companyNameStrategy: '.company-name-link > a, .card__header',
   },
   {
+    description: '`/jobs/main/newestjob` 最新工作',
+    itemsSelector: `
+      .job-list__list .info-wrapper,
+      .job-list__list .job-list-container
+    `,
+    jobTitleStrategy: '.info-job .info-name',
+    companyNameStrategy: '.info-company a',
+  },
+  {
     description: '`/search` 公司列表、 `/topic/recommend` 「為你推薦」公司列表',
     itemsSelector: '.container .company-list, .company-lists__item',
     companyNameStrategy: '.company-name-link > a, .advert-type27__middle__header__title',
