@@ -27,13 +27,13 @@
 ## Install from Chrome Web Store
 
 <a href="https://chromewebstore.google.com/detail/hmkkfmjfinbllbbkgabkeponkhckmijk">
-  <img src="https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/UV4C4ybeBTsZt43U4xis.png" />
+  <img src="public/images/chrome-web-store.png" />
 </a>
 
 
 ## Support Employment Websites
 
-1. [Cake (Formally CakeResume)](https://www.cake.me/)
+1. [Cake (Formerly CakeResume)](https://www.cake.me/)
 1. [Yourator](https://www.yourator.co/)
 1. [104 人力銀行](https://www.104.com.tw/)
 1. [518 熊班](https://www.518.com.tw/)
