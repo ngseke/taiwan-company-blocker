@@ -101,6 +101,7 @@ export async function loadRules (type: RuleType) {
   /**
    * Gets value from Sync Storage **without** default value.
    * This is for backward compatibility.
+   * @deprecated
    */
   async function getStorageSync <
     Key extends StorageKey
