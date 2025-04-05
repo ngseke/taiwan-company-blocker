@@ -36,7 +36,7 @@ export const youratorBlockerOptions: CreateBlockerOptions[] = [
   {
     description: '`/jobs` 職缺列表',
     itemsSelector: '#normal-jobs > div > a',
-    jobTitleStrategy: '.flex-initial.mb-1.text-general.font-bold.text-lightest-navy.truncate',
+    jobTitleStrategy: '.text-general.font-bold.text-lightest-navy.truncate',
     companyNameStrategy: '.flex-initial.text-sub.text-main-blue.truncate',
     activatorPosition: 'bottom-right',
   },
