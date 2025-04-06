@@ -11,6 +11,9 @@ export type ActivatorPositionCallback = (
 
 const dataSetKey = 'taiwan_company_blocker_action_activator_container'
 
+/**
+ * @deprecated
+ */
 export class ActionActivator {
   private readonly $container = document.createElement('div')
 

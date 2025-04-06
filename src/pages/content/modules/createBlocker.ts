@@ -33,6 +33,9 @@ export interface CreateBlockerOptions {
   activatorPosition?: ActivatorPositionStrategy | Position
 }
 
+/**
+ * @deprecated
+ */
 export function createBlocker ({
   description,
   itemsSelector,

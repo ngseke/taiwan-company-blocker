@@ -1,3 +1,5 @@
+import { type Nullish } from '../types/Nullish'
+
 export function isRegexpLiteral (maybeRegexpLiteral: string) {
   if (maybeRegexpLiteral === '//') return false
 
@@ -125,8 +127,8 @@ function matchStringPatterns (input: string, patterns: string[]): boolean {
   return false
 }
 
-export function match (input: string, ruleOrRules: string | string[]) {
-  input = input.trim()
+export function match (input: Nullish<string>, ruleOrRules: string | string[]) {
+  input = input?.trim()
   if (!input) return false
 
   const rules = Array.isArray(ruleOrRules) ? ruleOrRules : [ruleOrRules]

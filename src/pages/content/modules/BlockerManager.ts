@@ -13,6 +13,9 @@ import { meetJobsBlockerOptions } from './blockerOptions/meetJobsBlockers'
 import { taiwanJobsBlockerOptions } from './blockerOptions/taiwanJobsBlocker'
 import { type ActionActivator } from './ActionActivator'
 
+/**
+ * @deprecated
+ */
 export class BlockerManager {
   private readonly blockers: Blocker[] = []
   private readonly actionActivators: ActionActivator[] = []
