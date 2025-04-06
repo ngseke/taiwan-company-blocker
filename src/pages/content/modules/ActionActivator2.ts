@@ -6,6 +6,7 @@ import { type ActivatorPositionStrategy, type Position } from './CreateBlockerOp
 import { debounce } from 'lodash-es'
 import { renderOverlay } from './overlay'
 import { createSafeMutationObserver } from './createSafeMutationObserver'
+import { loadIsDebuggerEnabled } from '../../../modules/storage'
 
 export type ActivatorPositionCallback = (
   $item: HTMLElement,
@@ -50,6 +51,7 @@ export class ActionActivator2 {
 
   private readonly $container = document.createElement('div')
   private readonly $overlay = renderOverlay()
+  private isDebuggerEnabled = false
 
   constructor () {
     const { $container, $overlay } = this
@@ -84,6 +86,11 @@ export class ActionActivator2 {
         width: `${$item.getBoundingClientRect().width + offset * 2}px`,
         height: `${$item.getBoundingClientRect().height + offset * 2}px`,
       })
+
+      if (this.isDebuggerEnabled) {
+        // eslint-disable-next-line no-console -- for debugger
+        console.info(candidate)
+      }
     })
 
     $activator.addEventListener('mouseleave', () => {
@@ -107,8 +114,6 @@ export class ActionActivator2 {
       opacity: 1,
       transition: 'opacity .1s',
     })
-
-    return this
   }
 
   private hideOverlay () {
@@ -126,7 +131,7 @@ export class ActionActivator2 {
   private handler: (() => void) | null = null
   private observer: MutationObserver | null = null
 
-  start (candidates: Candidate[]) {
+  async start (candidates: Candidate[]) {
     this.stop()
 
     const debouncedRenderAll = debounce(() => {
@@ -147,7 +152,7 @@ export class ActionActivator2 {
     this.observer = createSafeMutationObserver(handler)
     this.observer.observe(document.body, { childList: true, subtree: true })
 
-    return this
+    this.isDebuggerEnabled = await loadIsDebuggerEnabled()
   }
 
   stop () {
@@ -161,7 +166,5 @@ export class ActionActivator2 {
 
     this.handler = null
     this.observer = null
-
-    return this
   }
 }
