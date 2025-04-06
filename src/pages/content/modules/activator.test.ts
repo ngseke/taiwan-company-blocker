@@ -5,6 +5,6 @@ describe('activator', () => {
     const { $wrapper, $activator } = renderActivator()
     expect($wrapper instanceof HTMLElement).toBe(true)
     expect($activator instanceof HTMLElement).toBe(true)
-    expect($activator.dataset[actionActivatorDataKey]).not.toBeUndefined()
+    expect($wrapper.dataset[actionActivatorDataKey]).not.toBeUndefined()
   })
 })
