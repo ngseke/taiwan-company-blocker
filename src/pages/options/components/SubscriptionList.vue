@@ -59,7 +59,12 @@ const { getFormattedTime, getRelativeTime } = useTime()
         </div>
 
         <div class="flex min-w-0 flex-1 flex-col px-2">
-          <div class="truncate">
+          <div
+            class="truncate"
+            :class="{
+              'text-red-500': getResult(item.url)?.status === 'error'
+            }"
+          >
             {{ item.name }}
           </div>
           <div class="truncate text-xs text-neutral-500">
