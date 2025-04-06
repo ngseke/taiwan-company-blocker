@@ -148,7 +148,7 @@ export function match (input: Nullish<string>, ruleOrRules: string | string[]) {
     stringPatterns ?? [],
   )
   const isMatchedRegexpPatterns = regexPatterns
-    .some((regex) => regex.test(input))
+    .some((regex) => regex.test(input as string))
 
   return isMatchedStringPatterns || isMatchedRegexpPatterns
 }
