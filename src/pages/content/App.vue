@@ -6,7 +6,7 @@ import { CLICK_ITEM_ACTION } from './modules/emitter'
 import { useEmitter } from './composables/useEmitter'
 import Header from './components/Header.vue'
 import { OPEN_OPTIONS_PAGE_MESSAGE_NAME } from '../../modules/constants'
-import Checkbox from '../../components/Checkbox.vue'
+import Radio from '../../components/Radio.vue'
 import { type Nullish } from '../../types/Nullish'
 import Dialog from '../../components/Dialog.vue'
 import SearchLinkSection from './components/SearchLinkSection.vue'
@@ -20,8 +20,7 @@ const isOpened = ref(false)
 function open () { isOpened.value = true }
 function close () { isOpened.value = false }
 
-const isJobTitleChecked = ref(false)
-const isCompanyNameChecked = ref(false)
+const type = ref<'job' | 'company' | null>(null)
 
 const jobTitle = ref<Nullish<string>>(null)
 const companyName = ref<Nullish<string>>(null)
@@ -31,8 +30,7 @@ const companyNameDraft = ref('')
 
 useEmitter(CLICK_ITEM_ACTION, (payload) => {
   open()
-  isJobTitleChecked.value = false
-  isCompanyNameChecked.value = false
+  type.value = null
 
   jobTitle.value = payload.jobTitle
   companyName.value = payload.companyName
@@ -47,17 +45,17 @@ function openOptions () {
 
 async function submit () {
   close()
-  if (isJobTitleChecked.value) {
+  if (type.value === 'job') {
     await appendRule('jobTitle', jobTitleDraft.value)
   }
-  if (isCompanyNameChecked.value) {
+  if (type.value === 'company') {
     await appendRule('companyName', companyNameDraft.value)
   }
 }
 
 const isSubmitDisabled = computed(() => !(
-  (isJobTitleChecked.value && jobTitleDraft.value.trim()) ||
-  (isCompanyNameChecked.value && companyNameDraft.value.trim())
+  (type.value === 'job' && jobTitleDraft.value.trim()) ||
+  (type.value === 'company' && companyNameDraft.value.trim())
 ))
 
 const { matchedRules } = useMatchedRules({ companyName, jobTitle })
@@ -85,11 +83,11 @@ async function handleEditRule (type: RuleType, rule: string) {
         <Header />
         <div class="flex flex-col gap-4">
           <div class="flex items-center gap-2">
-            <Checkbox v-model="isCompanyNameChecked" />
+            <Radio v-model="type" value="company" />
             <Input v-model="companyNameDraft" label="公司名稱" />
           </div>
           <div class="flex items-center gap-2">
-            <Checkbox v-model="isJobTitleChecked" />
+            <Radio v-model="type" value="job" />
             <Input v-model="jobTitleDraft" label="職缺名稱" />
           </div>
         </div>
