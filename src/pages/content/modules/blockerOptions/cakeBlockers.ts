@@ -72,13 +72,9 @@ export const cakeBlockerOptions: CreateBlockerOptions[] = [
   },
   {
     description: '`/jobs` 職缺列表',
-    itemsSelector: '[class^=JobSearchItem_wrapper__]',
+    itemsSelector: '[class^=JobSearchItem_container]',
     jobTitleStrategy: '[class^=JobSearchItem_jobTitle]',
     companyNameStrategy: '[class^=JobSearchItem_companyName]',
-    activatorPosition: {
-      position: 'top-right',
-      offset: [-16, -16],
-    },
   },
   {
     description: '`/campaigns` Campaigns 職缺列表',

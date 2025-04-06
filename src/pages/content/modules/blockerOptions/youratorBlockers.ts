@@ -15,18 +15,19 @@ export const youratorBlockerOptions: CreateBlockerOptions[] = [
   },
   {
     description: '`/companies` 公司列表',
-    itemsSelector: '#y-company-list-cards .container .y-company-card',
-    companyNameStrategy: '.y-new-card__title.flex-initial.truncate',
+    itemsSelector: '.shadow-company-card',
+    companyNameStrategy: '.text-lightest-navy.font-medium.truncate.text-general',
   },
   {
     description: '`/companies/*` 公司頁「目前職缺」列表',
-    itemsSelector: '#current-jobs .y-job-card',
-    jobTitleStrategy: '.y-new-card__title',
+    itemsSelector: '#JobsOfCompanyPage div > a[href^="/companies"]',
+    jobTitleStrategy: 'p.truncate.text-general.font-bold.text-lightest-navy',
     companyNameStrategy: {
       selectorTarget: 'document',
       selector: '#company-info h1',
       textType: 'textContent',
     },
+    activatorPosition: 'bottom-right',
   },
   {
     description: '`/companies/*` 公司頁下方「相關推薦公司」列表（登入後可見）',
@@ -61,7 +62,7 @@ export const youratorBlockerOptions: CreateBlockerOptions[] = [
       #event-detail-company-and-job-section
       .flex.flex-col.tablet\\:gap-4 > div > a
     `,
-    jobTitleStrategy: '.flex-initial.mb-1.text-general.font-bold.text-lightest-navy.truncate',
+    jobTitleStrategy: 'p.truncate.text-general.font-bold.text-lightest-navy',
     companyNameStrategy: '.flex-initial.text-sub.text-main-blue.hover\\:text-darkest-blue.truncate',
     activatorPosition: 'bottom-right',
   },

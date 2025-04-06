@@ -58,7 +58,7 @@ export const _104BlockerOptions: CreateBlockerOptions[] = [
   },
   {
     description: '`/jobs/search` 職缺列表',
-    itemsSelector: '.job > .job-summary',
+    itemsSelector: '.job-summary',
     jobTitleStrategy: '.info-job__text',
     companyNameStrategy: '.info-company__text',
     activatorPosition: 'bottom-right',
@@ -128,5 +128,14 @@ export const _104BlockerOptions: CreateBlockerOptions[] = [
     itemsSelector: '.jb-container .list-container [jobtype]',
     jobTitleStrategy: '.jb-link',
     companyNameStrategy: '.info-company__text, .cust-name',
+  },
+  {
+    description: '`/company/similar/*` 「...的相似公司」列表',
+    itemsSelector: `
+      .list-container--summary
+      .list-container
+      .row.no-gutters.py-4.list-large
+    `,
+    companyNameStrategy: '.jb-link',
   },
 ]
