@@ -1,15 +1,5 @@
-export type TextStrategy =
-  | { textType: 'textContent' }
-  | { textType: 'dataset', textKey: string }
-  | { textType: 'attribute', textKey: string }
+import { type SelectorStrategy } from './getText'
 
-export type SelectorTarget = 'document' | 'item'
-
-export type SelectorStrategy = TextStrategy & {
-  selectorTarget: SelectorTarget
-  /** Root element if not provided  */
-  selector?: string
-}
 export type VerticalPosition = 'top' | 'bottom'
 
 export type HorizontalPosition = 'right' | 'left'
