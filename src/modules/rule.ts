@@ -1,11 +1,11 @@
+import { uniq } from 'lodash-es'
 import { type Pattern, parseRuleIntoPattern } from './pattern'
-import { unique } from './unique'
 
 export type RuleType = 'jobTitle' | 'companyName'
 export type RuleSource = 'custom' | 'subscription'
 
 export function normalizeRulesString (rules: string) {
-  return unique(
+  return uniq(
     rules.split('\n')
       .map((rule) => rule.trim())
       .filter(Boolean)
@@ -21,7 +21,7 @@ export function checkHasIllogicalRule (rules: string) {
 
 export function convertRulesStringToArray (rules: string) {
   const separator = '\n'
-  return unique(
+  return uniq(
     rules
       .split(separator)
       .map((rule) => rule.trim())
