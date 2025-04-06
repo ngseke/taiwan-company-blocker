@@ -2,51 +2,18 @@ import { renderActivator } from './activator'
 import { getIsInViewport } from './dom'
 import { emitter, CLICK_ITEM_ACTION } from './emitter'
 import { type Candidate } from './Candidate'
-import { type ActivatorPositionStrategy, type Position } from './CreateBlockerOptions'
 import { debounce } from 'lodash-es'
 import { renderOverlay } from './overlay'
 import { createSafeMutationObserver } from './createSafeMutationObserver'
 import { loadIsDebuggerEnabled } from '../../../modules/storage'
+import { activatorPositionCallback } from './activatorPositionCallback'
 
 export type ActivatorPositionCallback = (
   $item: HTMLElement,
   $activator: HTMLElement
 ) =>({ x: number, y: number })
 
-function activatorPositionCallback (
-  $item: HTMLElement,
-  $activator: HTMLElement,
-  activatorPosition: ActivatorPositionStrategy | Position
-) {
-  const { left, top, width, height } = $item.getBoundingClientRect()
-  const { width: activatorWidth, height: activatorHeight } = $activator.getBoundingClientRect()
-
-  let position: Position
-  let [offsetX, offsetY] = [0, 0]
-
-  if (typeof activatorPosition === 'string') {
-    position = activatorPosition
-  } else {
-    position = activatorPosition.position
-    offsetX = activatorPosition.offset?.[0] ?? 0
-    offsetY = activatorPosition.offset?.[1] ?? 0
-  }
-
-  const offsetLeft = left + offsetX
-  const offsetRight = left + width - activatorWidth - offsetX
-  const offsetTop = top + offsetY
-  const offsetBottom = top + height - activatorHeight - offsetY
-
-  const positionMap: Record<Position, { x: number, y: number }> = {
-    'top-left': { x: offsetLeft, y: offsetTop },
-    'top-right': { x: offsetRight, y: offsetTop },
-    'bottom-left': { x: offsetLeft, y: offsetBottom },
-    'bottom-right': { x: offsetRight, y: offsetBottom },
-  }
-
-  return positionMap[position]
-}
-export class ActionActivator2 {
+export class ActionActivatorFixed {
   static dataSetKey = 'tcb_action_activator_container'
 
   private readonly $container = document.createElement('div')
@@ -56,7 +23,7 @@ export class ActionActivator2 {
   constructor () {
     const { $container, $overlay } = this
 
-    $container.dataset[ActionActivator2.dataSetKey] = ''
+    $container.dataset[ActionActivatorFixed.dataSetKey] = ''
     document.body.append($container)
 
     document.body.append($overlay)
@@ -105,6 +72,8 @@ export class ActionActivator2 {
 
     Object.assign($wrapper.style, {
       transform: `translate(${x}px, ${y}px)`,
+      top: 0,
+      left: 0,
       opacity: 0,
     })
 

@@ -1,11 +1,13 @@
 .base
   position: relative !important
 
-.opacity
-  cursor: not-allowed !important
+.opacity, .blur, .hide
   user-select: none !important
-  pointer-events: none !important
-  > *
+  > *:not([data-tcb_action_activator])
+    pointer-events: none !important
+
+.opacity
+  > *:not([data-tcb_action_activator])
     opacity: .3 !important
 
   &::before
@@ -24,10 +26,7 @@
     z-index: 1
 
 .blur
-  cursor: not-allowed !important
-  user-select: none !important
-  pointer-events: none !important
-  > *
+  > *:not([data-tcb_action_activator])
     filter: blur(4px) !important
 
 .hide

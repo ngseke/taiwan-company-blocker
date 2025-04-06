@@ -11,10 +11,13 @@ export interface ActivatorPositionStrategy {
   offset?: [number, number]
 }
 
+export type ActivatorStrategy = 'absolute' | 'fixed'
+
 export interface CreateBlockerOptions {
   description: string
   itemsSelector: string
   jobTitleStrategy?: SelectorStrategy | string
   companyNameStrategy?: SelectorStrategy | string
   activatorPosition?: ActivatorPositionStrategy | Position
+  activatorStrategy?: ActivatorStrategy
 }

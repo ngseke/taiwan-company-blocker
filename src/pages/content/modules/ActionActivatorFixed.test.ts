@@ -1,20 +1,20 @@
 import { mockChrome } from '../../../../__tests__/chrome'
-import { ActionActivator2 } from './ActionActivator2'
+import { ActionActivatorFixed } from './ActionActivatorFixed'
 import { type Candidate } from './Candidate'
 import { $ } from './dom'
 import { emitter } from './emitter'
 import { overlayDataKey } from './overlay'
 
-describe('ActionActivator2', () => {
+describe('ActionActivatorFixed', () => {
   const activatorPositionCallback = vi.fn()
     .mockReturnValue({ x: 0, y: 0 })
-  let actionActivator: ActionActivator2
+  let actionActivator: ActionActivatorFixed
   let candidate: Candidate
   const { body } = document
 
   beforeEach(() => {
     activatorPositionCallback.mockClear()
-    actionActivator = new ActionActivator2()
+    actionActivator = new ActionActivatorFixed()
 
     const $item = document.createElement('div')
     body.append($item)
@@ -39,7 +39,7 @@ describe('ActionActivator2', () => {
     actionActivator.start([])
 
     expect(
-      $(`[data-${ActionActivator2.dataSetKey}]`)
+      $(`[data-${ActionActivatorFixed.dataSetKey}]`)
     ).toBeTruthy()
   })
 

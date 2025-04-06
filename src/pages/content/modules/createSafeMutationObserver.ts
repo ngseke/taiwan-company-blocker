@@ -1,4 +1,4 @@
-import { ActionActivator2 } from './ActionActivator2'
+import { ActionActivatorFixed } from './ActionActivatorFixed'
 import { actionActivatorDataKey } from './activator'
 import { overlayDataKey } from './overlay'
 
@@ -10,8 +10,8 @@ export function createSafeMutationObserver (callback: MutationCallback): Mutatio
         return (
           actionActivatorDataKey in node.dataset ||
           overlayDataKey in node.dataset ||
-          ActionActivator2.dataSetKey in node.dataset ||
-          node.closest(`[data-${ActionActivator2.dataSetKey}]`)
+          ActionActivatorFixed.dataSetKey in node.dataset ||
+          node.closest(`[data-${ActionActivatorFixed.dataSetKey}]`)
         )
       })
     ))

@@ -10,7 +10,7 @@ import { chickptBlockerOptions } from './blockerOptions/chickptBlockers'
 import { meetJobsBlockerOptions } from './blockerOptions/meetJobsBlockers'
 import { taiwanJobsBlockerOptions } from './blockerOptions/taiwanJobsBlocker'
 import { $$ } from './dom'
-import { ActionActivator2 } from './ActionActivator2'
+import { ActionActivatorFixed } from './ActionActivatorFixed'
 import { type Candidate } from './Candidate'
 import { getText } from './getText'
 import { loadBlockMethod, loadIsEnabled } from '../../../modules/storage'
@@ -18,10 +18,12 @@ import style from './blocker.module.sass'
 import { match } from '../../../modules/pattern'
 import { createSafeMutationObserver } from './createSafeMutationObserver'
 import { UPDATE_ICON_MESSAGE_NAME } from '../../../modules/constants'
+import { ActionActivatorAbsolute } from './ActionActivatorAbsolute'
 
 export class BlockerManager2 {
   private readonly blockerOptions: CreateBlockerOptions[]
-  private readonly actionActivator = new ActionActivator2()
+  private readonly actionActivatorFixed = new ActionActivatorFixed()
+  private readonly actionActivatorAbsolute = new ActionActivatorAbsolute()
 
   private candidates: Candidate[] = []
 
@@ -79,16 +81,31 @@ export class BlockerManager2 {
     const { companyNameRules, jobTitleRules } = await loadParsedRules()
 
     this.candidates.forEach(({ itemElementRef }) => {
+      const $item = itemElementRef.deref()
       /* Remove all class names */
-      itemElementRef.deref()
-        ?.classList.remove(...Object.values(style))
+      $item?.classList.remove(...Object.values(style))
+      $item?.classList.add(style.base)
     })
 
     if (!isEnabled) {
-      this.actionActivator.stop()
+      this.actionActivatorFixed.stop()
+      this.actionActivatorAbsolute.stop()
+
       this.blockedCount = null
     } else {
-      this.actionActivator.start(this.candidates)
+      this.actionActivatorFixed.start(
+        this.candidates.filter((candidate) => (
+          candidate.options.activatorStrategy === 'fixed'
+        ))
+      )
+
+      this.actionActivatorAbsolute.start(
+        this.candidates.filter((candidate) => (
+          !candidate.options.activatorStrategy ||
+          candidate.options.activatorStrategy === 'absolute'
+        ))
+      )
+
       const matchedCandidates = this.candidates.filter((candidate) => {
         const { companyName, jobTitle } = candidate
         return (
