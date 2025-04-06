@@ -17,6 +17,7 @@ import { loadBlockMethod, loadIsEnabled } from '../../../modules/storage'
 import style from './blocker.module.sass'
 import { match } from '../../../modules/pattern'
 import { createSafeMutationObserver } from './createSafeMutationObserver'
+import { UPDATE_ICON_MESSAGE_NAME } from '../../../modules/constants'
 
 export class BlockerManager2 {
   private readonly blockerOptions: CreateBlockerOptions[]
@@ -86,37 +87,42 @@ export class BlockerManager2 {
     if (!isEnabled) {
       this.actionActivator.stop()
       this.blockedCount = null
-      return
+    } else {
+      this.actionActivator.start(this.candidates)
+      const matchedCandidates = this.candidates.filter((candidate) => {
+        const { companyName, jobTitle } = candidate
+        return (
+          match(companyName, companyNameRules) ||
+          match(jobTitle, jobTitleRules)
+        )
+      })
+
+      /* Add class names on matched items */
+      matchedCandidates.forEach((candidate) => {
+        if (!isEnabled) return
+
+        const { itemElementRef } = candidate
+        const $item = itemElementRef.deref()
+
+        if (!$item) return
+
+        const className = {
+          blur: style.blur,
+          opacity: style.opacity,
+          hide: style.hide,
+        }[blockMethod]
+
+        $item.classList.add(style.base, className)
+      })
+
+      this.blockedCount = matchedCandidates.length
     }
 
-    this.actionActivator.start(this.candidates)
-    const matchedCandidates = this.candidates.filter((candidate) => {
-      const { companyName, jobTitle } = candidate
-      return (
-        match(companyName, companyNameRules) ||
-        match(jobTitle, jobTitleRules)
-      )
+    chrome.runtime.sendMessage({
+      action: UPDATE_ICON_MESSAGE_NAME,
+      isEnabled,
+      blockedCount: this.blockedCount,
     })
-
-    /* Add class names on matched items */
-    matchedCandidates.forEach((candidate) => {
-      if (!isEnabled) return
-
-      const { itemElementRef } = candidate
-      const $item = itemElementRef.deref()
-
-      if (!$item) return
-
-      const className = {
-        blur: style.blur,
-        opacity: style.opacity,
-        hide: style.hide,
-      }[blockMethod]
-
-      $item.classList.add(style.base, className)
-    })
-
-    this.blockedCount = matchedCandidates.length
   }
 
   blockedCount: number | null = null
