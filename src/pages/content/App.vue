@@ -84,11 +84,19 @@ async function handleEditRule (type: RuleType, rule: string) {
         <div class="flex flex-col gap-4">
           <div class="flex items-center gap-2">
             <Radio v-model="type" value="company" />
-            <Input v-model="companyNameDraft" label="公司名稱" />
+            <Input
+              v-model="companyNameDraft"
+              label="公司名稱"
+              @focus="type = type || 'company'"
+            />
           </div>
           <div class="flex items-center gap-2">
             <Radio v-model="type" value="job" />
-            <Input v-model="jobTitleDraft" label="職缺名稱" />
+            <Input
+              v-model="jobTitleDraft"
+              label="職缺名稱"
+              @focus="type = type || 'job'"
+            />
           </div>
         </div>
 
