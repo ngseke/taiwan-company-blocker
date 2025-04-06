@@ -145,6 +145,7 @@ export class ActionActivator2 {
       debouncedRenderAll()
     }
     this.handler = handler
+    handler()
 
     window.addEventListener('scroll', handler)
     window.addEventListener('resize', handler)
