@@ -80,7 +80,7 @@ export class ActionActivator2 {
       const offset = 8
       Object.assign(this.$overlay.style, {
         opacity: 1,
-        transition: 'all .15s',
+        transition: 'opacity .1s',
         left: `${$item.getBoundingClientRect().left - offset}px`,
         top: `${$item.getBoundingClientRect().top - offset}px`,
         width: `${$item.getBoundingClientRect().width + offset * 2}px`,
@@ -119,7 +119,7 @@ export class ActionActivator2 {
   private hideOverlay () {
     Object.assign(this.$overlay.style, {
       opacity: 0,
-      transition: 'all .3s',
+      transition: 'all .2s',
     })
   }
 
