@@ -1,4 +1,4 @@
-import { type CreateBlockerOptions } from '../createBlocker'
+import { type CreateBlockerOptions } from '../CreateBlockerOptions'
 
 export const _104BlockerOptions: CreateBlockerOptions[] = [
   {
