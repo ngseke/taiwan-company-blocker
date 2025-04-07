@@ -26,7 +26,9 @@ export class ActionActivatorAbsolute {
       position: 'absolute',
     })
     $item?.append($wrapper)
-    $activator.addEventListener('click', () => {
+    $activator.addEventListener('click', (event) => {
+      event.stopPropagation()
+      event.preventDefault()
       emitter.emit(CLICK_ITEM_ACTION, candidate)
     })
 
