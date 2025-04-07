@@ -11,7 +11,6 @@ function openOptions () {
 }
 
 const { platformName, blockedCount } = useContentMessage()
-const version = `v${APP_VERSION}`
 </script>
 
 <template>
@@ -22,9 +21,6 @@ const version = `v${APP_VERSION}`
           <h1 class="text-lg font-bold leading-6">
             Taiwan Company Blocker
           </h1>
-          <span class="font-mono text-neutral-600">
-            {{ version }}
-          </span>
         </div>
 
         <div class="flex gap-7">
