@@ -2,6 +2,20 @@ import { type CreateBlockerOptions } from '../CreateBlockerOptions'
 
 export const _1111BlockerOptions: CreateBlockerOptions[] = [
   {
+    description: '首頁 優質企業 Slider',
+    exampleUrl: 'https://www.1111.com.tw/',
+    itemsSelector: '.swiper-wrapper .w-full.h-full.card-border.bg-white.cursor-pointer',
+    companyNameStrategy: 'h3',
+  },
+  {
+    description: '首頁職缺 Slider',
+    exampleUrl: 'https://www.1111.com.tw/',
+    itemsSelector: '.swiper-wrapper .grid > .card-border',
+    jobTitleStrategy: 'h3',
+    companyNameStrategy: 'a > p.truncate',
+    activatorPosition: 'bottom-right',
+  },
+  {
     description: '`/search/job` 職缺列表',
     itemsSelector: '.search-content .job-card',
     jobTitleStrategy: '.job-card__title',
