@@ -6,7 +6,7 @@ import { debounce } from 'lodash-es'
 import { renderOverlay } from './overlay'
 import { createSafeMutationObserver } from './createSafeMutationObserver'
 import { loadIsDebuggerEnabled } from '../../../modules/storage'
-import { activatorPositionCallback } from './activatorPositionCallback'
+import { getActivatorPositionFixed } from './getActivatorPositionFixed'
 
 export type ActivatorPositionCallback = (
   $item: HTMLElement,
@@ -64,7 +64,7 @@ export class ActionActivatorFixed {
       this.hideOverlay()
     })
 
-    const { x, y } = activatorPositionCallback(
+    const { x, y } = getActivatorPositionFixed(
       $item,
       $wrapper,
       options.activatorPosition ?? 'top-right'

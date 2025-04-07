@@ -1,6 +1,6 @@
 import type { ActivatorPositionStrategy, Position } from './CreateBlockerOptions'
 
-export function activatorPositionCallback (
+export function getActivatorPositionFixed (
   $item: HTMLElement,
   $activator: HTMLElement,
   activatorPosition: ActivatorPositionStrategy | Position
