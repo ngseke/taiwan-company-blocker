@@ -44,7 +44,7 @@ export class ActionActivatorFixed {
     })
 
     $activator.addEventListener('mouseenter', () => {
-      const offset = 8
+      const offset = 4
       Object.assign(this.$overlay.style, {
         opacity: 1,
         transition: 'opacity .1s',
