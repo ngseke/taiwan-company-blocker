@@ -87,7 +87,7 @@ async function handleEditRule (type: RuleType, rule: string) {
             <Input
               v-model="companyNameDraft"
               label="公司名稱"
-              @focus="type = type || 'company'"
+              @focus="type = 'company'"
             />
           </div>
           <div class="flex items-center gap-2">
@@ -95,7 +95,7 @@ async function handleEditRule (type: RuleType, rule: string) {
             <Input
               v-model="jobTitleDraft"
               label="職缺名稱"
-              @focus="type = type || 'job'"
+              @focus="type = 'job'"
             />
           </div>
         </div>
