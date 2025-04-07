@@ -14,10 +14,28 @@ export interface ActivatorPositionStrategy {
 export type ActivatorStrategy = 'absolute' | 'fixed'
 
 export interface CreateBlockerOptions {
+  /**
+   * Human-readable description.
+   */
   description: string
+  /**
+   * The selector for the candidate items.
+   */
   itemsSelector: string
+  /**
+   * Determines how the job title is extracted.
+   */
   jobTitleStrategy?: SelectorStrategy | string
+  /**
+   * Determines how the company name is extracted.
+   */
   companyNameStrategy?: SelectorStrategy | string
+  /**
+   * Specifies the position of the activator.
+   */
   activatorPosition?: ActivatorPositionStrategy | Position
+  /**
+   * Determines how the activator is rendered.
+   */
   activatorStrategy?: ActivatorStrategy
 }
