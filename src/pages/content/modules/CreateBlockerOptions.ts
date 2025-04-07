@@ -19,6 +19,10 @@ export interface CreateBlockerOptions {
    */
   description: string
   /**
+   *
+   */
+  exampleUrl?: string | string[]
+  /**
    * The selector for the candidate items.
    */
   itemsSelector: string
