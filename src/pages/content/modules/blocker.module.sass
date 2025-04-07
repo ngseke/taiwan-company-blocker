@@ -2,9 +2,11 @@
   position: relative !important
 
 .opacity, .blur, .hide
-  user-select: none !important
-  > *:not([data-tcb_action_activator])
+  &, > *
+    user-select: none !important
     pointer-events: none !important
+  > [data-tcb_action_activator]
+    pointer-events: all !important
 
 .opacity
   > *:not([data-tcb_action_activator])
