@@ -1,9 +1,13 @@
 <p align=center>
-  <img src="src/assets/img/icon.png" width="150"/>
+  <a href="http://taiwan-company-blocker.ngseke.me/" target="_blank">
+    <img src="src/assets/img/icon.png" width="150"/>
+  </a>
 </p>
 
 <p align=center>
-  台灣求職網封鎖神器
+  <a href="http://taiwan-company-blocker.ngseke.me/" target="_blank">
+    台灣求職網封鎖神器
+  </a>
 </p>
 
 <p align=center>
