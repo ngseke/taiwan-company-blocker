@@ -1,0 +1,55 @@
+{
+  "Metadata": {
+    "title": "台灣求職網封鎖神器 | Chorme 擴充功能",
+    "description": "一鍵封鎖看不順眼的公司和職缺"
+  },
+  "Header": {
+    "title": "台灣求職網封鎖神器",
+    "description": "一鍵封鎖看不順眼的公司和職缺"
+  },
+  "Index": {
+    "download": {
+      "title": "下載",
+      "chromeWebStore": "Chrome 線上應用程式商店",
+      "manualDownload": "手動下載"
+    },
+    "features": {
+      "title": "功能",
+      "block": {
+        "title": "點擊封鎖公司或職缺",
+        "content1": "在啟用了擴充功能後，職缺的右上方便會出現封鎖按鈕，點擊即可將該職缺加入封鎖列表。"
+      },
+      "rules": {
+        "title": "手動編輯封鎖規則",
+        "content1": "你可以自由編輯公司名稱和職缺名稱的規則，來決定封鎖哪些公司或職缺。",
+        "content2": "可以使用萬用字元 `*` 來匹配零個或 N 個字元，或是使用正規表示式（regex）來建立更複雜的規則。"
+      },
+      "methods": {
+        "title": "支援多種封鎖模式"
+      },
+      "subscription": {
+        "title": "訂閱規則",
+        "content1": "訂閱他人提供的規則列表，每天會自動從該 URL 抓取。",
+        "content2": "也可以查看由此擴充功能作者維護的<a>公司訂閱列表</a> ，快速過濾如博弈、外包等特定產業。"
+      },
+      "shortcut": {
+        "title": "速查公司捷徑",
+        "content1": "在封鎖視窗底部提供常用的搜尋關鍵字，點擊就可以快速至 Google 搜尋。"
+      }
+    },
+    "changelog": {
+      "title": "版本記錄"
+    },
+    "platform": {
+      "title": "支援平台",
+      "cake": "Cake",
+      "yourator": "Yourator",
+      "104": "104 人力銀行",
+      "518": "518 熊班",
+      "1111": "1111 人力銀行",
+      "chickpt": "小雞上工",
+      "meetJobs": "Meet.jobs",
+      "taiwanJobs": "台灣就業通"
+    }
+  }
+}

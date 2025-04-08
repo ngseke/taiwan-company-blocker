@@ -1,0 +1,55 @@
+{
+  "Metadata": {
+    "title": "Taiwan Company Blocker | Chrome Extension",
+    "description": "Block jobs and companies that annoy you with a single click"
+  },
+  "Header": {
+    "title": "Taiwan Company Blocker",
+    "description": "Block jobs and companies that annoy you with a single click"
+  },
+  "Index": {
+    "download": {
+      "title": "Download",
+      "chromeWebStore": "Chrome Web Store",
+      "manualDownload": "Manual Download"
+    },
+    "features": {
+      "title": "Features",
+      "block": {
+        "title": "Click to Block Companies or Jobs",
+        "content1": "Once the extension is enabled, a block button will appear in the top-right corner of job listings. Click it to add the job to your blocklist."
+      },
+      "rules": {
+        "title": "Manually Edit Blocking Rules",
+        "content1": "You can freely edit rules for company names and job titles to decide which companies or jobs to block.",
+        "content2": "You can use wildcards `*` to match zero or more characters, or use regular expressions (regex) to create more complex rules."
+      },
+      "methods": {
+        "title": "Support Multiple Blocking Methods"
+      },
+      "subscription": {
+        "title": "Subscribe to Rules",
+        "content1": "Subscribe to rule lists provided by others, which will automatically fetch updates from the URL daily.",
+        "content2": "You can also check out the <a>company subscription list</a> maintained by the extension author to quickly filter industries like gambling or outsourcing."
+      },
+      "shortcut": {
+        "title": "Quick Company Search Shortcut",
+        "content1": "Provides commonly used search keywords at the bottom of the blocking window. Click to quickly search on Google."
+      }
+    },
+    "changelog": {
+      "title": "Changelog"
+    },
+    "platform": {
+      "title": "Support Platforms",
+      "cake": "Cake",
+      "yourator": "Yourator",
+      "104": "104 Job Bank (104 人力銀行)",
+      "518": "518 JOB BANK (518 熊班)",
+      "1111": "1111 Job Bank (1111 人力銀行)",
+      "chickpt": "Little Chicken Shanggong (小雞上工)",
+      "meetJobs": "Meet.jobs",
+      "taiwanJobs": "TaiwanJobs (台灣就業通)"
+    }
+  }
+}
