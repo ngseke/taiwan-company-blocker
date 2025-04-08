@@ -1,14 +1,13 @@
 import { QUERY_BLOCKED_COUNT_MESSAGE_NAME, QUERY_PLATFORM_NAME_MESSAGE_NAME } from '../../modules/constants'
-import { loadBlockMethod, loadIsDebuggerEnabled, loadIsEnabled } from '../../modules/storage'
 import { mountVueApp } from './main'
-import { BlockerManager } from './modules/BlockerManager'
+import { BlockerManager2 } from './modules/BlockerManager2'
 import { waitForElement } from './modules/dom'
 import { injectGlobalCssVariables } from './modules/injectGlobalCssVariables'
 import { detectPagePlatform } from './modules/platform'
 
 await waitForElement('body')
 
-const blockerManager = new BlockerManager()
+const blockerManager = new BlockerManager2()
 
 injectGlobalCssVariables()
 
@@ -22,32 +21,8 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   }
 })
 
-let previousIsEnabled = false
+chrome.storage.onChanged.addListener(async () => {
+  await blockerManager.render()
+})
 
-async function startOrStop () {
-  const isEnabled = await loadIsEnabled()
-  const blockMethod = await loadBlockMethod()
-  const isDebuggerEnabled = await loadIsDebuggerEnabled()
-
-  blockerManager.setBlockMethod(blockMethod)
-
-  if (isDebuggerEnabled) {
-    blockerManager.enableDebugger()
-  }
-
-  if (isEnabled) {
-    if (previousIsEnabled === isEnabled) {
-      await blockerManager.reload()
-    } else {
-      await blockerManager.start()
-    }
-  } else {
-    blockerManager.stop()
-  }
-
-  previousIsEnabled = isEnabled
-}
-
-chrome.storage.onChanged.addListener(startOrStop)
-startOrStop()
 mountVueApp()

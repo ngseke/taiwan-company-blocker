@@ -30,7 +30,7 @@ export const platformHosts: Record<PlatformName, string> = {
   1111: '1111.com.tw',
   chickpt: 'chickpt.com.tw',
   meetJobs: 'meet.jobs',
-  taiwanJobs: 'job.taiwanjobs.gov.tw',
+  taiwanJobs: 'taiwanjobs.gov.tw',
 }
 
 export function detectPagePlatform () {

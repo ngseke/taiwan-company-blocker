@@ -17,8 +17,8 @@ const state = ref<{
   reject: () => void
 } | null>(null)
 
-async function requestAdd () {
-  nameDraft.value = ''
+async function requestAdd (name: string = '') {
+  nameDraft.value = name
   urlDraft.value = 'https://'
   return await new Promise<Response>((resolve, reject) => {
     state.value = { resolve, reject }

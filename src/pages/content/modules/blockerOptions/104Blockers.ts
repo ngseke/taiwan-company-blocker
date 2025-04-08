@@ -1,36 +1,51 @@
-import { type CreateBlockerOptions } from '../createBlocker'
+import { type CreateBlockerOptions } from '../CreateBlockerOptions'
 
 export const _104BlockerOptions: CreateBlockerOptions[] = [
   {
-    description: '`/jobs/main` 首頁「適合你的好工作」',
+    description: '首頁「適合你的好工作」',
+    exampleUrl: 'https://www.104.com.tw/',
     itemsSelector: `
-      .job-recommend .job-recommend-list .row > .col .card,
       .job-recommend .job-recommend-list .row > .col .card-container
     `,
     jobTitleStrategy: '.jb-link-blue',
     companyNameStrategy: '.company-name-link > a, .card__header',
   },
   {
-    description: '`/jobs/main` 首頁「適合你的好公司」',
+    description: '首頁「適合你的好公司」',
+    exampleUrl: 'https://www.104.com.tw/',
     itemsSelector: '.company-recommend-list .company-card',
     companyNameStrategy: '.company-name-link > a, .card__header',
   },
   {
-    description: '`/jobs/main/newestjob` 最新工作',
+    description: '最新工作',
+    exampleUrl: 'https://www.104.com.tw/jobs/main/newestjob',
     itemsSelector: `
       .job-list__list .info-wrapper,
       .job-list__list .job-list-container
     `,
-    jobTitleStrategy: '.info-job .info-name',
+    jobTitleStrategy: '.jb-link',
     companyNameStrategy: '.info-company a',
   },
   {
-    description: '`/search` 公司列表、 `/topic/recommend` 「為你推薦」公司列表',
+    description: '搜尋結果 (Tab: 找公司)',
+    exampleUrl: 'https://www.104.com.tw/jobs/search',
     itemsSelector: '.container .company-list, .company-lists__item',
-    companyNameStrategy: '.company-name-link > a, .advert-type27__middle__header__title',
+    companyNameStrategy: `
+      .company-name-link > a,
+      .advert-type27__middle__header__title
+    `,
+  },
+  {
+    description: '搜尋結果 (Tab: 找工作)',
+    exampleUrl: 'https://www.104.com.tw/company/search',
+    itemsSelector: '.job-summary',
+    jobTitleStrategy: '.info-job__text',
+    companyNameStrategy: '.info-company__text',
+    activatorPosition: 'bottom-right',
   },
   {
     description: '`/company/*` 公司頁下方工作機會列表（桌面版）',
+    exampleUrl: 'https://www.104.com.tw/company/12v3o7uw',
     itemsSelector: '.joblist__container .job-list-container',
     jobTitleStrategy: '.info-job__text',
     companyNameStrategy: {
@@ -38,30 +53,6 @@ export const _104BlockerOptions: CreateBlockerOptions[] = [
       selector: 'h1',
       textType: 'textContent',
     },
-  },
-  {
-    description: '`/jobs/search` 職缺列表 (legacy)',
-    itemsSelector: '#js-job-content > article',
-    jobTitleStrategy: {
-      selectorTarget: 'item',
-      selector: '',
-      textType: 'dataset',
-      textKey: 'jobName',
-    },
-    companyNameStrategy: {
-      selectorTarget: 'item',
-      selector: '',
-      textType: 'dataset',
-      textKey: 'custName',
-    },
-    activatorPosition: 'bottom-right',
-  },
-  {
-    description: '`/jobs/search` 職缺列表',
-    itemsSelector: '.job > .job-summary',
-    jobTitleStrategy: '.info-job__text',
-    companyNameStrategy: '.info-company__text',
-    activatorPosition: 'bottom-right',
   },
   {
     description: '`/job/*` 職缺頁右側「瀏覽工作紀錄」和「這些工作也很適合你」職缺列表',
@@ -128,5 +119,14 @@ export const _104BlockerOptions: CreateBlockerOptions[] = [
     itemsSelector: '.jb-container .list-container [jobtype]',
     jobTitleStrategy: '.jb-link',
     companyNameStrategy: '.info-company__text, .cust-name',
+  },
+  {
+    description: '`/company/similar/*` 「...的相似公司」列表',
+    itemsSelector: `
+      .list-container--summary
+      .list-container
+      .row.no-gutters.py-4.list-large
+    `,
+    companyNameStrategy: '.jb-link',
   },
 ]

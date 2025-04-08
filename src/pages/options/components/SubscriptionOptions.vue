@@ -18,8 +18,16 @@ async function create () {
   try {
     if (!addSubscriptionDialog.value || !subscriptions.value) return
 
+    const name = (() => {
+      const names = subscriptions.value.map((subscription) => subscription.name)
+      for (let i = 1; i < 100; i++) {
+        const name = `我的訂閱 #${i}`
+        if (!names.includes(name)) return name
+      }
+      return ''
+    })()
     const newSubscription: Subscription = {
-      ...(await addSubscriptionDialog.value?.requestAdd()),
+      ...(await addSubscriptionDialog.value?.requestAdd(name)),
       isEnabled: true,
     }
 
