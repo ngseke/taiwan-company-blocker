@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { formatPlatformName, platformHosts, platformNames } from '../../content/modules/platform'
+import { formatPlatformName, platformHosts } from '../../content/modules/platform'
+import { platformNames } from '../../../../schemas/platformName'
 </script>
 
 <template>

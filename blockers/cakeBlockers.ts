@@ -1,6 +1,6 @@
-import { type CreateBlockerOptions } from '../CreateBlockerOptions'
+import { type Blocker } from '../schemas/blocker'
 
-export const cakeBlockerOptions: CreateBlockerOptions[] = [
+export const cakeBlockerOptions: Blocker[] = [
   {
     description: '`/companies` 公司列表',
     itemsSelector: '[class^=CompanySearchItem_wrapper]',

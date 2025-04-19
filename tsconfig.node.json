@@ -15,7 +15,5 @@
     "tailwind.config.ts",
     "postcss.config.cjs",
     "commitlint.config.ts",
-    "package.json",
-    "scripts/**/*.js"
   ]
 }

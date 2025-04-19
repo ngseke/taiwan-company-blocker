@@ -1,14 +1,5 @@
-import { type PlatformName, detectPagePlatform } from './platform'
-import { type CreateBlockerOptions } from './CreateBlockerOptions'
+import { detectPagePlatform } from './platform'
 import { loadParsedRules } from '../../../modules/ruleStorage'
-import { cakeBlockerOptions } from './blockerOptions/cakeBlockers'
-import { youratorBlockerOptions } from './blockerOptions/youratorBlockers'
-import { _104BlockerOptions } from './blockerOptions/104Blockers'
-import { _518BlockerOptions } from './blockerOptions/518Blockers'
-import { _1111BlockerOptions } from './blockerOptions/1111Blockers'
-import { chickptBlockerOptions } from './blockerOptions/chickptBlockers'
-import { meetJobsBlockerOptions } from './blockerOptions/meetJobsBlockers'
-import { taiwanJobsBlockerOptions } from './blockerOptions/taiwanJobsBlocker'
 import { $$ } from './dom'
 import { ActionActivatorFixed } from './ActionActivatorFixed'
 import { type Candidate } from './Candidate'
@@ -19,30 +10,26 @@ import { match } from '../../../modules/pattern'
 import { createSafeMutationObserver } from './createSafeMutationObserver'
 import { UPDATE_ICON_MESSAGE_NAME } from '../../../modules/constants'
 import { ActionActivatorAbsolute } from './ActionActivatorAbsolute'
+import { type Blocker } from '../../../../schemas/blocker'
+import { getBlockersGroup } from './getBlockersGroup'
 
 export class BlockerManager2 {
-  private readonly blockerOptions: CreateBlockerOptions[]
+  private blockerOptions: Blocker[] = []
   private readonly actionActivatorFixed = new ActionActivatorFixed()
   private readonly actionActivatorAbsolute = new ActionActivatorAbsolute()
 
   private candidates: Candidate[] = []
 
   constructor () {
+    this.init()
+  }
+
+  async init () {
     const platformName = detectPagePlatform()
     if (!platformName) throw Error('Cannot detect platform!')
 
-    const blockerOptionsGroup: Record<PlatformName, CreateBlockerOptions[]> = {
-      cake: cakeBlockerOptions,
-      yourator: youratorBlockerOptions,
-      104: _104BlockerOptions,
-      518: _518BlockerOptions,
-      1111: _1111BlockerOptions,
-      chickpt: chickptBlockerOptions,
-      meetJobs: meetJobsBlockerOptions,
-      taiwanJobs: taiwanJobsBlockerOptions,
-    }
-
-    this.blockerOptions = blockerOptionsGroup[platformName]
+    const { blockersGroup } = await getBlockersGroup()
+    this.blockerOptions = blockersGroup[platformName] as Blocker[]
 
     const observer = createSafeMutationObserver(() => {
       const candidates: Candidate[] = []

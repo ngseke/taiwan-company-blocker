@@ -1,6 +1,6 @@
-import { type CreateBlockerOptions } from '../CreateBlockerOptions'
+import { type Blocker } from '../schemas/blocker'
 
-export const _1111BlockerOptions: CreateBlockerOptions[] = [
+export const _1111BlockerOptions: Blocker[] = [
   {
     description: '首頁 優質企業 Slider',
     exampleUrl: 'https://www.1111.com.tw/',
@@ -18,13 +18,8 @@ export const _1111BlockerOptions: CreateBlockerOptions[] = [
   {
     description: '`/search/job` 職缺列表',
     itemsSelector: '.search-content .job-card',
-    jobTitleStrategy: '.job-card__title',
-    companyNameStrategy: {
-      selectorTarget: 'item',
-      selector: 'a.hover\\:underline.font-medium.flex.flex-row.items-center',
-      textType: 'attribute',
-      textKey: 'title',
-    },
+    jobTitleStrategy: 'a[href^="/job"] h2',
+    companyNameStrategy: 'a[href^="/corp"] h2',
   },
   {
     description: '`/search/job` 職缺列表右側強力推薦 ',

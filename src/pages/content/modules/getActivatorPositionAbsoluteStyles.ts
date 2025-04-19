@@ -1,7 +1,7 @@
-import type { ActivatorPositionStrategy, Position } from './CreateBlockerOptions'
+import { type Position, type PositionWithOffset } from '../../../../schemas/position'
 
 export function getActivatorPositionAbsoluteStyle (
-  activatorPosition: ActivatorPositionStrategy | Position
+  activatorPosition: Position | PositionWithOffset
 ) {
   let position: Position
   let [offsetX, offsetY] = [0, 0]

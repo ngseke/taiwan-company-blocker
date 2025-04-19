@@ -1,6 +1,6 @@
-import { type CreateBlockerOptions } from '../CreateBlockerOptions'
+import { type Blocker } from '../schemas/blocker'
 
-export const taiwanJobsBlockerOptions: CreateBlockerOptions[] = [
+export const taiwanJobsBlockerOptions: Blocker[] = [
   {
     description: '`/` 首頁「最新職缺」',
     itemsSelector: '#tuIndexJobList figure.t-card.t-job-card',

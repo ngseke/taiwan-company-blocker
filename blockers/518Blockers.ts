@@ -1,6 +1,6 @@
-import { type CreateBlockerOptions } from '../CreateBlockerOptions'
+import { type Blocker } from '../schemas/blocker'
 
-export const _518BlockerOptions: CreateBlockerOptions[] = [
+export const _518BlockerOptions: Blocker[] = [
   {
     description: '`/job-index.html` 職缺列表',
     itemsSelector: '.job__card',

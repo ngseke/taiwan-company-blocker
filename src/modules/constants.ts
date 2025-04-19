@@ -10,6 +10,7 @@ export const OPTIONS_TEST_IDS = {
   sidebar: 'sidebar',
   sectionSetting: 'sectionSetting',
   sectionSubscription: 'sectionSubscription',
+  sectionDatabase: 'sectionDatabase',
   sectionAbout: 'sectionAbout',
 
   enableSwitch: 'enableSwitch',

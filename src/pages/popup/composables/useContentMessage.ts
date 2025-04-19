@@ -1,9 +1,9 @@
 import { ref, watch } from 'vue'
 import { QUERY_PLATFORM_NAME_MESSAGE_NAME, QUERY_BLOCKED_COUNT_MESSAGE_NAME } from '../../../modules/constants'
-import { type PlatformName } from '../../content/modules/platform'
 import { sendMessageToCurrentTab } from '../modules/chrome'
 import { useChromeStorage } from '../../../composables/useChromeStorage'
 import { ENABLED_STORAGE_KEY } from '../../../modules/storage'
+import { type PlatformName } from '../../../../schemas/platformName'
 
 export function useContentMessage () {
   async function queryPlatformName () {

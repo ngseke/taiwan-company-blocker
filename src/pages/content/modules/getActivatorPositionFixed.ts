@@ -1,9 +1,9 @@
-import type { ActivatorPositionStrategy, Position } from './CreateBlockerOptions'
+import { type Position, type PositionWithOffset } from '../../../../schemas/position'
 
 export function getActivatorPositionFixed (
   $item: HTMLElement,
   $activator: HTMLElement,
-  activatorPosition: ActivatorPositionStrategy | Position
+  activatorPosition: Position | PositionWithOffset
 ) {
   const { left, top, width, height } = $item.getBoundingClientRect()
   const { width: activatorWidth, height: activatorHeight } = $activator.getBoundingClientRect()

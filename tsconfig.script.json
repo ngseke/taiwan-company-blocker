@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true,
+    "noEmit": true
+  },
+  "include": [
+    "package.json",
+    "scripts/**/*.js",
+    "scripts/**/*.ts",
+    "blockers/**/*.ts",
+    "schemas/**/*.ts",
+  ]
+}

@@ -50,6 +50,7 @@ function handleChange () {
       </div>
     </label>
     <label
+      v-if="$slots.default"
       class="ml-1 mt-px cursor-pointer select-none"
       :for="id"
     >

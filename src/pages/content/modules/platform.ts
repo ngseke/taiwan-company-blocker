@@ -1,26 +1,6 @@
+import { type PlatformName } from '../../../../schemas/platformName'
 import { type Entries } from '../../../types/Entries'
 import { type Nullish } from '../../../types/Nullish'
-
-export type PlatformName =
-  | 'cake'
-  | 'yourator'
-  | '104'
-  | '518'
-  | '1111'
-  | 'chickpt'
-  | 'meetJobs'
-  | 'taiwanJobs'
-
-export const platformNames: readonly PlatformName[] = [
-  'cake',
-  'yourator',
-  '104',
-  '518',
-  '1111',
-  'chickpt',
-  'meetJobs',
-  'taiwanJobs',
-]
 
 export const platformHosts: Record<PlatformName, string> = {
   cake: 'cake.me',

@@ -1,6 +1,6 @@
-import { type CreateBlockerOptions } from '../CreateBlockerOptions'
+import { type Blocker } from '../schemas/blocker'
 
-export const _104BlockerOptions: CreateBlockerOptions[] = [
+export const _104BlockerOptions: Blocker[] = [
   {
     description: '首頁「適合你的好工作」',
     exampleUrl: 'https://www.104.com.tw/',

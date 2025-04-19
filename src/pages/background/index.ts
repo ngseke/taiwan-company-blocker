@@ -1,4 +1,5 @@
 import { OPEN_OPTIONS_PAGE_MESSAGE_NAME, UPDATE_ICON_MESSAGE_NAME } from '../../modules/constants'
+import { setupUpdateDatabaseAlarm } from './modules/setupUpdateDatabaseAlarm'
 import { setupUpdateSubscriptionResultAlarm } from './modules/setupUpdateSubscriptionResultAlarm'
 
 chrome.runtime.onMessage.addListener((message) => {
@@ -27,3 +28,4 @@ chrome.runtime.onMessage.addListener(async (message, sender) => {
 })
 
 setupUpdateSubscriptionResultAlarm()
+setupUpdateDatabaseAlarm()

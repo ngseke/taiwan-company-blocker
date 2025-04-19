@@ -27,7 +27,11 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
+    project: [
+      './tsconfig.json',
+      './tsconfig.node.json',
+      './tsconfig.script.json',
+    ],
     parser: '@typescript-eslint/parser',
     extraFileExtensions: ['.vue'],
   },
@@ -37,7 +41,7 @@ module.exports = {
       customWordListFile: 'cspell-words.txt',
     }],
     'arrow-parens': ['error', 'always'],
-    'no-console': 'error',
+    'no-console': ['error', { allow: ['info', 'warn', 'error'] }],
     '@typescript-eslint/comma-dangle': ['error', {
       arrays: 'always-multiline',
       objects: 'always-multiline',
