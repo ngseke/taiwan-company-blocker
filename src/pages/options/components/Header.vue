@@ -16,8 +16,6 @@ async function handleClickPrintStorage () {
   // eslint-disable-next-line no-console
   console.info('sync storage', await chrome.storage.sync.get(null))
 }
-
-const version = `v${APP_VERSION}`
 </script>
 
 <template>
@@ -30,9 +28,6 @@ const version = `v${APP_VERSION}`
     <h1 class="text-center text-lg font-bold leading-6">
       Taiwan Company Blocker
     </h1>
-    <span class="mt-1 font-mono text-neutral-600">
-      {{ version }}
-    </span>
 
     <div v-if="shouldShowDebuggerButton" class="mt-4 flex w-full flex-col items-start gap-2">
       <Checkbox v-model="isDebuggerEnabled">
