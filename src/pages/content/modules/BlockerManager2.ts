@@ -11,19 +11,24 @@ import { createSafeMutationObserver } from './createSafeMutationObserver'
 import { UPDATE_ICON_MESSAGE_NAME } from '../../../modules/constants'
 import { ActionActivatorAbsolute } from './ActionActivatorAbsolute'
 import { type Blocker } from '../../../../schemas/blocker'
-import { blockersGroup } from '../../../../blockers/blockersGroup'
+import { getBlockersGroup } from './getBlockersGroup'
 
 export class BlockerManager2 {
-  private readonly blockerOptions: Blocker[]
+  private blockerOptions: Blocker[] = []
   private readonly actionActivatorFixed = new ActionActivatorFixed()
   private readonly actionActivatorAbsolute = new ActionActivatorAbsolute()
 
   private candidates: Candidate[] = []
 
   constructor () {
+    this.init()
+  }
+
+  async init () {
     const platformName = detectPagePlatform()
     if (!platformName) throw Error('Cannot detect platform!')
 
+    const { blockersGroup } = await getBlockersGroup()
     this.blockerOptions = blockersGroup[platformName] as Blocker[]
 
     const observer = createSafeMutationObserver(() => {
