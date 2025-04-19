@@ -1,0 +1,406 @@
+{
+  "blocker": {
+    "104": [
+      {
+        "description": "首頁「適合你的好工作」",
+        "exampleUrl": "https://www.104.com.tw/",
+        "itemsSelector": "\n      .job-recommend .job-recommend-list .row > .col .card-container\n    ",
+        "jobTitleStrategy": ".jb-link-blue",
+        "companyNameStrategy": ".company-name-link > a, .card__header"
+      },
+      {
+        "description": "首頁「適合你的好公司」",
+        "exampleUrl": "https://www.104.com.tw/",
+        "itemsSelector": ".company-recommend-list .company-card",
+        "companyNameStrategy": ".company-name-link > a, .card__header"
+      },
+      {
+        "description": "最新工作",
+        "exampleUrl": "https://www.104.com.tw/jobs/main/newestjob",
+        "itemsSelector": "\n      .job-list__list .info-wrapper,\n      .job-list__list .job-list-container\n    ",
+        "jobTitleStrategy": ".jb-link",
+        "companyNameStrategy": ".info-company a"
+      },
+      {
+        "description": "搜尋結果 (Tab: 找公司)",
+        "exampleUrl": "https://www.104.com.tw/jobs/search",
+        "itemsSelector": ".container .company-list, .company-lists__item",
+        "companyNameStrategy": "\n      .company-name-link > a,\n      .advert-type27__middle__header__title\n    "
+      },
+      {
+        "description": "搜尋結果 (Tab: 找工作)",
+        "exampleUrl": "https://www.104.com.tw/company/search",
+        "itemsSelector": ".job-summary",
+        "jobTitleStrategy": ".info-job__text",
+        "companyNameStrategy": ".info-company__text",
+        "activatorPosition": "bottom-right"
+      },
+      {
+        "description": "`/company/*` 公司頁下方工作機會列表（桌面版）",
+        "exampleUrl": "https://www.104.com.tw/company/12v3o7uw",
+        "itemsSelector": ".joblist__container .job-list-container",
+        "jobTitleStrategy": ".info-job__text",
+        "companyNameStrategy": {
+          "selectorTarget": "document",
+          "selector": "h1",
+          "textType": "textContent"
+        }
+      },
+      {
+        "description": "`/job/*` 職缺頁右側「瀏覽工作紀錄」和「這些工作也很適合你」職缺列表",
+        "itemsSelector": "\n      .sidebarContainer [data-gtm-sidebar=\"瀏覽工作紀錄\"],\n      .sidebarContainer [data-gtm-sidebar=\"你可能有興趣的工作\"]\n    ",
+        "jobTitleStrategy": {
+          "selectorTarget": "item",
+          "selector": ".text-mode b",
+          "textType": "attribute",
+          "textKey": "title"
+        },
+        "companyNameStrategy": {
+          "selectorTarget": "item",
+          "selector": ".text-mode p",
+          "textType": "attribute",
+          "textKey": "title"
+        }
+      },
+      {
+        "description": "`/job/*` 職缺頁下方「適合你大展身手的工作」職缺列表",
+        "itemsSelector": ".personal-recommend .job-list-container",
+        "jobTitleStrategy": ".info-job__text",
+        "companyNameStrategy": ".info-company__text"
+      },
+      {
+        "description": "`/company/*` 公司頁右側「瀏覽公司紀錄」和「你可能有興趣的公司」列表",
+        "itemsSelector": "\n      .sidebarContainer [data-gtm-sidebar=\"最近瀏覽公司\"],\n      .sidebarContainer [data-gtm-sidebar=\"您可能有興趣的公司\"]\n    ",
+        "companyNameStrategy": "b.h4.d-block.text-truncate"
+      },
+      {
+        "description": "`/job/*` 已關閉了的職缺頁下方「這些工作也很適合你」",
+        "itemsSelector": ".row.job-card__column.d-none.d-md-flex [gtm=你可能有興趣的工作]",
+        "jobTitleStrategy": "h3 a",
+        "companyNameStrategy": ".mb-1.t4.font-weight-bold a"
+      },
+      {
+        "description": "`https://pda.104.com.tw/work/mate/list/highchance` 會員中心「專屬工作」列表（桌面和手機版）",
+        "itemsSelector": "\n      .mate-list .job-summery-mobile,\n      .mate-list .job-list-container\n    ",
+        "jobTitleStrategy": ".info-job__text, .job-name",
+        "companyNameStrategy": ".info-company__text, .cust-name"
+      },
+      {
+        "description": "`https://pda.104.com.tw/` 會員中心「推薦適合你大展身手的好工作」列表",
+        "itemsSelector": ".recommend-job__stage .job-list-container",
+        "jobTitleStrategy": ".jb-link",
+        "companyNameStrategy": ".info-company__text, .cust-name"
+      },
+      {
+        "description": "`https://pda.104.com.tw/applyRecord` 應徵紀錄「值得一試的好工作」列表",
+        "itemsSelector": ".recommend-jobs .job-list-container",
+        "jobTitleStrategy": ".jb-link",
+        "companyNameStrategy": ".info-company__text, .cust-name"
+      },
+      {
+        "description": "`/job/similar/*` 「...的相似工作」列表",
+        "itemsSelector": ".jb-container .list-container [jobtype]",
+        "jobTitleStrategy": ".jb-link",
+        "companyNameStrategy": ".info-company__text, .cust-name"
+      },
+      {
+        "description": "`/company/similar/*` 「...的相似公司」列表",
+        "itemsSelector": "\n      .list-container--summary\n      .list-container\n      .row.no-gutters.py-4.list-large\n    ",
+        "companyNameStrategy": ".jb-link"
+      }
+    ],
+    "518": [
+      {
+        "description": "`/job-index.html` 職缺列表",
+        "itemsSelector": ".job__card",
+        "jobTitleStrategy": ".job__title",
+        "companyNameStrategy": ".job__comp__name",
+        "activatorPosition": "bottom-right"
+      },
+      {
+        "description": "`/job-index.html` 職缺頁右側「最多人瀏覽的職缺」和「瀏覽記錄」列表、下方「看過此職缺的人也看了...」列表",
+        "itemsSelector": "\n      .sidebarBox > ul > li,\n      .similarList > .similarJob\n    ",
+        "jobTitleStrategy": "a.title",
+        "companyNameStrategy": "p.comp"
+      },
+      {
+        "description": "`/company-*` 公司頁底部「所有工作機會」列表",
+        "itemsSelector": "#listContent .jobSumContent",
+        "jobTitleStrategy": "li.title a",
+        "companyNameStrategy": {
+          "selectorTarget": "document",
+          "selector": "h1.comp-name strong",
+          "textType": "textContent"
+        }
+      },
+      {
+        "description": "`/company-*` 公司頁右側「相似公司」列表",
+        "itemsSelector": ".comp-sidebox ul.similar li",
+        "companyNameStrategy": "a"
+      }
+    ],
+    "1111": [
+      {
+        "description": "首頁 優質企業 Slider",
+        "exampleUrl": "https://www.1111.com.tw/",
+        "itemsSelector": ".swiper-wrapper .w-full.h-full.card-border.bg-white.cursor-pointer",
+        "companyNameStrategy": "h3"
+      },
+      {
+        "description": "首頁職缺 Slider",
+        "exampleUrl": "https://www.1111.com.tw/",
+        "itemsSelector": ".swiper-wrapper .grid > .card-border",
+        "jobTitleStrategy": "h3",
+        "companyNameStrategy": "a > p.truncate",
+        "activatorPosition": "bottom-right"
+      },
+      {
+        "description": "`/search/job` 職缺列表",
+        "itemsSelector": ".search-content .job-card",
+        "jobTitleStrategy": "a[href^=\"/job\"] h2",
+        "companyNameStrategy": "a[href^=\"/corp\"] h2"
+      },
+      {
+        "description": "`/search/job` 職缺列表右側強力推薦 ",
+        "itemsSelector": "\n      section.w-\\[218px\\]\n      .w-full.flex.flex-row.border-b\n    ",
+        "jobTitleStrategy": "h2",
+        "companyNameStrategy": "a[href^=\"/corp/\"]"
+      },
+      {
+        "description": "`/search/corp` 公司列表",
+        "itemsSelector": ".search-content .company-card",
+        "companyNameStrategy": "h2"
+      },
+      {
+        "description": "`/corp/*` 公司頁下方「工作機會」列表",
+        "itemsSelector": "#JOBS .job-card",
+        "jobTitleStrategy": "h4 a",
+        "companyNameStrategy": {
+          "selectorTarget": "document",
+          "selector": "h2",
+          "textType": "textContent"
+        },
+        "activatorPosition": "bottom-right"
+      },
+      {
+        "description": "`/job/*` 職缺頁 右側推薦職缺",
+        "itemsSelector": "aside ul li.py-4.border-b.border-solid",
+        "jobTitleStrategy": "h3",
+        "companyNameStrategy": "h4",
+        "activatorPosition": "bottom-right"
+      }
+    ],
+    "cake": [
+      {
+        "description": "`/companies` 公司列表",
+        "itemsSelector": "[class^=CompanySearchItem_wrapper]",
+        "companyNameStrategy": "[class^=CompanySearchItem_companyTitle]"
+      },
+      {
+        "description": "`/companies/*` 公司頁下方職缺、 `/companies/*/jobs` 公司頁職缺頁籤",
+        "itemsSelector": "\n      [class^=CompanyJobItemList_jobList] >\n      [class^=CompanyJobItemWithAdminTool_container__],\n      [class^=CompanyAboutPage_visibleJobsWrapper]\n      [class^=CompanyJobItemView_container__]\n    ",
+        "jobTitleStrategy": "[class^=CompanyJobItemView_title]",
+        "companyNameStrategy": {
+          "selectorTarget": "document",
+          "selector": "\n        [class^=CompanyHeader_main__]\n        [class^=CompanyHeader_companyNameWrapper__]\n        [class^=CompanyHeader_companyName__]\n      ",
+          "textType": "textContent"
+        }
+      },
+      {
+        "description": "`/companies/*` 公司頁底部「看過這間公司的求職者也看了」",
+        "itemsSelector": "\n      [class^=CompanySimilarPages_container__]\n      [class^=SimilarPagesListItem_container__]\n    ",
+        "companyNameStrategy": "[class^=SimilarPagesListItem_name__] a",
+        "activatorPosition": {
+          "position": "top-right",
+          "offset": [
+            -8,
+            -8
+          ]
+        }
+      },
+      {
+        "description": "`/companies/*/jobs/*` 職缺頁底部公司介紹職缺列表",
+        "itemsSelector": "[class^=JobItem_container__]",
+        "jobTitleStrategy": "[class^=JobItem_title__] a",
+        "companyNameStrategy": {
+          "selectorTarget": "document",
+          "selector": "[class^=AboutBlock_companyName__]",
+          "textType": "textContent"
+        },
+        "activatorPosition": {
+          "position": "top-right",
+          "offset": [
+            -44,
+            0
+          ]
+        }
+      },
+      {
+        "description": "`/companies/*/jobs/*` 職缺右側「應徵此職缺的人也應徵了」",
+        "itemsSelector": "\n      [class^=CommonAppliedJobs_jobList__] >\n      [class^=CommonAppliedJobItem_container__]\n    ",
+        "jobTitleStrategy": "[class^=CommonAppliedJobItem_title__] a",
+        "companyNameStrategy": "[class^=CommonAppliedJobItem_pageName__] a",
+        "activatorPosition": "bottom-right"
+      },
+      {
+        "description": "`/companies/*/jobs/*` 職缺最下方「相似職缺」列表",
+        "itemsSelector": "\n      [class^=SimilarJobsBlock_jobItemsContainer__] >\n      [class^=JobItemLarge_container__]\n    ",
+        "jobTitleStrategy": "a[class^=JobItemLarge_jobTitle__]",
+        "companyNameStrategy": "a[class^=JobItemLarge_pageName__]"
+      },
+      {
+        "description": "`/jobs` 職缺列表",
+        "itemsSelector": "[class^=JobSearchItem_container]",
+        "jobTitleStrategy": "[class^=JobSearchItem_jobTitle]",
+        "companyNameStrategy": "[class^=JobSearchItem_companyName]"
+      },
+      {
+        "description": "`/campaigns` Campaigns 職缺列表",
+        "itemsSelector": "[class^=CampaignJobSearchItem_wrapper_]",
+        "jobTitleStrategy": "[class^=CampaignJobSearchItem_headerTitle]",
+        "companyNameStrategy": "[class^=CampaignJobSearchItem_companyName]"
+      }
+    ],
+    "yourator": [
+      {
+        "description": "`/search?s=*` 綜合搜尋 職缺列表",
+        "exampleUrl": "https://www.yourator.co/search",
+        "itemsSelector": ".search-result__section .y-job-card",
+        "jobTitleStrategy": ".y-new-card__title",
+        "companyNameStrategy": ".y-new-card__subtitle",
+        "activatorPosition": "bottom-right"
+      },
+      {
+        "description": "`/search?s=*` 綜合搜尋 公司列表",
+        "exampleUrl": "https://www.yourator.co/search",
+        "itemsSelector": ".search-result__cards .y-company-card ",
+        "companyNameStrategy": ".y-new-card__title"
+      },
+      {
+        "description": "`/companies` 公司列表",
+        "exampleUrl": "https://www.yourator.co/companies",
+        "itemsSelector": ".shadow-company-card",
+        "companyNameStrategy": "\n      .text-lightest-navy.font-medium.truncate.text-general,\n      .shrink.truncate.text-hint.text-main-blue\n    "
+      },
+      {
+        "description": "`/companies/*` 公司頁「目前職缺」列表",
+        "exampleUrl": "https://www.yourator.co/companies/Yourator",
+        "itemsSelector": "#JobsOfCompanyPage div > a[href^=\"/companies\"]",
+        "jobTitleStrategy": "p.truncate.text-general.font-bold.text-lightest-navy",
+        "companyNameStrategy": {
+          "selectorTarget": "document",
+          "selector": "#company-info h1",
+          "textType": "textContent"
+        },
+        "activatorPosition": "bottom-right"
+      },
+      {
+        "description": "`/companies/*` 公司頁下方「相關推薦公司」列表（登入後可見）",
+        "exampleUrl": "https://www.yourator.co/companies/Yourator",
+        "itemsSelector": ".recommend-companies .y-company-card",
+        "companyNameStrategy": ".y-new-card__title"
+      },
+      {
+        "description": "`/jobs` 職缺列表",
+        "exampleUrl": "https://www.yourator.co/jobs",
+        "itemsSelector": "#normal-jobs > div > a",
+        "jobTitleStrategy": ".text-general.font-bold.text-lightest-navy.truncate",
+        "companyNameStrategy": ".flex-initial.text-sub.text-main-blue.truncate",
+        "activatorPosition": "bottom-right"
+      },
+      {
+        "description": "`/companies/*/jobs/*` 職缺頁底部「你可能也感興趣的職缺」列表",
+        "itemsSelector": ".job-recommendations .y-job-card",
+        "jobTitleStrategy": ".y-new-card__title",
+        "companyNameStrategy": ".y-new-card__subtitle"
+      },
+      {
+        "description": "`/events/*?tab=companies` 專題頁 公司列表",
+        "itemsSelector": "\n      #event-detail-company-and-job-section\n      .grid.grid-cols-2.gap-x-1\\.5.gap-y-2.tablet\\:grid-cols-3.tablet\\:gap-4\n      .shadow-company-card\n    ",
+        "companyNameStrategy": ".text-lightest-navy.font-medium.truncate.text-general"
+      },
+      {
+        "description": "`/events/*?tab=jobs` 專題頁 職缺列表",
+        "itemsSelector": "\n      #event-detail-company-and-job-section\n      .flex.flex-col.tablet\\:gap-4 > div > a\n    ",
+        "jobTitleStrategy": "p.truncate.text-general.font-bold.text-lightest-navy",
+        "companyNameStrategy": ".flex-initial.text-sub.text-main-blue.hover\\:text-darkest-blue.truncate",
+        "activatorPosition": "bottom-right"
+      }
+    ],
+    "chickpt": [
+      {
+        "description": "`/` 職缺列表",
+        "itemsSelector": "ul#job-list li",
+        "jobTitleStrategy": "a.job-list-item h2.job-info-title",
+        "companyNameStrategy": ".job-info-company p"
+      },
+      {
+        "description": "`/` 公司頁下方「所有職缺」列表",
+        "itemsSelector": ".company_profile #js-job ul.job_wrap li.job_wrap_item",
+        "jobTitleStrategy": "h3.job_name",
+        "companyNameStrategy": {
+          "selectorTarget": "document",
+          "selector": ".company_content h1.title",
+          "textType": "textContent"
+        },
+        "activatorPosition": "bottom-right"
+      },
+      {
+        "description": "`/` 公司頁右側「相似公司」列表",
+        "itemsSelector": ".similar_wrap .similar_wrap_item",
+        "companyNameStrategy": ".similar_wrap_item_title"
+      },
+      {
+        "description": "`/job-*` 職缺頁下方「推薦職缺」列表（任意公司）",
+        "itemsSelector": ".wrap-job-content #js-job ul.job_wrap li.job_wrap_item",
+        "jobTitleStrategy": "h3.job_name",
+        "activatorPosition": "bottom-right"
+      }
+    ],
+    "meetJobs": [
+      {
+        "description": "`/zh-TW/jobs` 職缺列表、`/zh-TW/jobs/*` 職缺頁下方「此企業的其他工作機會」、`/zh-TW/employers/*` 公司職缺列表",
+        "itemsSelector": ".job-cards .job-card",
+        "jobTitleStrategy": "h3.job-title",
+        "companyNameStrategy": "h5.employer-name",
+        "activatorPosition": "top-left"
+      }
+    ],
+    "taiwanJobs": [
+      {
+        "description": "`/` 首頁「最新職缺」",
+        "itemsSelector": "#tuIndexJobList figure.t-card.t-job-card",
+        "jobTitleStrategy": "figcaption a.t-card-title",
+        "companyNameStrategy": "footer .t-card-comp-name",
+        "activatorPosition": "bottom-right"
+      },
+      {
+        "description": "`/Internet/index/job_search_list.aspx` 職缺列表",
+        "itemsSelector": "ul#tuJobList li.search-list-item figure.t-card.t-list-card",
+        "jobTitleStrategy": "figcaption a.t-card-title",
+        "companyNameStrategy": ".t-list-txts .t-card-comp-name"
+      },
+      {
+        "description": "`/Internet/Index/JobDetail.aspx?EMPLOYER_ID=*&HIRE_ID=*` 職缺頁右側「最近瀏覽的工作」和「可能適合您的工作」",
+        "itemsSelector": "[id^=CPH1_pl] ul li.t-list-item:not(.t-fc-secondary)",
+        "jobTitleStrategy": "a.link-navy.t-list-link",
+        "companyNameStrategy": "a.link-grey.t-list-link-sm"
+      },
+      {
+        "description": "`https://job.taiwanjobs.gov.tw/Internet/jobwanted/company_desc2.aspx?EMPLOYER_ID=*` 公司頁右方「最近瀏覽的公司」列表",
+        "itemsSelector": "#CPH1_sidePanelViewComps ul.t-list li.t-list-item",
+        "companyNameStrategy": "a.link-grey.t-list-link"
+      },
+      {
+        "description": "`https://job.taiwanjobs.gov.tw/Internet/jobwanted/company_desc2.aspx?EMPLOYER_ID=*` 公司頁下方「工作機會」列表",
+        "itemsSelector": "#CPH1_TuJobList ul.search-list-items li.search-list-item figure",
+        "jobTitleStrategy": "a.t-card-title.text-inherit",
+        "companyNameStrategy": {
+          "selectorTarget": "document",
+          "selector": "h2#CPH1_h1_COMPNAME",
+          "textType": "textContent"
+        }
+      }
+    ]
+  }
+}
