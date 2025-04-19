@@ -10,21 +10,21 @@ describe('Sidebar', () => {
 
   test('should show different section when clicking a sidebar item', async () => {
     const page = await getOptionsPage()
-    await clickSidebarItem('about')
+    await clickSidebarItem('/about')
     expect(
       await (
         await page.$(`[data-testid=${OPTIONS_TEST_IDS.sectionAbout}]`)
       )?.isVisible()
     ).toBe(true)
 
-    await clickSidebarItem('subscription')
+    await clickSidebarItem('/subscription')
     expect(
       await (
         await page.$(`[data-testid=${OPTIONS_TEST_IDS.sectionSubscription}]`)
       )?.isVisible()
     ).toBe(true)
 
-    await clickSidebarItem('setting')
+    await clickSidebarItem('/setting')
     expect(
       await (
         await page.$(`[data-testid=${OPTIONS_TEST_IDS.sectionSetting}]`)

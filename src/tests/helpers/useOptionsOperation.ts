@@ -9,7 +9,7 @@ export function useOptionsOperation ({ getOptionsPage }: {
     const popupPage = await getOptionsPage()
     const sidebarItem = await popupPage.$(`
       [data-testid=${OPTIONS_TEST_IDS.sidebar}]
-      button[data-testid=${value}]
+      a[data-testid="${value}"]
     `)
 
     await sidebarItem?.click()

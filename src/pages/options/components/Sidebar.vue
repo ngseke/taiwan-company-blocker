@@ -1,14 +1,9 @@
 <script setup lang="ts">
-import { cn } from '../../../modules/cn'
 import { OPTIONS_TEST_IDS } from '../../../modules/constants'
+import { RouterLink } from 'vue-router'
 
 defineProps<{
-  modelValue?: string
   list?: Array<{ label: string, value: string }>
-}>()
-
-defineEmits<{
-  'update:modelValue': [value: string]
 }>()
 </script>
 
@@ -17,18 +12,16 @@ defineEmits<{
     class="flex flex-col gap-y-2"
     :data-testid="OPTIONS_TEST_IDS.sidebar"
   >
-    <button
+    <RouterLink
       v-for="item in list"
       :key="item.value"
-      :class="cn('rounded-lg py-4 px-5 font-bold text-left', {
-        'bg-neutral-900': modelValue === item.value,
-        'hover:bg-neutral-900/30': modelValue !== item.value,
-      })"
+      activeClass="bg-neutral-900 hover:!bg-neutral-900"
+      class="rounded-lg px-5 py-4 text-left font-bold
+      hover:bg-neutral-900/30"
       :data-testid="item.value"
-      type="button"
-      @click="$emit('update:modelValue', item.value)"
+      :to="item.value"
     >
       {{ item.label }}
-    </button>
+    </RouterLink>
   </div>
 </template>
