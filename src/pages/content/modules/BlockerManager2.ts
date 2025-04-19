@@ -1,13 +1,5 @@
-import { type PlatformName, detectPagePlatform } from './platform'
+import { detectPagePlatform } from './platform'
 import { loadParsedRules } from '../../../modules/ruleStorage'
-import { cakeBlockerOptions } from './blockerOptions/cakeBlockers'
-import { youratorBlockerOptions } from './blockerOptions/youratorBlockers'
-import { _104BlockerOptions } from './blockerOptions/104Blockers'
-import { _518BlockerOptions } from './blockerOptions/518Blockers'
-import { _1111BlockerOptions } from './blockerOptions/1111Blockers'
-import { chickptBlockerOptions } from './blockerOptions/chickptBlockers'
-import { meetJobsBlockerOptions } from './blockerOptions/meetJobsBlockers'
-import { taiwanJobsBlockerOptions } from './blockerOptions/taiwanJobsBlocker'
 import { $$ } from './dom'
 import { ActionActivatorFixed } from './ActionActivatorFixed'
 import { type Candidate } from './Candidate'
@@ -19,6 +11,7 @@ import { createSafeMutationObserver } from './createSafeMutationObserver'
 import { UPDATE_ICON_MESSAGE_NAME } from '../../../modules/constants'
 import { ActionActivatorAbsolute } from './ActionActivatorAbsolute'
 import { type Blocker } from '../schemas/blocker'
+import { blockersGroup } from './blockersGroup'
 
 export class BlockerManager2 {
   private readonly blockerOptions: Blocker[]
@@ -30,17 +23,6 @@ export class BlockerManager2 {
   constructor () {
     const platformName = detectPagePlatform()
     if (!platformName) throw Error('Cannot detect platform!')
-
-    const blockersGroup: Record<PlatformName, Blocker[]> = {
-      cake: cakeBlockerOptions,
-      yourator: youratorBlockerOptions,
-      104: _104BlockerOptions,
-      518: _518BlockerOptions,
-      1111: _1111BlockerOptions,
-      chickpt: chickptBlockerOptions,
-      meetJobs: meetJobsBlockerOptions,
-      taiwanJobs: taiwanJobsBlockerOptions,
-    }
 
     this.blockerOptions = blockersGroup[platformName]
 
