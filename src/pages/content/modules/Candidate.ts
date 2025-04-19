@@ -1,8 +1,8 @@
 import { type Nullish } from '../../../types/Nullish'
-import type { CreateBlockerOptions } from './CreateBlockerOptions'
+import { type Blocker } from '../schemas/blocker'
 
 export interface Candidate {
-  options: CreateBlockerOptions
+  options: Blocker
   itemElementRef: WeakRef<HTMLElement>
   companyName: Nullish<string>
   jobTitle: Nullish<string>

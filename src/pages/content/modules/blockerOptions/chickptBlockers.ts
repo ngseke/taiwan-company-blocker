@@ -1,6 +1,6 @@
-import { type CreateBlockerOptions } from '../CreateBlockerOptions'
+import { type Blocker } from '../../schemas/blocker'
 
-export const chickptBlockerOptions: CreateBlockerOptions[] = [
+export const chickptBlockerOptions: Blocker[] = [
   {
     description: '`/` 職缺列表',
     itemsSelector: 'ul#job-list li',

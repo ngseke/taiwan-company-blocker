@@ -1,6 +1,6 @@
-import { type CreateBlockerOptions } from '../CreateBlockerOptions'
+import { type Blocker } from '../../schemas/blocker'
 
-export const _1111BlockerOptions: CreateBlockerOptions[] = [
+export const _1111BlockerOptions: Blocker[] = [
   {
     description: '首頁 優質企業 Slider',
     exampleUrl: 'https://www.1111.com.tw/',

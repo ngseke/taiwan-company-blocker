@@ -1,5 +1,4 @@
 import { type PlatformName, detectPagePlatform } from './platform'
-import { type CreateBlockerOptions } from './CreateBlockerOptions'
 import { loadParsedRules } from '../../../modules/ruleStorage'
 import { cakeBlockerOptions } from './blockerOptions/cakeBlockers'
 import { youratorBlockerOptions } from './blockerOptions/youratorBlockers'
@@ -19,9 +18,10 @@ import { match } from '../../../modules/pattern'
 import { createSafeMutationObserver } from './createSafeMutationObserver'
 import { UPDATE_ICON_MESSAGE_NAME } from '../../../modules/constants'
 import { ActionActivatorAbsolute } from './ActionActivatorAbsolute'
+import { type Blocker } from '../schemas/blocker'
 
 export class BlockerManager2 {
-  private readonly blockerOptions: CreateBlockerOptions[]
+  private readonly blockerOptions: Blocker[]
   private readonly actionActivatorFixed = new ActionActivatorFixed()
   private readonly actionActivatorAbsolute = new ActionActivatorAbsolute()
 
@@ -31,7 +31,7 @@ export class BlockerManager2 {
     const platformName = detectPagePlatform()
     if (!platformName) throw Error('Cannot detect platform!')
 
-    const blockerOptionsGroup: Record<PlatformName, CreateBlockerOptions[]> = {
+    const blockersGroup: Record<PlatformName, Blocker[]> = {
       cake: cakeBlockerOptions,
       yourator: youratorBlockerOptions,
       104: _104BlockerOptions,
@@ -42,7 +42,7 @@ export class BlockerManager2 {
       taiwanJobs: taiwanJobsBlockerOptions,
     }
 
-    this.blockerOptions = blockerOptionsGroup[platformName]
+    this.blockerOptions = blockersGroup[platformName]
 
     const observer = createSafeMutationObserver(() => {
       const candidates: Candidate[] = []

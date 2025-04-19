@@ -1,6 +1,6 @@
-import { type CreateBlockerOptions } from '../CreateBlockerOptions'
+import { type Blocker } from '../../schemas/blocker'
 
-export const youratorBlockerOptions: CreateBlockerOptions[] = [
+export const youratorBlockerOptions: Blocker[] = [
   {
     description: '`/search?s=*` 綜合搜尋 職缺列表',
     exampleUrl: 'https://www.yourator.co/search',
