@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "composite": true,
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "noEmit": true
   },
   "include": [
     "package.json",

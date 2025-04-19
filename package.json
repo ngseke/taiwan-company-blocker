@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
+    "build-database": "tsc --project tsconfig.script.json && tsx ./scripts/build-database.ts",
     "preview": "vite preview",
     "lint": "npx eslint . --ext .ts,.js,.cjs,.vue",
     "lint:fix": "npx eslint --fix . --ext .ts,.js,.cjs,.vue",
