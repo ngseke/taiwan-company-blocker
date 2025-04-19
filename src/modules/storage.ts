@@ -2,6 +2,7 @@ import { cloneDeep } from 'lodash-es'
 import { type BlockMethod } from './BlockMethod'
 import { normalizeRulesString, type RuleType } from './rule'
 import { type SubscriptionResults, type Subscription } from './Subscription'
+import { type DatabaseResult } from './database'
 
 export const ENABLED_STORAGE_KEY = 'enabled'
 export const DEBUGGER_ENABLED_STORAGE_KEY = 'debuggerEnabled'
@@ -11,6 +12,7 @@ export const BLOCK_METHOD_KEY = 'blockMethod'
 export const SUBSCRIPTIONS_KEY = 'subscriptions'
 export const SUBSCRIPTION_RESULTS_KEY = 'subscriptionResults'
 export const PREVIOUS_VERSION_KEY = 'previousVersion'
+export const DATABASE_RESULT_KEY = 'databaseResults'
 
 export interface StorageSchema {
   [ENABLED_STORAGE_KEY]: boolean
@@ -22,6 +24,8 @@ export interface StorageSchema {
   [COMPANY_NAME_RULES_STORAGE_KEY]: string
   [SUBSCRIPTIONS_KEY]: Subscription[]
   [SUBSCRIPTION_RESULTS_KEY]: SubscriptionResults
+
+  [DATABASE_RESULT_KEY]: DatabaseResult | null
 }
 
 export const storageDefaultValues: StorageSchema = {
@@ -34,6 +38,8 @@ export const storageDefaultValues: StorageSchema = {
   [COMPANY_NAME_RULES_STORAGE_KEY]: '',
   [SUBSCRIPTIONS_KEY]: [],
   [SUBSCRIPTION_RESULTS_KEY]: {},
+
+  [DATABASE_RESULT_KEY]: null,
 }
 
 export type StorageKey = keyof StorageSchema
@@ -44,6 +50,7 @@ const localStorageKeys = new Set<StorageKey>([
   SUBSCRIPTION_RESULTS_KEY,
   JOB_TITLE_RULES_STORAGE_KEY,
   COMPANY_NAME_RULES_STORAGE_KEY,
+  DATABASE_RESULT_KEY,
 ])
 
 export async function getStorage <
@@ -143,4 +150,12 @@ export async function loadSubscriptionResults () {
 
 export async function saveSubscriptionResults (results: SubscriptionResults) {
   await setStorage(SUBSCRIPTION_RESULTS_KEY, results)
+}
+
+export async function loadDatabaseResult () {
+  return await getStorage(DATABASE_RESULT_KEY)
+}
+
+export async function saveDatabaseResult (database: DatabaseResult | null) {
+  await setStorage(DATABASE_RESULT_KEY, database)
 }
