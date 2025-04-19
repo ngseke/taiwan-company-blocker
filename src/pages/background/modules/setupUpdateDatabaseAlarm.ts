@@ -1,11 +1,11 @@
-import { updateDatabase } from '../../../modules/database'
+import { updateDatabaseResult } from '../../../modules/database'
 
 export const UPDATE_DATABASE_RESULT_ALARM_NAME = 'updateDatabaseResultAlarmName'
 
 export async function setupUpdateDatabaseAlarm () {
   chrome.alarms.onAlarm.addListener(({ name }) => {
     if (name === UPDATE_DATABASE_RESULT_ALARM_NAME) {
-      updateDatabase()
+      updateDatabaseResult()
     }
   })
 
@@ -14,7 +14,7 @@ export async function setupUpdateDatabaseAlarm () {
   const existedAlarm = await chrome.alarms.get(UPDATE_DATABASE_RESULT_ALARM_NAME)
 
   if (!existedAlarm) {
-    updateDatabase()
+    updateDatabaseResult()
 
     chrome.alarms.create(
       UPDATE_DATABASE_RESULT_ALARM_NAME,

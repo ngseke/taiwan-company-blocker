@@ -1,6 +1,7 @@
 import { saveDatabaseResult } from './storage'
 import { extractErrorMessage } from './extractErrorMessage'
-import { type Database } from '../../schemas/database'
+import { database, type Database } from '../../schemas/database'
+import { ZodError } from 'zod'
 
 interface GithubCommit {
   sha: string
@@ -70,6 +71,7 @@ export async function fetchDatabaseResult (): Promise<DatabaseResult> {
 
     if (!response.ok) throw new Error(String(response.status))
     const data = (await response.json()) as Database
+    database.parse(data)
 
     return {
       ...baseResult,
@@ -77,15 +79,18 @@ export async function fetchDatabaseResult (): Promise<DatabaseResult> {
       database: data,
     }
   } catch (err) {
+    console.error(err)
     return {
       ...baseResult,
       status: 'error',
-      error: extractErrorMessage(err),
+      error: err instanceof ZodError ? 'ZodError: parse error' : extractErrorMessage(err),
     }
   }
 }
 
-export async function updateDatabase () {
+export async function updateDatabaseResult () {
+  await saveDatabaseResult(null)
+
   const result = await fetchDatabaseResult()
   await saveDatabaseResult(result)
 }

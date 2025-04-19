@@ -6,6 +6,7 @@ import { RouterView } from 'vue-router'
 const list = [
   { label: '設定', value: '/setting' },
   { label: '訂閱規則', value: '/subscription' },
+  { label: '資料庫', value: '/database' },
   { label: '關於', value: '/about' },
 ]
 </script>

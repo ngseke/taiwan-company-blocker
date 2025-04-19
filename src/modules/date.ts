@@ -12,6 +12,6 @@ export function formatRelativeTime (timestamp?: number, now?: dayjs.ConfigType) 
   return dayjs(timestamp).from(now ?? new Date())
 }
 
-export function formatTime (timestamp?: number) {
-  return dayjs(timestamp).format('LLL')
+export function formatTime (value?: dayjs.ConfigType) {
+  return dayjs(value).format('LLL')
 }
