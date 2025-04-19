@@ -7,7 +7,7 @@ on:
       - feature/extract-blocker
 
 jobs:
-  build-and-deploy:
+  build-database:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
