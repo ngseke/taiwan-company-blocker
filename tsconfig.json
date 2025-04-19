@@ -30,6 +30,8 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "__tests__/**/*.ts",
+    "blockers/**/*.ts",
+    "schemas/**/*.ts",
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

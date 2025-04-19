@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { formatPlatformName, platformHosts } from '../../content/modules/platform'
-import { platformNames } from '../../../schemas/platformName'
+import { platformNames } from '../../../../schemas/platformName'
 </script>
 
 <template>

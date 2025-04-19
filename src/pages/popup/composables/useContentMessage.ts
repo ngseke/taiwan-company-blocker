@@ -3,7 +3,7 @@ import { QUERY_PLATFORM_NAME_MESSAGE_NAME, QUERY_BLOCKED_COUNT_MESSAGE_NAME } fr
 import { sendMessageToCurrentTab } from '../modules/chrome'
 import { useChromeStorage } from '../../../composables/useChromeStorage'
 import { ENABLED_STORAGE_KEY } from '../../../modules/storage'
-import { type PlatformName } from '../../../schemas/platformName'
+import { type PlatformName } from '../../../../schemas/platformName'
 
 export function useContentMessage () {
   async function queryPlatformName () {

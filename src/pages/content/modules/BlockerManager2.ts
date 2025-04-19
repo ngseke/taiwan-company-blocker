@@ -10,8 +10,8 @@ import { match } from '../../../modules/pattern'
 import { createSafeMutationObserver } from './createSafeMutationObserver'
 import { UPDATE_ICON_MESSAGE_NAME } from '../../../modules/constants'
 import { ActionActivatorAbsolute } from './ActionActivatorAbsolute'
-import { type Blocker } from '../../../schemas/blocker'
-import { blockersGroup } from './blockersGroup'
+import { type Blocker } from '../../../../schemas/blocker'
+import { blockersGroup } from '../../../../blockers/blockersGroup'
 
 export class BlockerManager2 {
   private readonly blockerOptions: Blocker[]
@@ -24,7 +24,7 @@ export class BlockerManager2 {
     const platformName = detectPagePlatform()
     if (!platformName) throw Error('Cannot detect platform!')
 
-    this.blockerOptions = blockersGroup[platformName]
+    this.blockerOptions = blockersGroup[platformName] as Blocker[]
 
     const observer = createSafeMutationObserver(() => {
       const candidates: Candidate[] = []

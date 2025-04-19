@@ -1,4 +1,4 @@
-import { type PlatformName } from '../../../schemas/platformName'
+import { type PlatformName } from '../../../../schemas/platformName'
 import { type Entries } from '../../../types/Entries'
 import { type Nullish } from '../../../types/Nullish'
 

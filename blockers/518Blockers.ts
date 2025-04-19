@@ -1,4 +1,4 @@
-import { type Blocker } from '../../../../schemas/blocker'
+import { type Blocker } from '../schemas/blocker'
 
 export const _518BlockerOptions: Blocker[] = [
   {

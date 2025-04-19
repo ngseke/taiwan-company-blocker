@@ -1,4 +1,4 @@
-import { platformNames } from '../../../schemas/platformName'
+import { platformNames } from '../../../../schemas/platformName'
 import { detectPagePlatform, formatPlatformName } from './platform'
 
 describe('platform.ts', () => {
