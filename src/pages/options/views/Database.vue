@@ -2,9 +2,9 @@
 import Card from '../components/Card.vue'
 import { OPTIONS_TEST_IDS } from '../../../modules/constants'
 import Title from '../components/Title.vue'
-import { faCheck, faCloudArrowDown, faDatabase, faRotate, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faCloudArrowDown, faDatabase, faRotate, faTriangleExclamation, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { useChromeStorage } from '../../../composables/useChromeStorage'
-import { DATABASE_RESULT_KEY } from '../../../modules/storage'
+import { DATABASE_RESULT_KEY, DEBUGGER_ENABLED_STORAGE_KEY, saveDatabaseResult } from '../../../modules/storage'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref } from 'vue'
 import { updateDatabaseResult } from '../../../modules/database'
@@ -28,6 +28,12 @@ async function update () {
     isUpdating.value = false
   }
 }
+
+async function remove () {
+  await saveDatabaseResult(null)
+}
+
+const isDebuggerEnabled = useChromeStorage(DEBUGGER_ENABLED_STORAGE_KEY)
 </script>
 
 <template>
@@ -68,12 +74,19 @@ async function update () {
               </span>
             </template>
             <template #action>
-              <IconButton
-                :disabled="isUpdating"
-                :icon="faRotate"
-                :loading="isUpdating"
-                @click="update"
-              />
+              <div class="flex gap-2">
+                <IconButton
+                  v-if="isDebuggerEnabled"
+                  :icon="faXmark"
+                  @click="remove"
+                />
+                <IconButton
+                  :disabled="isUpdating"
+                  :icon="faRotate"
+                  :loading="isUpdating"
+                  @click="update"
+                />
+              </div>
             </template>
           </DatabaseItem>
         </div>
