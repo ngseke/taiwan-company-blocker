@@ -26,4 +26,3 @@ dist-ssr
 coverage
 .next
 out
-next-env.d.ts
