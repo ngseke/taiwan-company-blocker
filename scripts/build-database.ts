@@ -8,8 +8,6 @@ import { type Database, database as databaseSchema } from '../schemas/database'
   emptyDirSync('./database')
 
   const database: Database = {
-    createdAt: new Date().toISOString(),
-    version: null,
     blocker: blockersGroup,
   }
 
