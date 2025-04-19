@@ -10,7 +10,7 @@ import { match } from '../../../modules/pattern'
 import { createSafeMutationObserver } from './createSafeMutationObserver'
 import { UPDATE_ICON_MESSAGE_NAME } from '../../../modules/constants'
 import { ActionActivatorAbsolute } from './ActionActivatorAbsolute'
-import { type Blocker } from '../schemas/blocker'
+import { type Blocker } from '../../../schemas/blocker'
 import { blockersGroup } from './blockersGroup'
 
 export class BlockerManager2 {

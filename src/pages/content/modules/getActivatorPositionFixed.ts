@@ -1,4 +1,4 @@
-import { type Position, type PositionWithOffset } from '../schemas/position'
+import { type Position, type PositionWithOffset } from '../../../schemas/position'
 
 export function getActivatorPositionFixed (
   $item: HTMLElement,

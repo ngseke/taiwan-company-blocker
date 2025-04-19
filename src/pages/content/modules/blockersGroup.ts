@@ -1,4 +1,4 @@
-import type { Blocker } from '../schemas/blocker'
+import type { Blocker } from '../../../schemas/blocker'
 import { _104BlockerOptions } from './blockers/104Blockers'
 import { _1111BlockerOptions } from './blockers/1111Blockers'
 import { _518BlockerOptions } from './blockers/518Blockers'

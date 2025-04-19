@@ -1,5 +1,5 @@
 import { type Nullish } from '../../../types/Nullish'
-import { type Blocker } from '../schemas/blocker'
+import { type Blocker } from '../../../schemas/blocker'
 
 export interface Candidate {
   options: Blocker
