@@ -8,6 +8,11 @@
     "description": "Block jobs and companies that annoy you with a single click"
   },
   "Index": {
+    "introduction": {
+      "title": "Introduction",
+      "content1": "<b>Taiwan Company Blocker</b> is a Chrome extension that helps you filter out companies or job listings you don't want to see on job platforms. Just set your own keywords to block specific content. It also supports wildcards and regular expressions, giving you flexible control over your rules. If you'd rather not configure everything yourself, you can subscribe to filter lists curated by others.",
+      "content2": "Tired of seeing notorious or irrelevant companies over and over again on job sites? <b>Taiwan Company Blocker</b> helps you get rid of that noise and makes your job search experience cleaner and more focused."
+    },
     "download": {
       "title": "Download",
       "chromeWebStore": "Chrome Web Store",

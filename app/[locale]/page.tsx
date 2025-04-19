@@ -29,6 +29,7 @@ export default async function Home({
     <main className="flex flex-col gap-8 text-sm">
       <Header />
       <div className="mx-auto flex w-full max-w-[50rem] flex-col items-start gap-10 px-4">
+
         <Section title={t('download.title')}>
           <div className="mb-4 flex flex-wrap gap-2">
             <DownloadLink href={chromeWebStoreLink}>
@@ -62,6 +63,21 @@ export default async function Home({
               </div>
             )
           }
+        </Section>
+
+        <Section title={t('introduction.title')}>
+          <div className="mb-4 flex flex-col gap-4">
+            <Paragraph>
+              {
+                t.rich('introduction.content1', { b: chunks => <b>{chunks}</b> })
+              }
+            </Paragraph>
+            <Paragraph>
+              {
+                t.rich('introduction.content2', { b: chunks => <b>{chunks}</b> })
+              }
+            </Paragraph>
+          </div>
         </Section>
 
         <Section title={t('platform.title')}>
