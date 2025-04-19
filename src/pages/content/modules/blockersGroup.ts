@@ -1,4 +1,4 @@
-import type { Blocker } from '../../../schemas/blocker'
+import { type BlockersGroup } from '../../../schemas/blockersGroup'
 import { _104BlockerOptions } from './blockers/104Blockers'
 import { _1111BlockerOptions } from './blockers/1111Blockers'
 import { _518BlockerOptions } from './blockers/518Blockers'
@@ -7,9 +7,8 @@ import { chickptBlockerOptions } from './blockers/chickptBlockers'
 import { meetJobsBlockerOptions } from './blockers/meetJobsBlockers'
 import { taiwanJobsBlockerOptions } from './blockers/taiwanJobsBlocker'
 import { youratorBlockerOptions } from './blockers/youratorBlockers'
-import type { PlatformName } from './platform'
 
-export const blockersGroup: Record<PlatformName, Blocker[]> = {
+export const blockersGroup: BlockersGroup = {
   cake: cakeBlockerOptions,
   yourator: youratorBlockerOptions,
   104: _104BlockerOptions,
