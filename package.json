@@ -54,6 +54,7 @@
     "tailwindcss": "^3.3.5",
     "vue": "^3.3.8",
     "vue-codemirror": "^6.1.1",
+    "vue-router": "4",
     "zod": "^3.24.3"
   },
   "devDependencies": {
