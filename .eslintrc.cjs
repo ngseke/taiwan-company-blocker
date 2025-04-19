@@ -41,7 +41,7 @@ module.exports = {
       customWordListFile: 'cspell-words.txt',
     }],
     'arrow-parens': ['error', 'always'],
-    'no-console': 'error',
+    'no-console': ['error', { allow: ['info', 'warn', 'error'] }],
     '@typescript-eslint/comma-dangle': ['error', {
       arrays: 'always-multiline',
       objects: 'always-multiline',
