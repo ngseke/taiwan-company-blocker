@@ -277,10 +277,11 @@
         "companyNameStrategy": ".y-new-card__title"
       },
       {
-        "description": "`/companies` 公司列表",
+        "description": "`/companies` 公司列表 &  `/companies/*/jobs/*` 職缺頁底部「你可能也感興趣的職缺」列表",
         "exampleUrl": "https://www.yourator.co/companies",
         "itemsSelector": ".shadow-company-card",
-        "companyNameStrategy": "\n      .text-lightest-navy.font-medium.truncate.text-general,\n      .shrink.truncate.text-hint.text-main-blue\n    "
+        "jobTitleStrategy": ".text-sub.font-medium",
+        "companyNameStrategy": "\n      .text-lightest-navy.font-medium.truncate.text-general,\n      .shrink.truncate.text-hint.text-main-blue,\n      .mr-1.truncate.text-hint.font-medium\n    "
       },
       {
         "description": "`/companies/*` 公司頁「目前職缺」列表",
@@ -307,12 +308,6 @@
         "jobTitleStrategy": ".text-general.font-bold.text-lightest-navy.truncate",
         "companyNameStrategy": ".flex-initial.text-sub.text-main-blue.truncate",
         "activatorPosition": "bottom-right"
-      },
-      {
-        "description": "`/companies/*/jobs/*` 職缺頁底部「你可能也感興趣的職缺」列表",
-        "itemsSelector": ".job-recommendations .y-job-card",
-        "jobTitleStrategy": ".y-new-card__title",
-        "companyNameStrategy": ".y-new-card__subtitle"
       },
       {
         "description": "`/events/*?tab=companies` 專題頁 公司列表",
