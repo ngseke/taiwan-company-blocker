@@ -5,7 +5,7 @@ import { type Candidate } from './Candidate'
 import { renderOverlay } from './overlay'
 import { loadIsDebuggerEnabled } from '../../../modules/storage'
 import { getActivatorPositionAbsoluteStyle } from './getActivatorPositionAbsoluteStyles'
-import { logger } from '../../../modules/logger'
+import { logger } from '../../../modules/logger-1'
 
 export class ActionActivatorAbsolute {
   private readonly $overlay = renderOverlay()

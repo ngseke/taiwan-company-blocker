@@ -2,7 +2,7 @@ import { blockersGroup } from '../../../../blockers/blockersGroup'
 import { loadDatabaseResult } from '../../../modules/storage'
 import { type BlockersGroup } from '../../../../schemas/blockersGroup'
 import { database } from '../../../../schemas/database'
-import { logger } from '../../../modules/logger'
+import { logger } from '../../../modules/logger-1'
 
 export async function getBlockersGroup (): Promise<{
   type: 'core' | 'remote'
