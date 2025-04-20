@@ -6,7 +6,7 @@ import { debounce } from 'lodash-es'
 import { renderOverlay } from './overlay'
 import { createSafeMutationObserver } from './createSafeMutationObserver'
 import { getActivatorPositionFixed } from './getActivatorPositionFixed'
-import { logger } from '../../../modules/logger-1'
+import { logger } from '../../../modules/logger'
 
 export type ActivatorPositionCallback = (
   $item: HTMLElement,

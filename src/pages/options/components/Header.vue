@@ -5,7 +5,7 @@ import { useChromeStorage } from '../../../composables/useChromeStorage'
 import { DEBUGGER_ENABLED_STORAGE_KEY } from '../../../modules/storage'
 import Button from '../../../components/Button.vue'
 import Checkbox from '../../../components/Checkbox.vue'
-import { logger } from '../../../modules/logger-1'
+import { logger } from '../../../modules/logger'
 
 const isDebuggerEnabled = useChromeStorage(DEBUGGER_ENABLED_STORAGE_KEY)
 const count = ref(0)
