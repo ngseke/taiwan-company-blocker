@@ -10,7 +10,7 @@ defineProps<{
 </script>
 
 <template>
-  <Transition enterFromClass="opacity-0">
+  <Transition enterFromClass="opacity-0" leaveToClass="opacity-0">
     <div v-if="value" class="text-xs duration-150">
       <FontAwesomeIcon
         v-if="value.type === 'success'"

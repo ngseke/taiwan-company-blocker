@@ -1,4 +1,11 @@
 <script setup lang="ts">
+import { faGear } from '@fortawesome/free-solid-svg-icons'
+import { OPEN_OPTIONS_PAGE_MESSAGE_NAME } from '../../../modules/constants'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+function openOptions () {
+  chrome.runtime.sendMessage(OPEN_OPTIONS_PAGE_MESSAGE_NAME)
+}
 </script>
 
 <template>
@@ -8,5 +15,18 @@
       :style="{ backgroundImage: 'var(--taiwan-company-blocker-icon)' }"
     />
     <div class="text-lg font-medium">封鎖此職缺或公司</div>
+
+    <div class="flex-1" />
+
+    <button
+      class="group px-2"
+      title="設定"
+      type="button"
+      @click="openOptions"
+    >
+      <div class="duration-500 group-hover:rotate-90">
+        <FontAwesomeIcon :icon="faGear" />
+      </div>
+    </button>
   </div>
 </template>

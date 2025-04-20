@@ -3,11 +3,9 @@ import { useScrollLock } from '../composables/useScrollLock'
 import { onMounted, ref, watch } from 'vue'
 
 const props = withDefaults(defineProps<{
-  width?: string
   open?: boolean
   closeOnClickOutside?: boolean
 }>(), {
-  width: '420px',
   open: false,
   closeOnClickOutside: false,
 })
@@ -45,15 +43,14 @@ function handleClickDialog (event: Event) {
 <template>
   <dialog
     ref="dialogRef"
-    class="max-h-full overflow-auto border-none bg-transparent p-4 outline-none backdrop:bg-neutral-900/70"
+    class="m-0 overflow-auto border-none p-0 outline-none backdrop:bg-neutral-900/50"
     @click="handleClickDialog"
     @close="close"
   >
-    <div
-      class="max-h-full max-w-full rounded-xl border border-neutral-800 bg-neutral-900 p-5 text-neutral-300 shadow-2xl"
-      :style="{ width }"
-    >
-      <slot />
+    <div class="fixed right-0 top-0 h-full w-[800px] bg-gradient-to-l from-neutral-950/90 to-transparent">
+      <div class="ml-auto h-full w-[700px]">
+        <slot />
+      </div>
     </div>
   </dialog>
 </template>

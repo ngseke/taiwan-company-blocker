@@ -2,10 +2,9 @@
 import { computed, ref } from 'vue'
 import Button from '../../../components/Button.vue'
 import Input from '../../../components/Input.vue'
-import { CLICK_ITEM_ACTION } from '../modules/emitter'
+import { CLICK_ITEM_ACTION, emitter, OPEN_SETTING } from '../modules/emitter'
 import { useEmitter } from '../composables/useEmitter'
 import Header from './Header.vue'
-import { OPEN_OPTIONS_PAGE_MESSAGE_NAME } from '../../../modules/constants'
 import Radio from '../../../components/Radio.vue'
 import { type Nullish } from '../../../types/Nullish'
 import Dialog from '../../../components/Dialog.vue'
@@ -39,8 +38,9 @@ useEmitter(CLICK_ITEM_ACTION, (payload) => {
   companyNameDraft.value = payload.companyName ?? ''
 })
 
-function openOptions () {
-  chrome.runtime.sendMessage(OPEN_OPTIONS_PAGE_MESSAGE_NAME)
+function openSetting () {
+  // close()
+  emitter.emit(OPEN_SETTING)
 }
 
 async function submit () {
@@ -77,7 +77,7 @@ async function handleEditRule (type: RuleType, rule: string) {
 </script>
 
 <template>
-  <Dialog :open="isOpened" @close="close">
+  <Dialog closeOnClickOutside :open="isOpened" @close="close">
     <div v-if="isOpened" class="flex flex-col gap-4">
       <Header />
       <div class="flex flex-col gap-4">
@@ -107,11 +107,10 @@ async function handleEditRule (type: RuleType, rule: string) {
       <div class="flex flex-wrap items-center justify-end gap-2">
         <button
           class="underline"
-          href="#"
           type="button"
-          @click="openOptions"
+          @click="openSetting"
         >
-          管理封鎖關鍵詞
+          管理全部關鍵詞
         </button>
 
         <div class="flex-1" />

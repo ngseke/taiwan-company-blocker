@@ -58,7 +58,7 @@ function cancel () {
 </script>
 
 <template>
-  <Dialog :open="Boolean(state)" @close="cancel">
+  <Dialog closeOnClickOutside :open="Boolean(state)" @close="cancel">
     <div class="flex flex-col gap-4">
       <div class="text-base font-medium">編輯{{ formattedTargetType }}規則</div>
       <Editor

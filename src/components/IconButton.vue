@@ -3,14 +3,16 @@ import { faCircleNotch, type IconDefinition } from '@fortawesome/free-solid-svg-
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { cn } from '../modules/cn'
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   block?: boolean
   disabled?: boolean
   color?: 'default' | 'primary'
   loading?: boolean
   icon: IconDefinition
+  class?: string
 }>(), {
   color: 'default',
+  class: '',
 })
 </script>
 
@@ -24,7 +26,9 @@ withDefaults(defineProps<{
         'bg-neutral-800 shadow-neutral-800/20 hover:shadow-neutral-800/40': color === 'default',
         'bg-red-500 shadow-red-500/20 hover:shadow-red-500/40': color === 'primary',
         'w-full': block,
-      })"
+      },
+      props.class
+    )"
     :disabled="disabled"
     type="button"
   >

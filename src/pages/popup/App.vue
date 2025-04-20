@@ -3,12 +3,7 @@ import { formatPlatformName } from '../content/modules/platform'
 import PopupLayout from './components/PopupLayout.vue'
 import Statistic from './components/Statistic.vue'
 import { useContentMessage } from './composables/useContentMessage'
-import Button from '../../components/Button.vue'
 import BlockMethodSelect from './components/BlockMethodSelect.vue'
-
-function openOptions () {
-  chrome.runtime.openOptionsPage()
-}
 
 const { platformName, blockedCount } = useContentMessage()
 </script>
@@ -38,10 +33,6 @@ const { platformName, blockedCount } = useContentMessage()
             :value="blockedCount"
           />
         </div>
-      </div>
-
-      <div class="flex flex-wrap gap-2">
-        <Button @click="openOptions">管理封鎖關鍵詞</Button>
       </div>
     </div>
   </PopupLayout>
