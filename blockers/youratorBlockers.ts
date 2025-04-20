@@ -16,12 +16,14 @@ export const youratorBlockerOptions: Blocker[] = [
     companyNameStrategy: '.y-new-card__title',
   },
   {
-    description: '`/companies` 公司列表',
+    description: '`/companies` 公司列表 &  `/companies/*/jobs/*` 職缺頁底部「你可能也感興趣的職缺」列表',
     exampleUrl: 'https://www.yourator.co/companies',
     itemsSelector: '.shadow-company-card',
+    jobTitleStrategy: '.text-sub.font-medium',
     companyNameStrategy: `
       .text-lightest-navy.font-medium.truncate.text-general,
-      .shrink.truncate.text-hint.text-main-blue
+      .shrink.truncate.text-hint.text-main-blue,
+      .mr-1.truncate.text-hint.font-medium
     `,
   },
   {
@@ -49,12 +51,6 @@ export const youratorBlockerOptions: Blocker[] = [
     jobTitleStrategy: '.text-general.font-bold.text-lightest-navy.truncate',
     companyNameStrategy: '.flex-initial.text-sub.text-main-blue.truncate',
     activatorPosition: 'bottom-right',
-  },
-  {
-    description: '`/companies/*/jobs/*` 職缺頁底部「你可能也感興趣的職缺」列表',
-    itemsSelector: '.job-recommendations .y-job-card',
-    jobTitleStrategy: '.y-new-card__title',
-    companyNameStrategy: '.y-new-card__subtitle',
   },
   {
     description: '`/events/*?tab=companies` 專題頁 公司列表',
