@@ -13,6 +13,8 @@ class Logger {
   }
 
   private async init () {
+    if (typeof chrome === 'undefined') return
+
     this.isDebuggerEnabled = await loadIsDebuggerEnabled()
   }
 
