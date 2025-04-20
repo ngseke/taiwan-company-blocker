@@ -13,7 +13,7 @@ import { ActionActivatorAbsolute } from './ActionActivatorAbsolute'
 import { type Blocker } from '../../../../schemas/blocker'
 import { getBlockersGroup } from './getBlockersGroup'
 
-export class BlockerManager2 {
+export class BlockerManager {
   private blockerOptions: Blocker[] = []
   private readonly actionActivatorFixed = new ActionActivatorFixed()
   private readonly actionActivatorAbsolute = new ActionActivatorAbsolute()
