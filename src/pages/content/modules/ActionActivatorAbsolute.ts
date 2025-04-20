@@ -5,6 +5,7 @@ import { type Candidate } from './Candidate'
 import { renderOverlay } from './overlay'
 import { loadIsDebuggerEnabled } from '../../../modules/storage'
 import { getActivatorPositionAbsoluteStyle } from './getActivatorPositionAbsoluteStyles'
+import { logger } from '../../../modules/logger'
 
 export class ActionActivatorAbsolute {
   private readonly $overlay = renderOverlay()
@@ -45,7 +46,7 @@ export class ActionActivatorAbsolute {
 
       if (this.isDebuggerEnabled) {
         // eslint-disable-next-line no-console -- for debugger
-        console.info(candidate)
+        logger.info(candidate)
       }
     })
 

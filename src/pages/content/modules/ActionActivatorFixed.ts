@@ -5,8 +5,8 @@ import { type Candidate } from './Candidate'
 import { debounce } from 'lodash-es'
 import { renderOverlay } from './overlay'
 import { createSafeMutationObserver } from './createSafeMutationObserver'
-import { loadIsDebuggerEnabled } from '../../../modules/storage'
 import { getActivatorPositionFixed } from './getActivatorPositionFixed'
+import { logger } from '../../../modules/logger'
 
 export type ActivatorPositionCallback = (
   $item: HTMLElement,
@@ -18,7 +18,6 @@ export class ActionActivatorFixed {
 
   private readonly $container = document.createElement('div')
   private readonly $overlay = renderOverlay()
-  private isDebuggerEnabled = false
 
   constructor () {
     const { $container, $overlay } = this
@@ -54,10 +53,7 @@ export class ActionActivatorFixed {
         height: `${$item.getBoundingClientRect().height + offset * 2}px`,
       })
 
-      if (this.isDebuggerEnabled) {
-        // eslint-disable-next-line no-console -- for debugger
-        console.info(candidate)
-      }
+      logger.info(candidate)
     })
 
     $activator.addEventListener('mouseleave', () => {
@@ -121,8 +117,6 @@ export class ActionActivatorFixed {
 
     this.observer = createSafeMutationObserver(handler)
     this.observer.observe(document.body, { childList: true, subtree: true })
-
-    this.isDebuggerEnabled = await loadIsDebuggerEnabled()
   }
 
   stop () {

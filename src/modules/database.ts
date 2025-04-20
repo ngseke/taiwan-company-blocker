@@ -2,6 +2,7 @@ import { saveDatabaseResult } from './storage'
 import { extractErrorMessage } from './extractErrorMessage'
 import { database, type Database } from '../../schemas/database'
 import { ZodError } from 'zod'
+import { logger } from './logger'
 
 interface GithubCommit {
   sha: string
@@ -79,7 +80,7 @@ export async function fetchDatabaseResult (): Promise<DatabaseResult> {
       database: data,
     }
   } catch (err) {
-    console.error(err)
+    logger.error(err)
     return {
       ...baseResult,
       status: 'error',
