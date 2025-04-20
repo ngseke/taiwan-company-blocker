@@ -35,7 +35,7 @@ const positionClassName = computed(() => {
     @click="openSetting"
   >
     <div
-      class="h-10 w-10 bg-contain bg-center bg-no-repeat drop-shadow-[0_4px_8px_rgba(0,0,0,.3)] duration-200 group-hover:brightness-125 group-active:scale-90"
+      class="h-10 w-10 bg-contain bg-center bg-no-repeat drop-shadow-[0_0_4px_rgba(0,0,0,.3)] duration-200 group-hover:brightness-125 group-active:scale-90"
       :style="{ backgroundImage: 'var(--taiwan-company-blocker-icon)',
       }"
     />
