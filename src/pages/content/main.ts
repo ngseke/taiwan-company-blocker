@@ -16,6 +16,7 @@ export async function mountVueApp () {
   $shadow.append($style)
 
   const $vueApp = document.createElement('div')
+  $vueApp.id = 'tcb-vue-app'
   $shadow.append($vueApp)
 
   const app = createApp(App)
