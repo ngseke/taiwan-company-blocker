@@ -27,8 +27,8 @@ function openOptions () {
 <template>
   <OverlayDialog closeOnClickOutside :open="isOpened" @close="close">
     <Transition enterActiveClass="duration-150">
-      <div v-if="isOpened" class="flex h-full gap-4">
-        <div class="sticky top-0 flex flex-col gap-2 pl-4 pt-8">
+      <div v-if="isOpened" class="flex h-full gap-4 [filter:drop-shadow(0_0_16px_rgba(0,0,0,.6))_drop-shadow(0_0_32px_rgba(0,0,0,.4))_drop-shadow(0_0_48px_rgba(0,0,0,.2))]">
+        <div class="sticky top-0 flex flex-col gap-2 pl-4 pt-6">
           <IconButton
             class="h-12 w-12 text-2xl"
             :icon="faXmark"
@@ -37,7 +37,7 @@ function openOptions () {
           />
         </div>
         <section
-          class="flex w-full flex-col gap-4 overflow-auto pb-0 pl-0 pr-8 pt-8 text-neutral-300"
+          class="flex w-full flex-col gap-4 overflow-auto pb-0 pl-0 pr-6 pt-6 text-neutral-300"
         >
           <Card>
             <EnableOptions isInContent />
@@ -56,7 +56,7 @@ function openOptions () {
             進階設定
           </button>
 
-          <div class="mb-16" />
+          <div class="mb-8" />
         </section>
       </div>
     </Transition>
