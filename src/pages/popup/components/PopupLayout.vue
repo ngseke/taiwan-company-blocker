@@ -18,7 +18,7 @@ function openOptions () {
     <div class="m-6 mr-4 flex flex-col items-center border-r border-neutral-800 pr-4">
       <div
         v-if="isEnabled != null"
-        class="mb-4 h-20 w-20 bg-contain bg-center bg-no-repeat duration-1000"
+        class="mb-4 h-20 w-20 bg-contain bg-center bg-no-repeat duration-[1500ms]"
         :class="{ 'grayscale': !isEnabled }"
         :style="{ backgroundImage: `url(${icon})` }"
       />

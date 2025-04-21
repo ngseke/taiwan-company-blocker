@@ -11,15 +11,13 @@ const { platformName, blockedCount } = useContentMessage()
 <template>
   <PopupLayout>
     <div class="flex h-full flex-col justify-between">
-      <div class="flex flex-col gap-4">
-        <div class="flex items-end gap-2">
+      <div class="flex flex-col gap-3">
+        <div class="flex flex-wrap gap-x-7 gap-y-3">
           <h1 class="text-lg font-bold leading-6">
             Taiwan Company Blocker
           </h1>
-        </div>
-
-        <div class="flex gap-7">
           <Statistic
+            class="w-full"
             :muted="!platformName"
             name="求職平台"
             :value="formatPlatformName(platformName) ?? '未偵測'"
