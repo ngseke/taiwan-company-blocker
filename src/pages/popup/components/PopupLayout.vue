@@ -18,10 +18,18 @@ function openOptions () {
     <div class="m-6 mr-4 flex flex-col items-center border-r border-neutral-800 pr-4">
       <div
         v-if="isEnabled != null"
-        class="mb-4 h-20 w-20 bg-contain bg-center bg-no-repeat duration-[1500ms]"
-        :class="{ 'grayscale': !isEnabled }"
-        :style="{ backgroundImage: `url(${icon})` }"
-      />
+        class="duration-[2000ms]"
+        :class="{
+          '[filter:_drop-shadow(0_0_8px_rgba(239,68,68,.2))_drop-shadow(0_0_12px_rgba(239,68,68,.15))_drop-shadow(0_0_16px_rgba(239,68,68,.1))]': isEnabled,
+        }"
+      >
+        <div
+          v-if="isEnabled != null"
+          class="mb-4 h-20 w-20 bg-contain bg-center bg-no-repeat duration-[1000ms]"
+          :class="{ 'grayscale': !isEnabled }"
+          :style="{ backgroundImage: `url(${icon})` }"
+        />
+      </div>
       <div>
         <EnableSwitch
           v-if="isEnabled != null"
