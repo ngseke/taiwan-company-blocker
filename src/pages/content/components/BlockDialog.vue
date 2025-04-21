@@ -39,7 +39,7 @@ useEmitter(CLICK_ITEM_ACTION, (payload) => {
 })
 
 function openSetting () {
-  // close()
+  close()
   emitter.emit(OPEN_SETTING)
 }
 
@@ -110,7 +110,7 @@ async function handleEditRule (type: RuleType, rule: string) {
           type="button"
           @click="openSetting"
         >
-          管理全部關鍵詞
+          管理關鍵詞
         </button>
 
         <div class="flex-1" />
