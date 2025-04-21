@@ -30,12 +30,12 @@ const positionClassName = computed(() => {
 
 <template>
   <button
-    :class="cn('group fixed z-[20000000000]', positionClassName)"
+    :class="cn('group fixed z-[20000000000] drop-shadow-[0_0_4px_rgba(0,0,0,.3)] hover:[filter:_drop-shadow(0_0_4px_rgba(239,68,68,.5))_drop-shadow(0_0_8px_rgba(239,68,68,.3))] duration-500 outline-none', positionClassName)"
     type="button"
     @click="openSetting"
   >
     <div
-      class="h-10 w-10 bg-contain bg-center bg-no-repeat drop-shadow-[0_0_4px_rgba(0,0,0,.3)] duration-200 group-hover:brightness-125 group-active:scale-90"
+      class="h-10 w-10 bg-contain bg-center bg-no-repeat duration-200 group-hover:brightness-[120%] group-active:scale-95"
       :style="{ backgroundImage: 'var(--taiwan-company-blocker-icon)',
       }"
     />
