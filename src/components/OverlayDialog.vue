@@ -47,8 +47,8 @@ function handleClickDialog (event: Event) {
     @click="handleClickDialog"
     @close="close"
   >
-    <div class="fixed right-0 top-0 h-full w-[1000px] bg-gradient-to-l from-neutral-950/90 from-50% to-transparent">
-      <div class="ml-auto h-full w-[700px]">
+    <div class="fixed right-0 top-0 h-full w-[1000px] max-w-full bg-gradient-to-l from-neutral-950/90 from-50% to-transparent">
+      <div class="ml-auto h-full w-[700px] max-w-full">
         <slot />
       </div>
     </div>

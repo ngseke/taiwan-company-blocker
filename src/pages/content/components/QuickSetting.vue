@@ -28,7 +28,7 @@ function openOptions () {
   <OverlayDialog closeOnClickOutside :open="isOpened" @close="close">
     <Transition enterActiveClass="duration-150">
       <div v-if="isOpened" class="flex h-full gap-4">
-        <div class="sticky top-0 flex flex-col gap-2 pt-8">
+        <div class="sticky top-0 flex flex-col gap-2 pl-4 pt-8">
           <IconButton
             class="h-12 w-12 text-2xl"
             :icon="faXmark"
