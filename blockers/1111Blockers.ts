@@ -41,14 +41,14 @@ export const _1111BlockerOptions: Blocker[] = [
     jobTitleStrategy: 'h4 a',
     companyNameStrategy: {
       selectorTarget: 'document',
-      selector: 'h2',
+      selector: 'h1',
       textType: 'textContent',
     },
     activatorPosition: 'bottom-right',
   },
   {
     description: '`/job/*` 職缺頁 右側推薦職缺',
-    itemsSelector: 'aside ul li.py-4.border-b.border-solid',
+    itemsSelector: 'aside ul li.py-4',
     jobTitleStrategy: 'h3',
     companyNameStrategy: 'h4',
     activatorPosition: 'bottom-right',
