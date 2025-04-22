@@ -3,6 +3,7 @@ import type { Config } from 'tailwindcss'
 export default {
   content: [
     './src/pages/content/**/*.{vue,js,ts}',
+    './src/pages/options/**/*.{vue,js,ts}',
     './src/components/**/*.{vue,js,ts}',
   ],
   theme: {

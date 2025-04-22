@@ -5,6 +5,10 @@ import { OPTIONS_TEST_IDS } from '../../../modules/constants'
 import { ENABLED_STORAGE_KEY } from '../../../modules/storage'
 import SupportPlatformArticle from './SupportPlatformArticle.vue'
 
+defineProps<{
+  isInContent?: boolean
+}>()
+
 const isEnabled = useChromeStorage(ENABLED_STORAGE_KEY)
 </script>
 
@@ -18,6 +22,7 @@ const isEnabled = useChromeStorage(ENABLED_STORAGE_KEY)
         啟用
       </Switch>
     </div>
-    <SupportPlatformArticle />
+
+    <SupportPlatformArticle v-if="!isInContent" />
   </div>
 </template>

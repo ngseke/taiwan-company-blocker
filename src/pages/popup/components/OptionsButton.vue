@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 </script>
 
 <template>
-  <button class="group px-2" type="button">
+  <button class="group px-2" title="設定" type="button">
     <div class="duration-500 group-hover:rotate-90">
       <FontAwesomeIcon :icon="faGear" />
     </div>

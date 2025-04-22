@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<{
   height?: number | 'auto'
   lineWrapping?: boolean
 }>(), {
-  height: 350,
+  height: 300,
 })
 
 defineEmits<{

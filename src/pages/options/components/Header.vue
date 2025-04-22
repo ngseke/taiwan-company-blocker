@@ -20,7 +20,7 @@ async function handleClickPrintStorage () {
 <template>
   <div class="flex flex-col items-center py-3">
     <div
-      class="h-28 w-28 bg-contain bg-center bg-no-repeat duration-1000"
+      class="my-4 h-28 w-28 bg-contain bg-center bg-no-repeat duration-1000"
       :style="{ backgroundImage: `url(${icon})` }"
       @click="count++"
     />

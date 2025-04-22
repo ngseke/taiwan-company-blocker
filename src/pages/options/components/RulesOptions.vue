@@ -15,6 +15,10 @@ import ExportButton from './ExportButton.vue'
 import { useBeforeUnload } from '../composables/useBeforeUnload'
 import { exportData } from './modules/exportData'
 
+const props = defineProps<{
+  isInContent?: boolean
+}>()
+
 const jobTitleRulesDraft = ref<string | null>(null)
 const companyNameRulesDraft = ref<string | null>(null)
 
@@ -36,8 +40,13 @@ initializeDrafts()
 
 const isDirty = ref(false)
 
+const submitResultTime = ref< NodeJS.Timeout | null>()
+
 async function submit () {
   submitResult.value = null
+  if (submitResultTime.value) {
+    clearTimeout(submitResultTime.value)
+  }
 
   try {
     if (jobTitleRulesDraft.value != null) {
@@ -53,6 +62,10 @@ async function submit () {
       type: 'success',
       message: '儲存成功',
     }
+
+    submitResultTime.value = setTimeout(() => {
+      submitResult.value = null
+    }, 2500)
   } catch (err) {
     submitResult.value = {
       type: 'error',
@@ -61,9 +74,10 @@ async function submit () {
   }
 }
 
-const { isRegisteredBeforeUnload } = useBeforeUnload()
-
-syncRef(isRegisteredBeforeUnload, isDirty, {})
+if (!props.isInContent) {
+  const { isRegisteredBeforeUnload } = useBeforeUnload()
+  syncRef(isRegisteredBeforeUnload, isDirty, {})
+}
 
 const hasIllogicalRules = computed(() => (
   jobTitleRulesDraft.value != null &&
@@ -106,8 +120,8 @@ const hasIllogicalRules = computed(() => (
     />
 
     <div
-      class="sticky bottom-0 -mx-6 -my-2 flex flex-col gap-4 bg-neutral-900 px-6 py-4 before:absolute
-      before:-top-2 before:left-0 before:h-2 before:w-full before:bg-gradient-to-t before:from-neutral-900 before:to-transparent before:content-['']"
+      class="sticky bottom-0 -mx-6 -my-2 flex flex-col gap-4 bg-neutral-900 px-6 py-4 before:absolute before:-top-2 before:left-0 before:h-2 before:w-full before:bg-gradient-to-t before:from-neutral-900 before:to-transparent
+      "
     >
       <IllogicalRulesAlert :show="hasIllogicalRules" />
 
@@ -124,8 +138,9 @@ const hasIllogicalRules = computed(() => (
       </div>
     </div>
 
-    <hr class="border-neutral-800">
-
-    <InstructionArticle />
+    <template v-if="!isInContent">
+      <hr class="border-neutral-800">
+      <InstructionArticle />
+    </template>
   </div>
 </template>
