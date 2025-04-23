@@ -4,12 +4,15 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  plugins: ['vue', 'tailwindcss'],
+  plugins: ['vue', 'tailwindcss', 'react', 'react-hooks'],
   extends: [
     'standard-with-typescript',
     'plugin:vue/vue3-recommended',
     'plugin:tailwindcss/recommended',
     'plugin:@cspell/recommended',
+    'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
+    'plugin:react-hooks/recommended-legacy',
   ],
   overrides: [
     {
@@ -23,6 +26,10 @@ module.exports = {
         sourceType: 'script',
       },
     },
+    {
+      files: ['**/?(*.)+(spec|test).[jt]s?(x)'],
+      extends: ['plugin:testing-library/react'],
+    },
   ],
   parserOptions: {
     ecmaVersion: 'latest',
@@ -34,8 +41,15 @@ module.exports = {
     ],
     parser: '@typescript-eslint/parser',
     extraFileExtensions: ['.vue'],
+
+    ecmaFeatures: { jsx: true },
   },
   ignorePatterns: ['dist', 'coverage'],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   rules: {
     '@cspell/spellchecker': ['warn', {
       customWordListFile: 'cspell-words.txt',
@@ -90,5 +104,25 @@ module.exports = {
     'vue/space-infix-ops': 'error',
     'vue/space-unary-ops': 'error',
     'vue/singleline-html-element-content-newline': 'off',
+
+    'react/jsx-indent': ['warn', 2, {
+      checkAttributes: true,
+      indentLogicalExpressions: true,
+    }],
+    'react/prop-types': ['off'],
+    'react/jsx-indent-props': ['warn', 2],
+    'react/jsx-closing-bracket-location': ['warn', 'tag-aligned'],
+    'jsx-quotes': ['warn', 'prefer-double'],
+    'react/jsx-curly-spacing': ['warn', { when: 'never', children: true }],
+    'react/jsx-tag-spacing': ['warn', {
+      closingSlash: 'never',
+      beforeSelfClosing: 'always',
+      afterOpening: 'never',
+      beforeClosing: 'never',
+    }],
+    'react/self-closing-comp': 'warn',
+    'react/jsx-fragments': 'warn',
+    'react/jsx-equals-spacing': [2, 'never'],
+    'testing-library/no-node-access': ['error', { allowContainerFirstChild: true }],
   },
 }
