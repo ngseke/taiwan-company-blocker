@@ -23,6 +23,9 @@ importers:
       '@fortawesome/free-solid-svg-icons':
         specifier: ^6.5.1
         version: 6.5.1
+      '@fortawesome/react-fontawesome':
+        specifier: ^0.2.2
+        version: 0.2.2(@fortawesome/fontawesome-svg-core@6.5.1)(react@19.1.0)
       '@fortawesome/vue-fontawesome':
         specifier: ^3.0.5
         version: 3.0.5(@fortawesome/fontawesome-svg-core@6.5.1)(vue@3.3.8(typescript@5.2.2))
@@ -1073,6 +1076,12 @@ packages:
   '@fortawesome/free-solid-svg-icons@6.5.1':
     resolution: {integrity: sha512-S1PPfU3mIJa59biTtXJz1oI0+KAXW6bkAb31XKhxdxtuXDiUIFsih4JR1v5BbxY7hVHsD1RKq+jRkVRaf773NQ==}
     engines: {node: '>=6'}
+
+  '@fortawesome/react-fontawesome@0.2.2':
+    resolution: {integrity: sha512-EnkrprPNqI6SXJl//m29hpaNzOp1bruISWaOiRtkMi/xSvHJlzc2j2JAYS7egxt/EbjSNV/k6Xy0AQI6vB2+1g==}
+    peerDependencies:
+      '@fortawesome/fontawesome-svg-core': ~1 || ~6
+      react: '>=16.3'
 
   '@fortawesome/vue-fontawesome@3.0.5':
     resolution: {integrity: sha512-isZZ4+utQH9qg9cWxWYHQ9GwI3r5FeO7GnmzKYV+gbjxcptQhh+F99iZXi1Y9AvFUEgy8kRpAdvDlbb3drWFrw==}
@@ -5410,6 +5419,12 @@ snapshots:
   '@fortawesome/free-solid-svg-icons@6.5.1':
     dependencies:
       '@fortawesome/fontawesome-common-types': 6.5.1
+
+  '@fortawesome/react-fontawesome@0.2.2(@fortawesome/fontawesome-svg-core@6.5.1)(react@19.1.0)':
+    dependencies:
+      '@fortawesome/fontawesome-svg-core': 6.5.1
+      prop-types: 15.8.1
+      react: 19.1.0
 
   '@fortawesome/vue-fontawesome@3.0.5(@fortawesome/fontawesome-svg-core@6.5.1)(vue@3.3.8(typescript@5.2.2))':
     dependencies:
