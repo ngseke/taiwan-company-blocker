@@ -20,9 +20,8 @@ export function EnableSwitch ({ value, onChange, ...restProps }: {
           checked={value}
           className="peer sr-only"
           type="checkbox"
-          onClick={(event) => {
-            event.preventDefault()
-            onChange(!value)
+          onChange={(event) => {
+            onChange(event.target.checked)
           }}
         />
         <div
