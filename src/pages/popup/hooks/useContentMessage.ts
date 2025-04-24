@@ -24,18 +24,12 @@ export function useContentMessage () {
 
   const [isEnabled] = useChromeStorage(ENABLED_STORAGE_KEY)
 
-  query()
-
   useEffect(() => {
-    ;(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 100))
-
-      if (isEnabled) {
-        query()
-      } else {
-        setBlockedCount(null)
-      }
-    })()
+    if (isEnabled) {
+      query()
+    } else {
+      setBlockedCount(null)
+    }
   }, [isEnabled, query])
 
   return {
