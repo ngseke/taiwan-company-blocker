@@ -16,9 +16,9 @@ export function EnableSwitch ({ value, onChange, ...restProps }: {
     >
       <div className="relative">
         <input
-          id={id}
           checked={value}
           className="peer sr-only"
+          id={id}
           type="checkbox"
           onChange={(event) => {
             onChange(event.target.checked)
