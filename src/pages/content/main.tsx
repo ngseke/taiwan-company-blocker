@@ -1,13 +1,14 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { App } from './App.tsx'
 
 import style from './content.sass?inline'
 
 import { config } from '@fortawesome/fontawesome-svg-core'
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
 
 config.autoAddCss = false
 
-export async function mountVueApp () {
+export async function mountReactApp () {
   const $root = document.createElement('div')
   const $shadow = $root.attachShadow({ mode: 'open' })
 
@@ -15,12 +16,15 @@ export async function mountVueApp () {
   $style.innerText = style
   $shadow.append($style)
 
-  const $vueApp = document.createElement('div')
-  $vueApp.id = 'tcb-vue-app'
-  $shadow.append($vueApp)
+  const $reactApp = document.createElement('div')
+  $reactApp.id = 'tcb-react-app'
+  $shadow.append($reactApp)
 
-  const app = createApp(App)
-  app.mount($vueApp)
+  createRoot($reactApp).render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  )
 
   document.body.append($root)
 }

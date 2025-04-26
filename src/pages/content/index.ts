@@ -1,5 +1,5 @@
 import { QUERY_BLOCKED_COUNT_MESSAGE_NAME, QUERY_PLATFORM_NAME_MESSAGE_NAME } from '../../modules/constants'
-import { mountVueApp } from './main'
+import { mountReactApp } from './main'
 import { BlockerManager } from './modules/BlockerManager'
 import { waitForElement } from './modules/dom'
 import { injectGlobalCssVariables } from './modules/injectGlobalCssVariables'
@@ -25,4 +25,4 @@ chrome.storage.onChanged.addListener(async () => {
   await blockerManager.render()
 })
 
-mountVueApp()
+mountReactApp()
