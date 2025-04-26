@@ -40,12 +40,13 @@ export function Radio ({
           </svg>
         </div>
       </label>
+
       {children && (
         <label
           className="ml-1 mt-px cursor-pointer select-none"
           htmlFor={id.current}
         >
-          <slot />
+          {children}
         </label>
       )}
     </div>
