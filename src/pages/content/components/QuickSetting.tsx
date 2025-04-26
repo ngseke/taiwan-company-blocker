@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import { OPEN_OPTIONS_PAGE_MESSAGE_NAME } from '../../../modules/constants'
 import { Card } from '../../../components/Card'
+import { EnableOptions } from '../../../components/options/EnableOptions'
 
 function openOptions () {
   close()
@@ -37,7 +38,7 @@ export function QuickSetting () {
           >
 
             <Card>
-              {/* <EnableOptions isInContent /> */}
+              <EnableOptions isInContent />
             </Card>
 
             <Card>
