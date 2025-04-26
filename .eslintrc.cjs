@@ -70,6 +70,7 @@ module.exports = {
       checksVoidReturn: false,
     }],
     '@typescript-eslint/no-dynamic-delete': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
 
     'vue/multi-word-component-names': 'off',
     'vue/max-attributes-per-line': ['error', {
@@ -123,6 +124,11 @@ module.exports = {
     'react/self-closing-comp': 'warn',
     'react/jsx-fragments': 'warn',
     'react/jsx-equals-spacing': [2, 'never'],
+    'react/jsx-sort-props': ['warn', {
+      reservedFirst: true,
+      shorthandFirst: true,
+      callbacksLast: true,
+    }],
     'testing-library/no-node-access': ['error', { allowContainerFirstChild: true }],
   },
 }
