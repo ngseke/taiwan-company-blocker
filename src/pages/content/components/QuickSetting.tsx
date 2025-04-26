@@ -9,6 +9,7 @@ import { OPEN_OPTIONS_PAGE_MESSAGE_NAME } from '../../../modules/constants'
 import { Card } from '../../../components/Card'
 import { EnableOptions } from '../../../components/options/EnableOptions'
 import { BlockMethodOptions } from '../../../components/options/BlockMethodOptions'
+import { RulesOptions } from '../../../components/options/RulesOptions'
 
 function openOptions () {
   close()
@@ -47,7 +48,7 @@ export function QuickSetting () {
             </Card>
 
             <Card>
-              {/* <RulesOptions isInContent /> */}
+              <RulesOptions isInContent />
             </Card>
 
             <button

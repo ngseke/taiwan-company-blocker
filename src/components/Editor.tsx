@@ -30,10 +30,8 @@ export function Editor ({
     <CodeMirror
       editable={!disabled}
       extensions={extensions}
+      height={typeof height === 'string' ? height : `${height}px`}
       indentWithTab={false}
-      style={{
-        height: typeof height === 'string' ? height : `${height}px`,
-      }}
       theme="none"
       value={value ?? undefined}
       onChange={onChange}
