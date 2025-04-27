@@ -1,9 +1,7 @@
 import { defineConfig } from 'vitest/config'
-import vue from '@vitejs/plugin-vue'
 import packageJson from './package.json'
 
 export default defineConfig({
-  plugins: [vue() as any],
   test: {
     setupFiles: [
       './__tests__/setup.ts',

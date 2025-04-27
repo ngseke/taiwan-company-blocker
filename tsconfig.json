@@ -28,7 +28,6 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.vue",
     "__tests__/**/*.ts",
     "blockers/**/*.ts",
     "schemas/**/*.ts",

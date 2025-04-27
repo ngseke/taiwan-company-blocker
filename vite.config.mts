@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import vue from '@vitejs/plugin-vue'
 import { crx } from '@crxjs/vite-plugin'
 import manifest from './manifest.config'
 import packageJson from './package.json'
@@ -12,7 +11,6 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    vue(),
     crx({ manifest }),
   ],
   server: {
