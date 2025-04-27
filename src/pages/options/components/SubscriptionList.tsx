@@ -1,4 +1,4 @@
-import { faCheck, faEllipsisVertical, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { Checkbox } from '../../../components/Checkbox'
 import { useTime } from '../../../hooks/useTime'
 import { cn } from '../../../modules/cn'
@@ -87,22 +87,8 @@ export function SubscriptionList ({ value, subscriptionResults, onChange, onClic
 
               </div>
             </div>
-
-            <div className="ml-auto flex">
-              <button
-                className="h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase transition-all hover:bg-neutral-500/10 active:bg-neutral-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                type="button"
-                onClick={(event) => {
-                  event.stopPropagation()
-                  onClickDetail(index)
-                }}
-              >
-                <FontAwesomeIcon icon={faEllipsisVertical} />
-              </button>
-            </div>
           </button>
         ))}
-
       </div>
     </div>
   )
