@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { validateUrl } from '../../../modules/validateUrl'
 import { Dialog } from '../../../components/Dialog'
 import { Input } from '../../../components/Input'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '../../../components/Button'
+import { useForm } from 'react-hook-form'
 
 type Response = { name: string, url: string } | null
 
@@ -14,18 +15,21 @@ export function AddSubscriptionDialog ({ state, onResponse }: {
   state: AddSubscriptionDialogState
   onResponse?: (response: Response) => void
 }) {
-  const [nameDraft, setNameDraft] = useState('')
-  const [urlDraft, setUrlDraft] = useState('')
+  const { watch, reset, setValue } = useForm({
+    defaultValues: { name: '', url: '' },
+  })
 
-  const shouldDisableButton = !nameDraft || !validateUrl(urlDraft)
+  const name = watch('name')
+  const url = watch('url')
+
+  const shouldDisableButton = !name || !validateUrl(url)
 
   useEffect(() => {
-    setNameDraft(state?.name ?? '')
-    setUrlDraft('https://')
-  }, [state])
+    reset({ name: state?.name ?? '', url: 'https://' })
+  }, [reset, state])
 
   function submit () {
-    onResponse?.({ name: nameDraft.trim(), url: urlDraft.trim() })
+    onResponse?.({ name: name.trim(), url: url.trim() })
   }
 
   function cancel () {
@@ -38,8 +42,17 @@ export function AddSubscriptionDialog ({ state, onResponse }: {
         <div className="text-base font-medium">新增訂閱</div>
 
         <div className="flex flex-col gap-4">
-          <Input label="名稱" maxLength={100} value={nameDraft} onChange={setNameDraft} />
-          <Input label="URL" value={urlDraft} onChange={setUrlDraft} />
+          <Input
+            label="名稱"
+            maxLength={100}
+            value={name}
+            onChange={(value) => { setValue('name', value, { shouldDirty: true }) }}
+          />
+          <Input
+            label="URL"
+            value={url}
+            onChange={(value) => { setValue('url', value, { shouldDirty: true }) }}
+          />
         </div>
 
         <a

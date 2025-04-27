@@ -13,33 +13,35 @@ import { SearchLinkSection } from './SearchLinkSection'
 import { MatchedRulesSection } from './MatchedRulesSection'
 import { type RuleType } from '../../../modules/rule'
 import { EditRuleDialog, type EditRuleDialogState } from './EditRuleDialog'
+import { useForm } from 'react-hook-form'
+import { type Candidate } from '../modules/Candidate'
 
 export function BlockDialog () {
-  const [isOpened, setIsOpened] = useState(false)
+  const [candidate, setCandidate] = useState<Nullish<Candidate>>(null)
+  function close () {
+    setCandidate(null)
+  }
 
-  function open () { setIsOpened(true) }
-  function close () { setIsOpened(false) }
+  const { watch, reset, setValue } = useForm({
+    defaultValues: {
+      type: null as 'job' | 'company' | null,
+      jobTitle: '',
+      companyName: '',
+    },
+  })
 
-  const [type, setType] = useState<'job' | 'company' | null>(null)
-
-  const [jobTitle, setJobTitle] = useState<Nullish<string>>(null)
-  const [companyName, setCompanyName] = useState<Nullish<string>>(null)
-
-  // TODO: refactor with RHF
-  const [jobTitleDraft, setJobTitleDraft] = useState('')
-  const [companyNameDraft, setCompanyNameDraft] = useState('')
+  const type = watch('type')
+  const jobTitle = watch('jobTitle')
+  const companyName = watch('companyName')
 
   useEmitter(CLICK_ITEM_ACTION, useCallback((payload) => {
-    open()
-
-    setType(null)
-
-    setJobTitle(payload.jobTitle)
-    setCompanyName(payload.companyName)
-
-    setJobTitleDraft(payload.jobTitle ?? '')
-    setCompanyNameDraft(payload.companyName ?? '')
-  }, []))
+    setCandidate(payload)
+    reset({
+      type: null,
+      jobTitle: payload.jobTitle ?? '',
+      companyName: payload.companyName ?? '',
+    })
+  }, [reset]))
 
   function openSetting () {
     close()
@@ -47,21 +49,28 @@ export function BlockDialog () {
   }
 
   async function submit () {
+    if (!type) return
+
     close()
-    if (type === 'job') {
-      await appendRule('jobTitle', jobTitleDraft)
-    }
-    if (type === 'company') {
-      await appendRule('companyName', companyNameDraft)
-    }
+    await ({
+      job: async () => {
+        await appendRule('jobTitle', jobTitle)
+      },
+      company: async () => {
+        await appendRule('companyName', companyName)
+      },
+    })[type]()
   }
 
   const isSubmitDisabled = !(
-    (type === 'job' && jobTitleDraft.trim()) ||
-    (type === 'company' && companyNameDraft.trim())
+    (type === 'job' && jobTitle.trim()) ||
+    (type === 'company' && companyName.trim())
   )
 
-  const { matchedRules } = useMatchedRules({ companyName, jobTitle })
+  const { matchedRules } = useMatchedRules({
+    jobTitle: candidate?.jobTitle,
+    companyName: candidate?.companyName,
+  })
 
   const [editRuleDialogState, setEditRuleDialogState] =
     useState<EditRuleDialogState | null>(null)
@@ -72,8 +81,8 @@ export function BlockDialog () {
 
   return (
     <>
-      <Dialog closeOnClickOutside open={isOpened} onClose={close}>
-        {isOpened && (
+      <Dialog closeOnClickOutside open={Boolean(candidate)} onClose={close}>
+        {candidate && (
           <div className="flex flex-col gap-4">
             <Header />
             <div className="flex flex-col gap-4">
@@ -81,28 +90,32 @@ export function BlockDialog () {
                 <Radio
                   checked={type === 'company'}
                   onChange={(checked) => {
-                    if (checked) setType('company')
+                    if (checked) setValue('type', 'company', { shouldDirty: true })
                   }}
                 />
                 <Input
                   label="公司名稱"
-                  value={companyNameDraft}
-                  onChange={setCompanyNameDraft}
-                  onFocus={() => { setType('company') }}
+                  value={companyName}
+                  onChange={(value) => { setValue('companyName', value, { shouldDirty: true }) }}
+                  onFocus={() => {
+                    setValue('type', 'company', { shouldDirty: true })
+                  }}
                 />
               </div>
               <div className="flex items-center gap-2">
                 <Radio
                   checked={type === 'job'}
                   onChange={(checked) => {
-                    if (checked) setType('job')
+                    if (checked) setValue('type', 'job', { shouldDirty: true })
                   }}
                 />
                 <Input
                   label="職缺名稱"
-                  value={jobTitleDraft}
-                  onChange={setJobTitleDraft}
-                  onFocus={() => { setType('job') }}
+                  value={jobTitle}
+                  onChange={(value) => { setValue('jobTitle', value, { shouldDirty: true }) }}
+                  onFocus={() => {
+                    setValue('type', 'job', { shouldDirty: true })
+                  }}
                 />
               </div>
             </div>
@@ -134,10 +147,10 @@ export function BlockDialog () {
               </Button>
             </div>
 
-            {companyName && (
+            {candidate.companyName && (
               <>
                 <hr className="border-neutral-800" />
-                <SearchLinkSection companyName={companyName} />
+                <SearchLinkSection companyName={candidate.companyName} />
               </>
             )}
           </div>

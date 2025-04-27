@@ -12,6 +12,7 @@ import { cn } from '../../modules/cn'
 import { type Nullish } from '../../types/Nullish'
 import { exportData } from '../../pages/options/components/modules/exportData'
 import { useBeforeUnload } from '../../pages/options/hooks/useBeforeUnload'
+import { useForm } from 'react-hook-form'
 
 function ExportButton (props: ComponentProps<typeof Button>) {
   return (
@@ -87,23 +88,28 @@ function InstructionArticle () {
 }
 
 export function RulesOptions ({ isInContent }: { isInContent?: boolean }) {
-  // TODO: refactor with RHF
-  const [jobTitleRulesDraft, setJobTitleRulesDraft] = useState<string | null>(null)
-  const [companyNameRulesDraft, setCompanyNameRulesDraft] = useState<string | null>(null)
+  const { watch, reset, setValue, formState: { isDirty } } = useForm({
+    defaultValues: {
+      jobTitleRules: null as string | null,
+      companyNameRules: null as string | null,
+    },
+  })
+
+  const jobTitleRules = watch('jobTitleRules')
+  const companyNameRules = watch('companyNameRules')
 
   const [submitResult, setSubmitResult] = useState<SubmitResult | null>(null)
 
-  const initializeDrafts = useCallback(async () => {
-    setJobTitleRulesDraft(await loadRules('jobTitle'))
-    setCompanyNameRulesDraft(await loadRules('companyName'))
-    setIsDirty(false)
-  }, [])
+  const initializeForm = useCallback(async () => {
+    reset({
+      jobTitleRules: await loadRules('jobTitle'),
+      companyNameRules: await loadRules('companyName'),
+    })
+  }, [reset])
 
   useEffect(() => {
-    initializeDrafts()
-  }, [initializeDrafts])
-
-  const [isDirty, setIsDirty] = useState(false)
+    initializeForm()
+  }, [initializeForm])
 
   const submitResultTimer = useRef<NodeJS.Timeout | null>(null)
 
@@ -114,13 +120,13 @@ export function RulesOptions ({ isInContent }: { isInContent?: boolean }) {
     }
 
     try {
-      if (jobTitleRulesDraft != null) {
-        await saveRules('jobTitle', jobTitleRulesDraft)
+      if (jobTitleRules != null) {
+        await saveRules('jobTitle', jobTitleRules)
       }
-      if (companyNameRulesDraft != null) {
-        await saveRules('companyName', companyNameRulesDraft)
+      if (companyNameRules != null) {
+        await saveRules('companyName', companyNameRules)
       }
-      await initializeDrafts()
+      await initializeForm()
       setSubmitResult({
         type: 'success',
         message: '儲存成功',
@@ -140,11 +146,11 @@ export function RulesOptions ({ isInContent }: { isInContent?: boolean }) {
   useBeforeUnload(Boolean(!isInContent && isDirty))
 
   const hasIllogicalRules = (
-    jobTitleRulesDraft != null &&
-    companyNameRulesDraft != null &&
+    jobTitleRules != null &&
+    companyNameRules != null &&
     (
-      checkHasIllogicalRule(jobTitleRulesDraft) ||
-      checkHasIllogicalRule(companyNameRulesDraft)
+      checkHasIllogicalRule(jobTitleRules) ||
+      checkHasIllogicalRule(companyNameRules)
     )
   )
 
@@ -153,17 +159,16 @@ export function RulesOptions ({ isInContent }: { isInContent?: boolean }) {
       <div className="flex items-center justify-between">
         <Title>公司名稱</Title>
         <ExportButton onClick={() => {
-          if (!companyNameRulesDraft) return
-          exportData(companyNameRulesDraft, 'company-name-rules.txt')
+          if (!companyNameRules) return
+          exportData(companyNameRules, 'company-name-rules.txt')
         }}
         />
       </div>
       <Editor
         testId={OPTIONS_TEST_IDS.companyNameRulesEditor}
-        value={companyNameRulesDraft}
+        value={companyNameRules}
         onChange={(value) => {
-          setCompanyNameRulesDraft(value)
-          setIsDirty(true)
+          setValue('companyNameRules', value, { shouldDirty: true })
           setSubmitResult(null)
         }}
       />
@@ -172,17 +177,16 @@ export function RulesOptions ({ isInContent }: { isInContent?: boolean }) {
         <Title>職缺名稱</Title>
         <ExportButton
           onClick={() => {
-            if (!jobTitleRulesDraft) return
-            exportData(jobTitleRulesDraft, 'job-title-rules.txt')
+            if (!jobTitleRules) return
+            exportData(jobTitleRules, 'job-title-rules.txt')
           }}
         />
       </div>
       <Editor
         testId={OPTIONS_TEST_IDS.jobTitleRulesEditor}
-        value={jobTitleRulesDraft}
+        value={jobTitleRules}
         onChange={(value) => {
-          setJobTitleRulesDraft(value)
-          setIsDirty(true)
+          setValue('jobTitleRules', value, { shouldDirty: true })
           setSubmitResult(null)
         }}
       />
