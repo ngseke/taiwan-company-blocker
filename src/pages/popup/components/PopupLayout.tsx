@@ -25,7 +25,7 @@ export function PopupLayout ({ children }: PropsWithChildren) {
         >
           <div
             className={cn(
-              'mb-4 h-20 w-20 bg-contain bg-center bg-no-repeat duration-[1000ms]',
+              'mb-3 h-20 w-20 bg-contain bg-center bg-no-repeat duration-[1000ms]',
               { grayscale: !isEnabled }
             )}
             style={{ backgroundImage: `url(${icon})` }}

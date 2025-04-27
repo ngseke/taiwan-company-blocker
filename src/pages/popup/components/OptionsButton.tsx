@@ -5,7 +5,7 @@ import { type ComponentProps } from 'react'
 export function OptionsButton (props: ComponentProps<'button'>) {
   return (
     <button className="group px-2" title="設定" type="button" {...props}>
-      <div className="duration-500 group-hover:rotate-90">
+      <div className="text-lg duration-500 group-hover:rotate-90">
         <FontAwesomeIcon icon={faGear} />
       </div>
     </button>
