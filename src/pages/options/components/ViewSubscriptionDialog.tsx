@@ -40,12 +40,7 @@ export function ViewSubscriptionDialog ({ subscription, result, onClose, onRemov
           </div>
 
           {resultRules != null && (
-            <Editor
-              disabled
-              height={300}
-              v-if="resultRules != null"
-              value={resultRules}
-            />
+            <Editor disabled height={300} value={resultRules} />
           )}
 
           {resultError != null && (

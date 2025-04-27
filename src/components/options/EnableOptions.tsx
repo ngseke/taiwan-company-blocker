@@ -1,3 +1,4 @@
+import { Fragment } from 'react/jsx-runtime'
 import { platformNames } from '../../../schemas/platformName'
 import { useChromeStorage } from '../../hooks/useChromeStorage'
 import { OPTIONS_TEST_IDS } from '../../modules/constants'
@@ -11,7 +12,7 @@ function SupportPlatformArticle () {
       <p>
         目前支援平台：
         {platformNames.map((name, index) => (
-          <template key={name}>
+          <Fragment key={name}>
             <a
               className="underline"
               href={`https://${platformHosts[name]}`}
@@ -22,7 +23,7 @@ function SupportPlatformArticle () {
             {index !== platformNames.length - 1 && (
               <span>、</span>
             )}
-          </template>
+          </Fragment>
         ))}
       </p>
     </article>
