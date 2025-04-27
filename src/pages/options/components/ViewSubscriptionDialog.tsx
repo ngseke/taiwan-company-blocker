@@ -5,6 +5,7 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '../../../components/Button'
 import { type Subscription, type SubscriptionResult } from '../../../modules/Subscription'
 import { type Nullish } from '../../../types/Nullish'
+import { Link } from '../../../components/Link'
 
 export function ViewSubscriptionDialog ({ subscription, result, onClose, onRemove }: {
   subscription: Nullish<Subscription>
@@ -36,7 +37,7 @@ export function ViewSubscriptionDialog ({ subscription, result, onClose, onRemov
 
         <div className="flex flex-col gap-4">
           <div className="leading-none">
-            <a className="break-all text-xs" href={url} rel="noreferrer" target="_blank">{url}</a>
+            <Link className="break-all text-xs" href={url}>{url}</Link>
           </div>
 
           {resultRules != null && (

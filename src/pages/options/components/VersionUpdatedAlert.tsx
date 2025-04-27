@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useVersion } from '../../../hooks/useVersion'
 import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { Link } from '../../../components/Link'
 
 const version = `v${APP_VERSION}`
 
@@ -22,13 +23,12 @@ export function VersionUpdatedAlert () {
           <FontAwesomeIcon className="mr-1" icon={faCheck} />
           已成功更新至 <span className="font-mono">{version}</span>。
 
-          <a
-            className="underline hover:text-red-500"
+          <Link
+            className="underline"
             href="https://github.com/ngseke/taiwan-company-blocker/releases"
-            rel="noreferrer" target="_blank"
           >
             查看版本記錄
-          </a>
+          </Link>
         </div>
 
         <button

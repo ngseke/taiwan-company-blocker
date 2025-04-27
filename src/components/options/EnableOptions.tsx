@@ -5,21 +5,21 @@ import { OPTIONS_TEST_IDS } from '../../modules/constants'
 import { ENABLED_STORAGE_KEY } from '../../modules/storage'
 import { formatPlatformName, platformHosts } from '../../pages/content/modules/platform'
 import { Switch } from '../Switch'
+import { Link } from '../Link'
 
 function SupportPlatformArticle () {
   return (
     <article className="space-y-2">
       <p>
-        目前支援平台：
+        支援下列平台：
         {platformNames.map((name, index) => (
           <Fragment key={name}>
-            <a
+            <Link
               className="underline"
               href={`https://${platformHosts[name]}`}
-              rel="noreferrer" target="_blank"
             >
               {formatPlatformName(name)}
-            </a>
+            </Link>
             {index !== platformNames.length - 1 && (
               <span>、</span>
             )}

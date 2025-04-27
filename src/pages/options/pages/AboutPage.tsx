@@ -1,6 +1,8 @@
 import { Card } from '../../../components/Card'
 import { Title } from '../../../components/Title'
 import { OPTIONS_TEST_IDS } from '../../../modules/constants'
+import { Link } from '../../../components/Link'
+import { type PropsWithChildren, type ReactNode } from 'react'
 
 const version = `v${APP_VERSION}`
 
@@ -30,61 +32,68 @@ const links = [
   },
 ]
 
+function Block ({ title, children }: PropsWithChildren<{ title: ReactNode }>) {
+  return (
+    <div className="mb-3">
+      <Title className="mb-3">{title}</Title>
+      {children}
+    </div>
+  )
+}
+
 export function AboutPage () {
   const content = (
     <section className="flex flex-col gap-4">
-      <div className="flex flex-col gap-0.5">
+      <div className="flex flex-col gap-2">
         <h1 className="text-2xl font-bold">
-          <a className="hover:underline" href={homepage} rel="noreferrer" target="_blank">
+          <Link href={homepage}>
             台灣求職網封鎖神器
-          </a>
+          </Link>
         </h1>
 
-        <a
-          className="mt-1 font-mono text-neutral-600 hover:underline"
+        <Link
+          className="font-mono text-neutral-600 hover:text-neutral-500"
           href={releases}
-          rel="noreferrer" target="_blank"
         >
           {version}
-        </a>
+        </Link>
       </div>
 
       <hr className="border-neutral-800" />
 
-      <Title>關於此擴充功能</Title>
-      <p>
-        這是啟發自 <i>uBlacklist</i> 的免費開源專案。若你在使用時遇到任何問題，請不吝來信至
-        <a className="underline hover:text-red-500" href="mailto:ngseke@gmail.com">ngseke@gmail.com</a>
-        與我聯繫，或是到
-        <a className="underline hover:text-red-500" href="https://github.com/ngseke/taiwan-company-blocker/issues" rel="noreferrer" target="_blank">GitHub</a>
-        發送 Issue 回報，也歡迎有志之士提交
-        <a className="underline hover:text-red-500" href="https://github.com/ngseke/taiwan-company-blocker/pulls" rel="noreferrer" target="_blank">Pull Request</a>
-        來貢獻程式碼。
-      </p>
+      <Block title="關於此擴充功能">
+        <p>
+          這是啟發自 <i>uBlacklist</i> 的免費開源專案。若你在使用時遇到任何問題，請不吝來信至{' '}
+          <Link className="underline" href="mailto:ngseke@gmail.com">ngseke@gmail.com</Link>{' '}
+          與我聯繫，或是到{' '}
+          <Link className="underline" href="https://github.com/ngseke/taiwan-company-blocker/issues">GitHub</Link>{' '}
+          發送 Issue 回報，也歡迎有志之士提交{' '}
+          <Link className="underline" href="https://github.com/ngseke/taiwan-company-blocker/pulls">Pull Request</Link>{' '}
+          來貢獻程式碼。
+        </p>
+      </Block>
 
-      <Title>隱私權聲明</Title>
-      <p>
-        《台灣求職網封鎖神器》不會收集任何你的個人資訊。
-      </p>
+      <Block title="隱私權聲明">
+        <p>
+          《台灣求職網封鎖神器》不會收集任何你的個人資訊。
+        </p>
+      </Block>
 
-      <Title>相關連結</Title>
-      <ul className="-mx-2 flex divide-x divide-neutral-700">
-        {links.map(({ title, url }) => (
-          <li key={title} className="px-2">
-            <a className="hover:underline" href={url} rel="noreferrer" target="_blank">{title}</a>
-          </li>
-        ))}
-      </ul>
+      <Block title="相關連結">
+        <ul className="-mx-2 flex divide-x divide-neutral-700">
+          {links.map(({ title, url }) => (
+            <li key={title} className="px-2">
+              <Link href={url}>{title}</Link>
+            </li>
+          ))}
+        </ul>
+      </Block>
 
-      <p className="mt-4 text-xs">
-        Made with 🍺 by
-        <a
-          className="font-mono underline hover:text-red-500"
-          href="https://ngseke.me"
-          rel="noreferrer" target="_blank"
-        >
+      <p className="text-xs">
+        Made with 🍺 by{' '}
+        <Link className="font-mono underline" href="https://ngseke.me">
           @ngseke
-        </a>
+        </Link>
       </p>
     </section>
   )

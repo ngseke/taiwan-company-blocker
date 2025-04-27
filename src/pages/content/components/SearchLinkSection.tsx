@@ -2,20 +2,19 @@ import { type PropsWithChildren } from 'react'
 import { type Nullish } from '../../../types/Nullish'
 import { faCaretRight, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from '../../../components/Link'
 
 function SearchLink ({ href, children }: PropsWithChildren<{
   href?: Nullish<string>
 }>) {
   return (
-    <a
-      className="inline-flex items-center gap-1 duration-150 hover:opacity-50"
+    <Link
+      className="inline-flex items-center gap-1"
       href={href ?? undefined}
-      rel="noreferrer"
-      target="_blank"
     >
       <FontAwesomeIcon icon={faMagnifyingGlass} />
       {children}
-    </a>
+    </Link>
   )
 }
 
