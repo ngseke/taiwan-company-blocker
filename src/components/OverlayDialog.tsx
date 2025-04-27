@@ -1,5 +1,5 @@
-import { type PropsWithChildren, type SyntheticEvent, useLayoutEffect, useRef } from 'react'
-import { useScrollLock } from '../hooks/useScrollLock'
+import { type PropsWithChildren } from 'react'
+import { useDialog } from '../hooks/useDialog'
 
 type OverlayDialogProps = PropsWithChildren<{
   open?: boolean
@@ -13,23 +13,11 @@ export function OverlayDialog ({
   onClose,
   children,
 }: OverlayDialogProps) {
-  // TODO: Extract me into a hook
-  const dialogRef = useRef<HTMLDialogElement | null>(null)
-  useScrollLock(open)
-
-  function handleClickDialog (event: SyntheticEvent) {
-    if (!closeOnClickOutside) return
-    if (event.target !== dialogRef.current) return
-    onClose?.()
-  }
-
-  useLayoutEffect(() => {
-    if (open) {
-      dialogRef.current?.showModal()
-    } else {
-      dialogRef.current?.close()
-    }
-  }, [open])
+  const { dialogRef, handleClickDialog } = useDialog({
+    open,
+    closeOnClickOutside,
+    onClose,
+  })
 
   return (
     <dialog
