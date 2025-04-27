@@ -1,7 +1,7 @@
 import { type ComponentProps, useCallback, useEffect, useRef, useState } from 'react'
 import { type SubmitResult } from '../../types/SubmitResult'
 import { loadRules, saveRules } from '../../modules/storage'
-import { checkHasIllogicalRule } from '../../modules/rule'
+import { checkHasIllogicalRule, type RuleType } from '../../modules/rule'
 import { Title } from '../Title'
 import { Button } from '../Button'
 import { faCheck, faExclamationTriangle, faFileExport, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
@@ -87,7 +87,10 @@ function InstructionArticle () {
   )
 }
 
-export function RulesOptions ({ isInContent }: { isInContent?: boolean }) {
+export function RulesOptions ({ isInContent, highlight }: {
+  isInContent?: boolean
+  highlight?: Nullish<{ type: RuleType, text: string }>
+}) {
   const { watch, reset, setValue, formState: { isDirty } } = useForm({
     defaultValues: {
       jobTitleRules: null as string | null,
@@ -164,14 +167,18 @@ export function RulesOptions ({ isInContent }: { isInContent?: boolean }) {
         }}
         />
       </div>
-      <Editor
-        testId={OPTIONS_TEST_IDS.companyNameRulesEditor}
-        value={companyNameRules}
-        onChange={(value) => {
-          setValue('companyNameRules', value, { shouldDirty: true })
-          setSubmitResult(null)
-        }}
-      />
+
+      {companyNameRules != null && (
+        <Editor
+          highlightText={highlight?.type === 'companyName' ? highlight.text : null}
+          testId={OPTIONS_TEST_IDS.companyNameRulesEditor}
+          value={companyNameRules}
+          onChange={(value) => {
+            setValue('companyNameRules', value, { shouldDirty: true })
+            setSubmitResult(null)
+          }}
+        />
+      )}
 
       <div className="flex items-center justify-between">
         <Title>職缺名稱</Title>
@@ -182,14 +189,18 @@ export function RulesOptions ({ isInContent }: { isInContent?: boolean }) {
           }}
         />
       </div>
-      <Editor
-        testId={OPTIONS_TEST_IDS.jobTitleRulesEditor}
-        value={jobTitleRules}
-        onChange={(value) => {
-          setValue('jobTitleRules', value, { shouldDirty: true })
-          setSubmitResult(null)
-        }}
-      />
+
+      {jobTitleRules != null && (
+        <Editor
+          highlightText={highlight?.type === 'jobTitle' ? highlight.text : null}
+          testId={OPTIONS_TEST_IDS.jobTitleRulesEditor}
+          value={jobTitleRules}
+          onChange={(value) => {
+            setValue('jobTitleRules', value, { shouldDirty: true })
+            setSubmitResult(null)
+          }}
+        />
+      )}
 
       <div
         className="sticky bottom-0 -mx-6 -my-2 flex flex-col gap-4 bg-neutral-900 px-6 py-4 before:absolute before:-top-2 before:left-0 before:h-2 before:w-full before:bg-gradient-to-t before:from-neutral-900 before:to-transparent

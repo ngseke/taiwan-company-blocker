@@ -44,7 +44,6 @@ export function BlockDialog () {
   }, [reset]))
 
   function openSetting () {
-    close()
     emitter.emit(OPEN_SETTING)
   }
 
@@ -76,7 +75,7 @@ export function BlockDialog () {
     useState<EditRuleDialogState | null>(null)
 
   async function handleEditRule (type: RuleType, rule: string) {
-    setEditRuleDialogState({ type, rule })
+    emitter.emit(OPEN_SETTING, { type, text: rule })
   }
 
   return (
@@ -131,7 +130,7 @@ export function BlockDialog () {
                 type="button"
                 onClick={openSetting}
               >
-                管理關鍵詞
+                管理所有關鍵詞
               </button>
 
               <div className="flex-1" />

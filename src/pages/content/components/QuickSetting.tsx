@@ -10,6 +10,7 @@ import { Card } from '../../../components/Card'
 import { EnableOptions } from '../../../components/options/EnableOptions'
 import { BlockMethodOptions } from '../../../components/options/BlockMethodOptions'
 import { RulesOptions } from '../../../components/options/RulesOptions'
+import { type RuleType } from '../../../modules/rule'
 
 function openOptions () {
   close()
@@ -18,10 +19,17 @@ function openOptions () {
 
 export function QuickSetting () {
   const [isOpened, setIsOpened] = useState(false)
+  const [options, setOptions] = useState< {
+    type: RuleType
+    text: string
+  } | null>(null)
   function open () { setIsOpened(true) }
   function close () { setIsOpened(false) }
 
-  useEmitter(OPEN_SETTING, open)
+  useEmitter(OPEN_SETTING, (options) => {
+    open()
+    setOptions(options ?? null)
+  })
 
   return (
     <OverlayDialog closeOnClickOutside open={isOpened} onClose={close}>
@@ -38,7 +46,6 @@ export function QuickSetting () {
           <section
             className="flex w-full flex-col gap-4 overflow-auto pb-0 pl-0 pr-6 pt-6 text-neutral-300"
           >
-
             <Card>
               <EnableOptions isInContent />
             </Card>
@@ -48,7 +55,7 @@ export function QuickSetting () {
             </Card>
 
             <Card>
-              <RulesOptions isInContent />
+              <RulesOptions isInContent highlight={options} />
             </Card>
 
             <button
