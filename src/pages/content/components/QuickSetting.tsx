@@ -55,7 +55,6 @@ export function QuickSetting () {
               className="flex w-full items-center gap-3 rounded-lg bg-neutral-900 p-6 font-medium shadow-2xl hover:brightness-125" type="button"
               onClick={openOptions}
             >
-              {/* @ts-expect-error -- Remove Vue */}
               <FontAwesomeIcon className="text-lg" icon={faGear} />
               進階設定
             </button>

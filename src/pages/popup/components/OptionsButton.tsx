@@ -6,7 +6,6 @@ export function OptionsButton (props: ComponentProps<'button'>) {
   return (
     <button className="group px-2" title="設定" type="button" {...props}>
       <div className="duration-500 group-hover:rotate-90">
-        {/* @ts-expect-error -- Remove Vue */}
         <FontAwesomeIcon icon={faGear} />
       </div>
     </button>

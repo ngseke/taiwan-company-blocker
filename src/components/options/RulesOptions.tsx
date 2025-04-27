@@ -17,7 +17,6 @@ function ExportButton (props: ComponentProps<typeof Button>) {
   return (
     <Button type="button" {...props}>
       <div className="flex items-center gap-1.5">
-        {/* @ts-expect-error -- Remove Vue */}
         <FontAwesomeIcon icon={faFileExport} />
         匯出
       </div>
@@ -39,7 +38,6 @@ function IllogicalRulesAlert ({ show }: { show?: boolean }) {
 
   return (
     <div className="rounded-lg bg-amber-500 p-3 py-2 text-neutral-900 duration-200">
-      {/* @ts-expect-error -- Remove Vue */}
       <FontAwesomeIcon icon={faExclamationTriangle} />
       在規則中偵測到了 <Code>*</Code> 或 <Code>**</Code>，這將會封鎖<b>所有</b>職缺或公司。
     </div>
@@ -51,12 +49,10 @@ function SubmitResultMessage ({ value }: { value?: Nullish<SubmitResult> }) {
   return (
     <div className="text-xs duration-150">
       {value.type === 'success' && (
-        // @ts-expect-error -- Remove Vue
         <FontAwesomeIcon icon={faCheck} />
       )}
 
       {value.type === 'error' && (
-        // @ts-expect-error -- Remove Vue
         <FontAwesomeIcon icon={faTriangleExclamation} />
       )}
 
@@ -163,7 +159,7 @@ export function RulesOptions ({ isInContent }: { isInContent?: boolean }) {
         />
       </div>
       <Editor
-        data-testid={OPTIONS_TEST_IDS.companyNameRulesEditor}
+        testId={OPTIONS_TEST_IDS.companyNameRulesEditor}
         value={companyNameRulesDraft}
         onChange={(value) => {
           setCompanyNameRulesDraft(value)
@@ -182,7 +178,7 @@ export function RulesOptions ({ isInContent }: { isInContent?: boolean }) {
         />
       </div>
       <Editor
-        data-testid={OPTIONS_TEST_IDS.jobTitleRulesEditor}
+        testId={OPTIONS_TEST_IDS.jobTitleRulesEditor}
         value={jobTitleRulesDraft}
         onChange={(value) => {
           setJobTitleRulesDraft(value)
@@ -201,8 +197,8 @@ export function RulesOptions ({ isInContent }: { isInContent?: boolean }) {
           <SubmitResultMessage value={submitResult} />
           <Button
             color="primary"
-            data-testid={OPTIONS_TEST_IDS.rulesSaveButton}
             disabled={!isDirty}
+            testId={OPTIONS_TEST_IDS.rulesSaveButton}
             onClick={submit}
           >
             儲存

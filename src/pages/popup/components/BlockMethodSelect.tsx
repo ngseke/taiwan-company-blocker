@@ -16,7 +16,6 @@ export function BlockMethodSelect () {
     <label className="group relative select-none">
       <span className="inline-flex items-center gap-1">
         {formatBlockMethod(blockMethod)}
-        {/* @ts-expect-error -- Remove Vue */}
         <FontAwesomeIcon className="text-sm" icon={faChevronDown} />
       </span>
       <select

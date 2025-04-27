@@ -45,7 +45,6 @@ export function ViewSubscriptionDialog ({ subscription, result, onClose, onRemov
 
           {resultError != null && (
             <div>
-              {/* @ts-expect-error -- Remove Vue */}
               <FontAwesomeIcon icon={faTriangleExclamation} />{' '}
               載入失敗 {resultError}
             </div>

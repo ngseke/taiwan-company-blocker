@@ -38,13 +38,11 @@ export function IconButton ({
         <span
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         >
-          {/* @ts-expect-error -- Remove Vue */}
           <FontAwesomeIcon spin icon={faCircleNotch} />
         </span>
       )}
 
       <span className={cn('inline-flex', loading ? 'opacity-0' : '')}>
-        {/* @ts-expect-error -- Remove Vue */}
         <FontAwesomeIcon icon={icon} />
       </span>
     </button>

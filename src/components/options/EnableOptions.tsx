@@ -38,7 +38,7 @@ export function EnableOptions ({ isInContent }: { isInContent?: boolean }) {
       <div>
         <Switch
           checked={isEnabled ?? false}
-          data-testid={OPTIONS_TEST_IDS.enableSwitch}
+          testId={OPTIONS_TEST_IDS.enableSwitch}
           onChange={setIsEnabled}
         >
           啟用

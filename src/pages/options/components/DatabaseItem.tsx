@@ -18,7 +18,6 @@ export function DatabaseItem ({ icon, active, title, content, action }: {
       <div
         className={cn('flex w-8 justify-center', { 'text-green-600': active })}
       >
-        {/* @ts-expect-error -- Remove Vue */}
         <FontAwesomeIcon icon={icon} />
       </div>
 

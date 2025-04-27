@@ -1,16 +1,17 @@
 import { useId } from 'react'
 import { cn } from '../../../modules/cn'
+import { POPUP_TEST_IDS } from '../../../modules/constants'
 
 export function EnableSwitch ({ value, onChange, ...restProps }: {
   value: boolean
   onChange: (value: boolean) => void
-  'data-testid': string
 }) {
   const id = useId()
 
   return (
     <label
       className="flex cursor-pointer select-none items-center"
+      data-testid={POPUP_TEST_IDS.enableSwitch}
       htmlFor={id}
       {...restProps}
     >

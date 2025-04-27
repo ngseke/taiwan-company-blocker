@@ -1,20 +1,22 @@
 import { useRef, type PropsWithChildren } from 'react'
 import { nanoid } from 'nanoid'
+import { type PropsWithTestId } from '../types/PropsWithTestId'
 
-type SwitchProps = PropsWithChildren<{
+type SwitchProps = PropsWithTestId<PropsWithChildren<{
   checked?: boolean
   onChange?: (value: boolean) => void
-}>
+}>>
 
 export function Switch ({
   checked,
   onChange,
   children,
+  testId,
 }: SwitchProps) {
   const id = useRef(nanoid())
   // https://www.material-tailwind.com/docs/html/switch
   return (
-    <div className="inline-flex items-center">
+    <div className="inline-flex items-center" data-testid={testId}>
       <div className="relative inline-block h-4 w-8 cursor-pointer rounded-full">
         <input
           checked={checked ?? false}

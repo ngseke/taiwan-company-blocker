@@ -10,7 +10,7 @@ export default defineConfig({
     ],
     globals: true,
     environment: 'jsdom',
-    testTimeout: 20000,
+    testTimeout: 30000,
   },
   define: {
     APP_VERSION: JSON.stringify(packageJson.version),

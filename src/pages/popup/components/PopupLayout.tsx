@@ -2,7 +2,6 @@ import { cn } from '../../../modules/cn'
 import icon from '../../../assets/img/icon.png'
 import { useChromeStorage } from '../../../hooks/useChromeStorage'
 import { ENABLED_STORAGE_KEY } from '../../../modules/storage'
-import { POPUP_TEST_IDS } from '../../../modules/constants'
 import { type PropsWithChildren } from 'react'
 import { EnableSwitch } from './EnableSwitch'
 import { OptionsButton } from './OptionsButton'
@@ -34,11 +33,7 @@ export function PopupLayout ({ children }: PropsWithChildren) {
         </div>
 
         <div>
-          <EnableSwitch
-            value={isEnabled}
-            onChange={setIsEnabled}
-            data-testid={POPUP_TEST_IDS.enableSwitch}
-          />
+          <EnableSwitch value={isEnabled} onChange={setIsEnabled} />
         </div>
 
         <div className="flex flex-1 flex-col justify-end">

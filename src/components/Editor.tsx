@@ -4,8 +4,9 @@ import { useMemo } from 'react'
 import { EditorView } from '@codemirror/view'
 import { rulesLanguage } from '../modules/codeMirror'
 import { codeMirrorTheme } from '../modules/codeMirrorTheme'
+import { type PropsWithTestId } from '../types/PropsWithTestId'
 
-interface EditorProps {
+type EditorProps = PropsWithTestId & {
   value: Nullish<string>
   onChange?: (value: string) => void
   disabled?: boolean
@@ -19,6 +20,7 @@ export function Editor ({
   disabled,
   height = 300,
   lineWrapping,
+  testId,
 }: EditorProps) {
   const extensions = useMemo(() => [
     rulesLanguage,
@@ -28,6 +30,7 @@ export function Editor ({
 
   return (
     <CodeMirror
+      data-testid={testId}
       editable={!disabled}
       extensions={extensions}
       height={typeof height === 'string' ? height : `${height}px`}

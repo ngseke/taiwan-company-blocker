@@ -47,7 +47,6 @@ export function AddSubscriptionDialog ({ state, onResponse }: {
           href="https://github.com/ngseke/company-list"
           rel="noreferrer" target="_blank"
         >
-          {/* @ts-expect-error -- Remove Vue */}
           <FontAwesomeIcon icon={faStar} />
           也可以查看由此擴充功能作者維護的<span className="underline">公司訂閱列表</span>，快速過濾如博弈、外包等特定產業。
         </a>

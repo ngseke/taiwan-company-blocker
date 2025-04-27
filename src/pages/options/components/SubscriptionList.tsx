@@ -71,7 +71,6 @@ export function SubscriptionList ({ value, subscriptionResults, onChange, onClic
                   if (getResult(item.url)?.status === 'success') {
                     return (
                       <span title={getFormattedTime(getResult(item.url)?.timestamp)}>
-                        {/* @ts-expect-error -- Remove Vue */}
                         <FontAwesomeIcon icon={faCheck} />{' '}
                         {getRelativeTime(getResult(item.url)?.timestamp)}
                       </span>
@@ -80,7 +79,6 @@ export function SubscriptionList ({ value, subscriptionResults, onChange, onClic
 
                   return (
                     <span>
-                      {/* @ts-expect-error -- Remove Vue */}
                       <FontAwesomeIcon icon={faTriangleExclamation} />{' '}
                       載入失敗 ({getResultError(item.url)})
                     </span>
@@ -99,7 +97,6 @@ export function SubscriptionList ({ value, subscriptionResults, onChange, onClic
                   onClickDetail(index)
                 }}
               >
-                {/* @ts-expect-error -- Remove Vue */}
                 <FontAwesomeIcon icon={faEllipsisVertical} />
               </button>
             </div>

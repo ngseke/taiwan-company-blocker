@@ -68,7 +68,6 @@ export function DatabasePage () {
                 if (result?.status === 'success') {
                   return (
                     <span>
-                      {/* @ts-expect-error -- Remove Vue */}
                       <FontAwesomeIcon icon={faCheck} />{' '}
                       SHA: {result?.commit?.sha.slice(0, 7)},
                       Published: {dayjs(result?.commit?.commit.author.date).format('YYYY/MM/DD HH:mm')}
@@ -78,7 +77,6 @@ export function DatabasePage () {
 
                 return (
                   <span>
-                    {/* @ts-expect-error -- Remove Vue */}
                     <FontAwesomeIcon icon={faTriangleExclamation} />
                     載入失敗 ({result.error})
                   </span>

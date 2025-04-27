@@ -19,7 +19,6 @@ export function VersionUpdatedAlert () {
     >
       <div className="flex gap-2">
         <div className="flex-1">
-          {/* @ts-expect-error -- Remove Vue */}
           <FontAwesomeIcon className="mr-1" icon={faCheck} />
           已成功更新至 <span className="font-mono">{version}</span>。
 
@@ -37,7 +36,6 @@ export function VersionUpdatedAlert () {
           type="button"
           onClick={handleDismiss}
         >
-          {/* @ts-expect-error -- Remove Vue */}
           <FontAwesomeIcon icon={faXmark} />
         </button>
       </div>

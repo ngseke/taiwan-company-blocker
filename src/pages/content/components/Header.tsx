@@ -25,7 +25,6 @@ export function Header () {
         onClick={openOptions}
       >
         <div className="duration-500 group-hover:rotate-90">
-          {/* @ts-expect-error -- Remove Vue */}
           <FontAwesomeIcon icon={faGear} />
         </div>
       </button>
