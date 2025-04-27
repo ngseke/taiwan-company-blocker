@@ -12,11 +12,6 @@ import { BlockMethodOptions } from '../../../components/options/BlockMethodOptio
 import { RulesOptions } from '../../../components/options/RulesOptions'
 import { type RuleType } from '../../../modules/rule'
 
-function openOptions () {
-  close()
-  chrome.runtime.sendMessage(OPEN_OPTIONS_PAGE_MESSAGE_NAME)
-}
-
 export function QuickSetting () {
   const [isOpened, setIsOpened] = useState(false)
   const [options, setOptions] = useState< {
@@ -30,6 +25,11 @@ export function QuickSetting () {
     open()
     setOptions(options ?? null)
   })
+
+  function openOptions () {
+    close()
+    chrome.runtime.sendMessage(OPEN_OPTIONS_PAGE_MESSAGE_NAME)
+  }
 
   return (
     <OverlayDialog closeOnClickOutside open={isOpened} onClose={close}>
