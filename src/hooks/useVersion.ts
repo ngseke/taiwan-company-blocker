@@ -17,9 +17,13 @@ export function useVersion () {
     }
   })
 
+  function updatePreviousVersion () {
+    setPreviousVersion(version)
+  }
+
   return {
     previousVersion,
     isUpdated,
-    updatePreviousVersion: setPreviousVersion,
+    updatePreviousVersion,
   }
 }

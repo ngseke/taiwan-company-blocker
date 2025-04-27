@@ -1,14 +1,16 @@
-import { useRef, type PropsWithChildren } from 'react'
+import { type MouseEventHandler, useRef, type PropsWithChildren } from 'react'
 import { nanoid } from 'nanoid'
 
 type CheckboxProps = PropsWithChildren<{
-  value?: boolean
+  checked?: boolean
   onChange?: (value: boolean) => void
+  onClick?: MouseEventHandler<HTMLInputElement>
 }>
 
 export function Checkbox ({
-  value,
+  checked,
   onChange,
+  onClick,
   children,
 }: CheckboxProps) {
   const id = useRef(nanoid())
@@ -19,11 +21,12 @@ export function Checkbox ({
         className="relative flex cursor-pointer items-center rounded-full p-3"
       >
         <input
-          checked={value ?? false}
+          checked={checked ?? false}
           className="peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-neutral-800 transition-all before:absolute before:left-2/4 before:top-2/4 before:block before:h-12 before:w-12 before:-translate-x-2/4 before:-translate-y-2/4 before:rounded-full before:bg-neutral-500 before:opacity-0 before:transition-opacity before:content-['_'] checked:border-red-500 checked:bg-red-500 checked:before:bg-red-500 hover:before:opacity-10"
           id={id.current}
           type="checkbox"
           onChange={(event) => onChange?.(event.target.checked)}
+          onClick={onClick}
         />
         <div className="pointer-events-none absolute left-2/4 top-2/4 -translate-x-2/4 -translate-y-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
           <svg
