@@ -8,7 +8,7 @@ test('popup app should be rendered without any errors and warnings', async () =>
   mockChrome()
 
   render(<App />)
-  act(async () => {
+  await act(async () => {
     await new Promise((resolve) => setTimeout(resolve, 0))
   })
 
