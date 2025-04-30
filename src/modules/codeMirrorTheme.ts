@@ -55,7 +55,8 @@ export const vsCodeDarkPlusTheme = EditorView.theme(
       backgroundColor: '#6199ff2f',
     },
 
-    '.cm-activeLine': { backgroundColor: highlightBackground },
+    '.cm-activeLine': { backgroundColor: 'transparent' },
+    '&.cm-focused .cm-activeLine': { backgroundColor: highlightBackground },
     '.cm-selectionMatch': { backgroundColor: '#aafe661a' },
 
     '&.cm-editor': {
@@ -84,9 +85,8 @@ export const vsCodeDarkPlusTheme = EditorView.theme(
       borderRadius: '7px',
     },
 
-    '.cm-activeLineGutter': {
-      backgroundColor: highlightBackground,
-    },
+    '.cm-activeLineGutter': { backgroundColor: 'transparent' },
+    '&.cm-focused .cm-activeLineGutter': { backgroundColor: highlightBackground },
 
     '.cm-foldPlaceholder': {
       backgroundColor: 'transparent',
@@ -111,6 +111,9 @@ export const vsCodeDarkPlusTheme = EditorView.theme(
         backgroundColor: highlightBackground,
         color: foreground,
       },
+    },
+    '.cm-line.highlight-line': {
+      backgroundColor: 'rgba(255,255,0,.2)',
     },
   },
   { dark: true },

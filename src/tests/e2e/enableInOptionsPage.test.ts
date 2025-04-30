@@ -8,7 +8,7 @@ describe('Enable in options page', () => {
   })
 
   test('should be able to enable and disable', async () => {
-    await clickSidebarItem('setting')
+    await clickSidebarItem('/setting')
     await toggleEnabled(false)
     expect((await getOptionsSyncStorage()).enabled).toBe(false)
 

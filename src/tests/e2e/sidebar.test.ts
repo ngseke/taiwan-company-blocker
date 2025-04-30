@@ -24,6 +24,13 @@ describe('Sidebar', () => {
       )?.isVisible()
     ).toBe(true)
 
+    await clickSidebarItem('/database')
+    expect(
+      await (
+        await page.$(`[data-testid=${OPTIONS_TEST_IDS.sectionDatabase}]`)
+      )?.isVisible()
+    ).toBe(true)
+
     await clickSidebarItem('/setting')
     expect(
       await (
