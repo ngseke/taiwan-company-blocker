@@ -1,4 +1,4 @@
-import CodeMirror, { EditorState, type ReactCodeMirrorRef } from '@uiw/react-codemirror'
+import CodeMirror, { type ReactCodeMirrorRef } from '@uiw/react-codemirror'
 import { type Nullish } from '../types/Nullish'
 import { useEffect, useMemo, useRef } from 'react'
 import { EditorView } from '@codemirror/view'
