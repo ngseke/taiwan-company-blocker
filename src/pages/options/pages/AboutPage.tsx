@@ -3,6 +3,7 @@ import { Title } from '../../../components/Title'
 import { OPTIONS_TEST_IDS } from '../../../modules/constants'
 import { Link } from '../../../components/Link'
 import { type PropsWithChildren, type ReactNode } from 'react'
+import { Divider } from '../../../components/Divider'
 
 const version = `v${APP_VERSION}`
 
@@ -59,7 +60,7 @@ export function AboutPage () {
         </Link>
       </div>
 
-      <hr className="border-neutral-800" />
+      <Divider />
 
       <Block title="關於此擴充功能">
         <p>

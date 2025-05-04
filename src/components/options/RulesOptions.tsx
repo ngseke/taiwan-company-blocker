@@ -13,6 +13,7 @@ import { type Nullish } from '../../types/Nullish'
 import { exportData } from '../../pages/options/components/modules/exportData'
 import { useBeforeUnload } from '../../pages/options/hooks/useBeforeUnload'
 import { useForm } from 'react-hook-form'
+import { Divider } from '../Divider'
 
 function ExportButton (props: ComponentProps<typeof Button>) {
   return (
@@ -223,7 +224,7 @@ export function RulesOptions ({ isInContent, highlight }: {
 
       {!isInContent && (
         <>
-          <hr className="border-neutral-800" />
+          <Divider />
           <InstructionArticle />
         </>
       )}

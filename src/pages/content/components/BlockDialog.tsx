@@ -15,6 +15,7 @@ import { type RuleType } from '../../../modules/rule'
 import { EditRuleDialog, type EditRuleDialogState } from './EditRuleDialog'
 import { useForm } from 'react-hook-form'
 import { type Candidate } from '../modules/Candidate'
+import { Divider } from '../../../components/Divider'
 
 export function BlockDialog () {
   const [candidate, setCandidate] = useState<Nullish<Candidate>>(null)
@@ -148,7 +149,7 @@ export function BlockDialog () {
 
             {candidate.companyName && (
               <>
-                <hr className="border-neutral-800" />
+          <Divider />
                 <SearchLinkSection companyName={candidate.companyName} />
               </>
             )}
