@@ -25,13 +25,13 @@ export function useChromeStorage <
     _setValue(newValue)
   }, [key, value])
 
-  useChromeStorageListener(useCallback((changes) => {
+  useChromeStorageListener((changes) => {
     if (!(key in changes)) return
     const { newValue, oldValue } = changes[key]
     if (isEqual(newValue, oldValue)) return
 
     _setValue(newValue)
-  }, [key]))
+  })
 
   return [value, setValue] as const
 }
