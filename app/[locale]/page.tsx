@@ -160,17 +160,31 @@ export default async function Home({
               {t('features.block.title')}
             </SubTitle>
 
-            <div className="mb-6 flex flex-col gap-4">
+            <div className="mb-6 flex flex-col items-start gap-4">
               <Paragraph>
                 {t('features.block.content1')}
               </Paragraph>
-              <Image
-                src="/screenshot/block.png"
-                width={1020}
-                height={1280}
-                alt="Block"
-                className="h-auto w-[500px] rounded-lg"
-              />
+              <div className="relative w-auto">
+                <Image
+                  src="/screenshot/block.png"
+                  width={1020}
+                  height={1280}
+                  alt="Block"
+                  className="h-auto w-[600px] rounded-lg"
+                />
+
+                <div
+                  className="absolute bottom-4 right-4 rounded-xl bg-white p-4 shadow-xl"
+                >
+                  <Image
+                    src="/logo/104.png"
+                    width={960}
+                    height={139}
+                    alt="104"
+                    className="h-auto w-[150px] sm:w-[200px]"
+                  />
+                </div>
+              </div>
               <Image
                 src="/screenshot/dialog.png"
                 width={1020}
