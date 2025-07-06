@@ -161,6 +161,9 @@ export default async function Home({
             </SubTitle>
 
             <div className="mb-6 flex flex-col gap-4">
+              <Paragraph>
+                {t('features.block.content1')}
+              </Paragraph>
               <Image
                 src="/screenshot/block.png"
                 width={1020}
@@ -175,10 +178,6 @@ export default async function Home({
                 alt="Dialog"
                 className="h-auto w-[450px] rounded-lg"
               />
-
-              <Paragraph>
-                {t('features.block.content1')}
-              </Paragraph>
             </div>
 
             <SubTitle>
@@ -186,6 +185,12 @@ export default async function Home({
             </SubTitle>
 
             <div className="mb-6 flex flex-col gap-4">
+              <Paragraph>
+                {t('features.rules.content1')}
+              </Paragraph>
+              <Paragraph>
+                {t('features.rules.content2')}
+              </Paragraph>
               <Image
                 src="/screenshot/rules.png"
                 width={1020}
@@ -193,12 +198,6 @@ export default async function Home({
                 alt="Rules"
                 className="h-auto w-[500px] rounded-lg"
               />
-              <Paragraph>
-                {t('features.rules.content1')}
-              </Paragraph>
-              <Paragraph>
-                {t('features.rules.content2')}
-              </Paragraph>
             </div>
 
             <SubTitle>
@@ -234,13 +233,6 @@ export default async function Home({
             </SubTitle>
 
             <div className="mb-6 flex flex-col gap-4">
-              <Image
-                src="/screenshot/subscription.png"
-                width={1020}
-                height={1280}
-                alt="Subscription"
-                className="h-auto w-[450px] rounded-lg"
-              />
               <Paragraph>
                 {t('features.subscription.content1')}
               </Paragraph>
@@ -253,6 +245,13 @@ export default async function Home({
                   ),
                 })}
               </Paragraph>
+              <Image
+                src="/screenshot/subscription.png"
+                width={1020}
+                height={1280}
+                alt="Subscription"
+                className="h-auto w-[450px] rounded-lg"
+              />
             </div>
 
             <SubTitle>
@@ -260,6 +259,10 @@ export default async function Home({
             </SubTitle>
 
             <div className="mb-6 flex flex-col gap-2">
+              <Paragraph>
+                {t('features.shortcut.content1')}
+              </Paragraph>
+
               <Image
                 src="/screenshot/shortcut.png"
                 width={630}
@@ -267,9 +270,6 @@ export default async function Home({
                 alt="Shortcut"
                 className="h-auto w-96 rounded-lg"
               />
-              <Paragraph>
-                {t('features.shortcut.content1')}
-              </Paragraph>
             </div>
           </div>
         </Section>
