@@ -54,8 +54,8 @@ export const cakeBlockerOptions: Blocker[] = [
   {
     description: '`/companies/*/jobs/*` 職缺右側「應徵此職缺的人也應徵了」',
     itemsSelector: `
-      [class^=CommonAppliedJobs_jobList__] >
-      [class^=CommonAppliedJobItem_container__]
+      [class^=CommonAppliedJobs_jobList]
+      [class^=CommonAppliedJobItem_container]
     `,
     jobTitleStrategy: '[class^=CommonAppliedJobItem_title__] a',
     companyNameStrategy: '[class^=CommonAppliedJobItem_pageName__] a',
