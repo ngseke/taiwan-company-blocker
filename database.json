@@ -237,7 +237,7 @@
       },
       {
         "description": "`/companies/*/jobs/*` 職缺右側「應徵此職缺的人也應徵了」",
-        "itemsSelector": "\n      [class^=CommonAppliedJobs_jobList__] >\n      [class^=CommonAppliedJobItem_container__]\n    ",
+        "itemsSelector": "\n      [class^=CommonAppliedJobs_jobList]\n      [class^=CommonAppliedJobItem_container]\n    ",
         "jobTitleStrategy": "[class^=CommonAppliedJobItem_title__] a",
         "companyNameStrategy": "[class^=CommonAppliedJobItem_pageName__] a",
         "activatorPosition": "bottom-right"
