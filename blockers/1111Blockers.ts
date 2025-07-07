@@ -51,13 +51,6 @@ export const _1111BlockerOptions: Blocker[] = [
     activatorPosition: 'bottom-right',
   },
   {
-    description: '`/job/*` 職缺頁',
-    itemsSelector: '.container.mx-auto:has(h1)',
-    jobTitleStrategy: 'h1',
-    companyNameStrategy: 'h2',
-    activatorPosition: 'bottom-right',
-  },
-  {
     description: '`/job/*` 職缺頁 右側推薦職缺',
     itemsSelector: 'aside ul li.py-4',
     jobTitleStrategy: 'h3',
