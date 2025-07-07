@@ -5,7 +5,7 @@ export const _1111BlockerOptions: Blocker[] = [
     description: '首頁 優質企業 Slider',
     exampleUrl: 'https://www.1111.com.tw/',
     itemsSelector: '.swiper-wrapper .w-full.h-full.card-border.bg-white.cursor-pointer',
-    companyNameStrategy: 'h3',
+    companyNameStrategy: 'a .text-nowrap.text-center',
   },
   {
     description: '首頁職缺 Slider',
