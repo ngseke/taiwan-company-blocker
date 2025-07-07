@@ -62,7 +62,7 @@ export class ActionActivatorAbsolute {
   private hideOverlay () {
     Object.assign(this.$overlay.style, {
       opacity: 0,
-      transition: 'all .2s',
+      transition: 'all .15s',
     })
   }
 

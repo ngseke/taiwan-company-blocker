@@ -24,7 +24,7 @@ export function Header () {
         type="button"
         onClick={openOptions}
       >
-        <div className="text-lg duration-500 group-hover:rotate-90">
+        <div className="text-lg duration-500 group-hover:rotate-90 group-hover:text-neutral-50">
           <FontAwesomeIcon icon={faGear} />
         </div>
       </button>
