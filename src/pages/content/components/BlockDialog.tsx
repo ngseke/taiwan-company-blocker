@@ -126,7 +126,7 @@ export function BlockDialog () {
 
             <div className="flex flex-wrap items-center justify-end gap-2">
               <button
-                className="py-1.5 font-bold duration-150 hover:opacity-50"
+                className="py-1.5 font-bold duration-100 hover:text-neutral-50"
                 type="button"
                 onClick={openSetting}
               >
