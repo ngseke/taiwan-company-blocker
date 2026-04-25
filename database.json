@@ -197,23 +197,26 @@
     "cake": [
       {
         "description": "`/companies` 公司列表",
-        "itemsSelector": "[class^=CompanySearchItem_wrapper]",
-        "companyNameStrategy": "[class^=CompanySearchItem_companyTitle]"
+        "exampleUrl": "https://www.cake.me/companies?ref=navs_companies",
+        "itemsSelector": "[class*=\"CompanySearchItem-module-scss-module__\"][class*=\"__wrapper\"]",
+        "companyNameStrategy": "[class*=\"CompanySearchItem-module-scss-module__\"][class*=\"__headerTitle\"]"
       },
       {
         "description": "`/companies/*` 公司頁下方職缺、 `/companies/*/jobs` 公司頁職缺頁籤",
-        "itemsSelector": "\n      [class^=CompanyJobItemList_jobList] >\n      [class^=CompanyJobItemWithAdminTool_container__],\n      [class^=CompanyAboutPage_visibleJobsWrapper]\n      [class^=CompanyJobItemView_container__]\n    ",
-        "jobTitleStrategy": "[class^=CompanyJobItemView_title]",
+        "exampleUrl": "https://www.cake.me/companies/Google",
+        "itemsSelector": "\n      [class*=\"CompanyJobItemView-module-scss-module__\"][class*=\"__container\"]\n    ",
+        "jobTitleStrategy": "[class*=\"CompanyJobItemView-module-scss-module__\"][class*=\"__title\"]",
         "companyNameStrategy": {
           "selectorTarget": "document",
-          "selector": "\n        [class^=CompanyHeader_main__]\n        [class^=CompanyHeader_companyNameWrapper__]\n        [class^=CompanyHeader_companyName__]\n      ",
+          "selector": "\n        h1[class*=\"CompanyHeader-module-scss-module__\"][class*=\"__companyName\"]\n      ",
           "textType": "textContent"
         }
       },
       {
         "description": "`/companies/*` 公司頁底部「看過這間公司的求職者也看了」",
-        "itemsSelector": "\n      [class^=CompanySimilarPages_container__]\n      [class^=SimilarPagesListItem_container__]\n    ",
-        "companyNameStrategy": "[class^=SimilarPagesListItem_name__] a",
+        "exampleUrl": "https://www.cake.me/companies/Google",
+        "itemsSelector": "[class*=\"SimilarPagesListItem-module-scss-module__\"][class*=\"__container\"]",
+        "companyNameStrategy": "h3",
         "activatorPosition": {
           "position": "top-right",
           "offset": [
@@ -224,11 +227,11 @@
       },
       {
         "description": "`/companies/*/jobs/*` 職缺頁底部公司介紹職缺列表",
-        "itemsSelector": "[class^=JobItem_container__]",
-        "jobTitleStrategy": "[class^=JobItem_title__] a",
+        "itemsSelector": "[class*=\"JobItem-module-scss-module__\"][class*=\"__container\"]",
+        "jobTitleStrategy": "[class*=\"JobItem-module-scss-module__\"][class*=\"__title\"] a",
         "companyNameStrategy": {
           "selectorTarget": "document",
-          "selector": "[class^=AboutBlock_companyName__]",
+          "selector": "[class*=\"JobDescriptionLeftColumn-module-scss-module__\"][class*=\"__companyInfo\"]",
           "textType": "textContent"
         },
         "activatorPosition": {
@@ -240,29 +243,24 @@
         }
       },
       {
-        "description": "`/companies/*/jobs/*` 職缺右側「應徵此職缺的人也應徵了」",
-        "itemsSelector": "\n      [class^=CommonAppliedJobs_jobList]\n      [class^=CommonAppliedJobItem_container]\n    ",
-        "jobTitleStrategy": "[class^=CommonAppliedJobItem_title__] a",
-        "companyNameStrategy": "[class^=CommonAppliedJobItem_pageName__] a",
-        "activatorPosition": "bottom-right"
-      },
-      {
-        "description": "`/companies/*/jobs/*` 職缺最下方「相似職缺」列表",
-        "itemsSelector": "\n      [class^=SimilarJobsBlock_jobItemsContainer__] >\n      [class^=JobItemLarge_container__]\n    ",
-        "jobTitleStrategy": "a[class^=JobItemLarge_jobTitle__]",
-        "companyNameStrategy": "a[class^=JobItemLarge_pageName__]"
-      },
-      {
         "description": "`/jobs` 職缺列表",
-        "itemsSelector": "[class^=JobSearchItem_container]",
-        "jobTitleStrategy": "[class^=JobSearchItem_jobTitle]",
-        "companyNameStrategy": "[class^=JobSearchItem_companyName]"
+        "exampleUrl": "https://www.cake.me/jobs",
+        "itemsSelector": "[class*=\"JobSearchItem-module-scss-module__\"][class*=\"__container\"]",
+        "jobTitleStrategy": "[class*=\"JobSearchItem-module-scss-module__\"][class*=\"__jobTitle\"]",
+        "companyNameStrategy": "[class*=\"JobSearchItem-module-scss-module__\"][class*=\"__companyName\"]"
       },
       {
         "description": "`/campaigns` Campaigns 職缺列表",
-        "itemsSelector": "[class^=CampaignJobSearchItem_wrapper_]",
-        "jobTitleStrategy": "[class^=CampaignJobSearchItem_headerTitle]",
-        "companyNameStrategy": "[class^=CampaignJobSearchItem_companyName]"
+        "exampleUrl": "https://www.cake.me/campaigns/Summer-Tech-Career-Fair",
+        "itemsSelector": "[class*=\"CampaignJobSearchItem-module-scss-module__\"][class*=\"__wrapper\"]",
+        "jobTitleStrategy": "[class*=\"CampaignJobSearchItem-module-scss-module__\"][class*=\"__jobTitle\"]",
+        "companyNameStrategy": "[class*=\"CampaignJobSearchItem-module-scss-module__\"][class*=\"__companyName\"]"
+      },
+      {
+        "description": "`/campaigns` Campaigns 左側精選企業",
+        "exampleUrl": "https://www.cake.me/campaigns/Summer-Tech-Career-Fair",
+        "itemsSelector": "[class*=\"FeaturedCompanyListItem-module-scss-module__\"][class*=\"__wrapper\"]",
+        "companyNameStrategy": "[class*=\"FeaturedCompanyListItem-module-scss-module__\"][class*=\"__companyTitle\"]"
       }
     ],
     "yourator": [
