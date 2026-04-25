@@ -1,5 +1,5 @@
 import open from 'open'
-import packageJson from '../package.json' assert { type: 'json' }
+import packageJson from '../package.json' with { type: 'json' }
 
 export async function openReleasePage () {
   const { default: urlJoin } = await import('url-join')
